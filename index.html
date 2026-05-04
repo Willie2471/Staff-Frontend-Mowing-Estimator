@@ -293,7 +293,7 @@
                         <li><strong>Polygon mode:</strong> Click around edges of grass areas — double-click to complete</li>
                         <li><strong>Linear mode:</strong> Click points along hedge/bed edges — double-click the last point to lock in each segment, then immediately draw the next</li>
                         <li>Draw multiple areas as needed (front + back yards, multiple bed sections)</li>
-                        <li>If satellite imagery is unclear, use <strong>"Can't Measure — Enter Time"</strong> below to skip drawing and enter estimated time directly</li>
+                        <li>If satellite imagery is unclear, use <strong>"Can't Measure — Enter Time"</strong> below, or enter a <strong>known square footage</strong> from LotScope</li>
                     </ol>
                 </div>
                 <!-- Map Mode Buttons -->
@@ -385,7 +385,6 @@
                             </div>
                             <div id="manualTimePreview" class="hidden mt-3 bg-indigo-100 rounded-lg p-3 text-sm text-indigo-900 font-semibold"></div>
                         </div>
-                        <!-- Show step 3 when manual time is entered -->
                         <div class="mt-3 flex justify-end">
                             <button onclick="applyManualTimeToStep3()" class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-indigo-700 transition">
                                 ✅ Use This Estimate — Go to Services
@@ -393,6 +392,42 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ===== KNOWN SQUARE FOOTAGE ENTRY (LotScope / 3rd party tool) ===== -->
+                <div class="mt-4 border-t-2 border-dashed border-gray-200 pt-5">
+                    <div class="flex items-start gap-3 mb-3">
+                        <input type="checkbox" id="manualSqftToggle" class="mt-1" style="width:18px;height:18px;accent-color:#0891b2;flex-shrink:0;" onchange="toggleManualSqft()">
+                        <div>
+                            <div class="font-bold text-gray-800 text-sm">📐 Enter Known Square Footage (e.g. LotScope)</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Use when you have an accurate lawn sq ft measurement from LotScope or another tool. Overrides any drawn area — pricing calculated from entered square footage using standard rate tables.</div>
+                        </div>
+                    </div>
+                    <div id="manualSqftSection" class="manual-time-section">
+                        <div class="bg-cyan-50 border border-cyan-200 rounded-xl p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-cyan-900 font-semibold mb-2 text-sm">Lawn Area (Square Feet)</label>
+                                    <input type="number" id="manualSqftInput" class="form-input" placeholder="e.g. 4500" min="1" oninput="updateManualSqftDisplay()">
+                                    <div class="text-xs text-cyan-600 mt-1">Enter total mowable lawn area in square feet</div>
+                                </div>
+                                <div>
+                                    <label class="block text-cyan-900 font-semibold mb-2 text-sm">Source / Notes (Optional)</label>
+                                    <input type="text" id="manualSqftSource" class="form-input" placeholder="e.g. LotScope, county records, staff estimate...">
+                                </div>
+                            </div>
+                            <div class="mt-2 p-3 bg-cyan-100 rounded-lg text-xs text-cyan-900 font-medium">
+                                📐 <strong>Square footage entry uses standard mowing rate tables</strong> — same pricing as a drawn polygon. Select service type and difficulty in Step 3 to complete the estimate.
+                            </div>
+                            <div id="manualSqftPreview" class="hidden mt-3 bg-cyan-100 rounded-lg p-3 text-sm text-cyan-900 font-semibold"></div>
+                        </div>
+                        <div class="mt-3 flex justify-end">
+                            <button onclick="applyManualSqftToStep3()" class="bg-cyan-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-cyan-700 transition">
+                                ✅ Use This Area — Go to Services
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -999,6 +1034,53 @@
         recalcCrewTime();
     }
 
+    // ===== MANUAL SQFT MODE =====
+    let isManualSqftMode = false;
+
+    function toggleManualSqft() {
+        const checked = document.getElementById('manualSqftToggle').checked;
+        document.getElementById('manualSqftSection').classList.toggle('visible', checked);
+        if (!checked) {
+            isManualSqftMode = false;
+            // Restore area from drawn polygons if any exist, otherwise clear
+            if (polygons.length === 0) {
+                totalArea = 0;
+                document.getElementById('totalArea').textContent = '0 sq ft';
+                document.getElementById('areasList').innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
+                if (!isManualTimeMode) document.getElementById('step3').classList.add('hidden');
+            } else {
+                calculateTotalArea();
+            }
+            document.getElementById('manualSqftPreview').classList.add('hidden');
+        }
+    }
+
+    function updateManualSqftDisplay() {
+        const sqft = parseInt(document.getElementById('manualSqftInput').value) || 0;
+        const preview = document.getElementById('manualSqftPreview');
+        if (sqft > 0) {
+            const acres = (sqft / 43560).toFixed(3);
+            preview.classList.remove('hidden');
+            preview.innerHTML = `${sqft.toLocaleString()} sq ft &nbsp;·&nbsp; ${acres} acres`;
+        } else {
+            preview.classList.add('hidden');
+        }
+    }
+
+    function applyManualSqftToStep3() {
+        const sqft = parseInt(document.getElementById('manualSqftInput').value) || 0;
+        if (sqft < 1) { alert('Please enter a square footage greater than 0'); return; }
+        isManualSqftMode = true;
+        totalArea = sqft;
+        // Update area display in Step 2
+        document.getElementById('totalArea').textContent = sqft.toLocaleString() + ' sq ft';
+        const source = document.getElementById('manualSqftSource').value.trim();
+        document.getElementById('areasList').innerHTML = `<div class="space-y-2"><p class="font-semibold text-gray-700 mb-2 text-sm">Individual Areas:</p><div class="flex justify-between items-center bg-cyan-50 p-2 rounded text-sm border border-cyan-200"><span class="text-gray-700">Area 1 <span class="text-xs text-cyan-600">(entered${source ? ' · ' + source : ''})</span>:</span><span class="font-semibold text-cyan-700">${sqft.toLocaleString()} sq ft</span></div></div>`;
+        document.getElementById('step3').classList.remove('hidden');
+        document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        recalcCrewTime();
+    }
+
     function calculateBed() {
         const st = document.getElementById('bedServiceType').value;
         const method = document.getElementById('bedPricingMethod').value;
@@ -1090,21 +1172,21 @@
         const panel = document.getElementById('linearPanel');
         panel.style.display = linearMeasurements.length > 0 ? 'block' : 'none';
         if (linearMeasurements.length > 0) document.getElementById('step3').classList.remove('hidden');
-        else if (polygons.length === 0 && !isManualTimeMode) document.getElementById('step3').classList.add('hidden');
+        else if (polygons.length === 0 && !isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
     }
     function clearLinearMeasurements() {
         linearPolylines.forEach(p => p.setMap(null)); linearPolylines = []; linearMeasurements = []; totalLinearFt = 0;
         linearLabels.forEach(l => l.close()); linearLabels = [];
         document.getElementById('linearPanel').style.display = 'none';
         document.getElementById('totalLinearDisplay').textContent = '0 linear ft';
-        if (polygons.length === 0 && !isManualTimeMode) document.getElementById('step3').classList.add('hidden');
+        if (polygons.length === 0 && !isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
         if (drawingManager && isLinearMode) drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
     }
     function clearAll() {
         polygons.forEach(p => p.setMap(null)); polygons = []; totalArea = 0;
         document.getElementById('totalArea').textContent = '0 sq ft';
         document.getElementById('areasList').innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
-        if (!isManualTimeMode) document.getElementById('step3').classList.add('hidden');
+        if (!isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
         clearLinearMeasurements();
         document.getElementById('resultsModal').classList.remove('active');
         if (drawingManager && !isLinearMode) drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
@@ -1123,7 +1205,7 @@
         if (inclMow) {
             const svc = document.getElementById('serviceType').value;
             if (!svc) { alert('Please select a mowing service type'); return; }
-            if (!isManualTimeMode && totalArea === 0) { alert('Please draw your lawn area on the map, or use "Can\'t Measure" to enter time manually'); return; }
+            if (!isManualTimeMode && totalArea === 0) { alert('Please draw your lawn area on the map, enter a known square footage, or use "Can\'t Measure" to enter time manually'); return; }
             if (isManualTimeMode && manualTimeMins < 1) { alert('Please enter estimated mow time in minutes'); return; }
         }
 
@@ -1158,7 +1240,12 @@
                 areaLabel = `Est. (manual) — ${reasonEl.options[reasonEl.selectedIndex].text}`;
             } else {
                 mow = calculateMowing(totalArea, svc, diff);
-                areaLabel = totalArea.toLocaleString() + ' sq ft';
+                if (isManualSqftMode) {
+                    const sqftSource = document.getElementById('manualSqftSource').value.trim();
+                    areaLabel = totalArea.toLocaleString() + ' sq ft (entered' + (sqftSource ? ' · ' + sqftSource : '') + ')';
+                } else {
+                    areaLabel = totalArea.toLocaleString() + ' sq ft';
+                }
             }
             const onsiteMins = calcOnsiteTime(mow.bMins, crew);
             const svcNames  = {standard:'Stand-On Mowing', push:'Push Mowing - Bagged'};
@@ -1614,7 +1701,7 @@
         if (polygons.length === 0) {
             list.innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
             document.getElementById('totalArea').textContent = '0 sq ft';
-            if (linearMeasurements.length === 0 && !isManualTimeMode) document.getElementById('step3').classList.add('hidden');
+            if (linearMeasurements.length === 0 && !isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
             recalcCrewTime(); return;
         }
         let html = '<div class="space-y-2"><p class="font-semibold text-gray-700 mb-2 text-sm">Individual Areas:</p>';
@@ -1634,7 +1721,7 @@
         polygons.forEach(p => p.setMap(null)); polygons = []; totalArea = 0;
         document.getElementById('totalArea').textContent = '0 sq ft';
         document.getElementById('areasList').innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
-        if (!isManualTimeMode) document.getElementById('step3').classList.add('hidden');
+        if (!isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
         document.getElementById('resultsModal').classList.remove('active');
         if (drawingManager) drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
         recalcCrewTime();
