@@ -13,12 +13,6 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .popup-content { max-width: 1200px; margin: 0 auto; padding: 20px; min-height: 100vh; }
         @media (min-width: 768px) { .popup-content { padding: 40px 20px; } }
-        .pac-container { z-index: 10000000; }
-        #map .gm-fullscreen-control { display: block !important; z-index: 1000 !important; }
-        .map-expanded .gm-svpc { margin: 10px !important; }
-        @media (max-width: 768px) {
-            .map-expanded .gm-bundled-control, .map-expanded .gm-style-mtc, .map-expanded .gmnoprint { display: none !important; }
-        }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000000; overflow-y: auto; padding: 20px; }
         .modal-overlay.active { display: flex; align-items: center; justify-content: center; }
         .modal-content { background: white; border-radius: 20px; padding: 30px 20px; max-width: 750px; width: 100%; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3); animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
@@ -38,30 +32,6 @@
         .modal-close:hover { background: #dc2626; transform: rotate(90deg); }
         .form-input { width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 15px; transition: all 0.3s; background: white; }
         .form-input:focus { outline: none; border-color: #21A348; box-shadow: 0 0 0 3px rgba(33,163,72,0.1); }
-        @media (max-width: 640px) { .exit-text { display: none; } }
-        .floating-controls { display: none; position: fixed; z-index: 1000001; }
-        .floating-controls.active { display: block; }
-        .zoom-controls { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000001; }
-        .zoom-btn { width: 48px; height: 48px; background: white; border: 2px solid #21A348; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: #21A348; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s; user-select: none; }
-        .zoom-btn:active { transform: scale(0.95); background: #21A348; color: white; }
-        .map-type-toggle { position: fixed; right: 15px; top: 70px; background: white; border: 2px solid #21A348; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; color: #21A348; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000001; user-select: none; }
-        .drawing-toggle { position: fixed; left: 15px; top: 70px; background: white; border: 2px solid #8B5CF6; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; color: #8B5CF6; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000001; user-select: none; }
-        .drawing-toggle.active-draw { background: #8B5CF6; color: white; }
-        .streetview-toggle { position: fixed; left: 15px; top: 130px; background: white; border: 2px solid #3B82F6; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; color: #3B82F6; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000001; user-select: none; }
-        .linear-toggle { position: fixed; left: 15px; top: 190px; background: white; border: 2px solid #f59e0b; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; color: #d97706; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000001; user-select: none; }
-        .linear-toggle.active-linear { background: #f59e0b; color: white; }
-        .linear-measurements { background: #fffbeb; border: 2px solid #fcd34d; border-radius: 10px; padding: 12px; margin-top: 10px; }
-        .linear-measure-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #fde68a; font-size: 13px; }
-        .linear-measure-item:last-child { border-bottom: none; }
-        .map-mode-bar { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-        .map-mode-btn { padding: 8px 14px; border-radius: 8px; border: 2px solid; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; user-select: none; }
-        .map-mode-btn.polygon-mode { border-color: #8B5CF6; color: #8B5CF6; background: white; }
-        .map-mode-btn.polygon-mode.active { background: #8B5CF6; color: white; }
-        .map-mode-btn.linear-mode { border-color: #f59e0b; color: #d97706; background: white; }
-        .map-mode-btn.linear-mode.active { background: #f59e0b; color: white; }
-        .map-mode-btn.clear-btn-sm { border-color: #ef4444; color: #ef4444; background: white; }
-        .map-mode-btn.clear-btn-sm:hover { background: #ef4444; color: white; }
-        /* Service Panels */
         .service-panel { border: 2px solid #e5e7eb; border-radius: 14px; margin-bottom: 14px; overflow: hidden; transition: border-color 0.2s; }
         .service-panel.active { border-color: #21A348; }
         .service-panel-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: #f9fafb; cursor: pointer; user-select: none; }
@@ -72,13 +42,11 @@
         .service-panel-subtitle { font-size: 12px; color: #6b7280; margin-top: 2px; }
         .service-panel-body { padding: 18px; display: none; border-top: 1px solid #e5e7eb; }
         .service-panel.active .service-panel-body { display: block; }
-        /* Rate Tables */
         .rate-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
         .rate-table th { background: #1f2937; color: white; padding: 7px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
         .rate-table td { padding: 7px 10px; border-bottom: 1px solid #f3f4f6; color: #374151; }
         .rate-table tr:nth-child(even) td { background: #f9fafb; }
         .rate-table tr.highlight-row td { background: #dcfce7; font-weight: 600; color: #166534; }
-        /* Results */
         .result-section { border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
         .result-section-header { background: #f0fdf4; padding: 10px 16px; font-weight: 700; font-size: 14px; color: #166534; border-bottom: 1px solid #d1fae5; }
         .result-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 16px; border-bottom: 1px solid #f9fafb; }
@@ -92,132 +60,33 @@
         .total-box-amount { font-weight: 800; font-size: 30px; }
         .surcharge-badge { display: inline-block; background: #f59e0b; color: white; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; text-transform: uppercase; margin-left: 6px; }
         .include-mowing-bar { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-
-        /* ===== SEASON TOGGLE STYLES ===== */
-        .season-toggle-bar {
-            border-radius: 16px;
-            padding: 18px 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .season-toggle-bar.peak {
-            background: linear-gradient(135deg, #78350f 0%, #92400e 50%, #b45309 100%);
-            border: 2px solid #f59e0b;
-            box-shadow: 0 4px 20px rgba(180,83,9,0.35);
-        }
-        .season-toggle-bar.offpeak {
-            background: linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 50%, #2563eb 100%);
-            border: 2px solid #60a5fa;
-            box-shadow: 0 4px 20px rgba(37,99,235,0.35);
-        }
-        .season-toggle-bar::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20px;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            opacity: 0.07;
-            transition: background 0.4s;
-        }
+        .season-toggle-bar { border-radius: 16px; padding: 18px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .season-toggle-bar.peak { background: linear-gradient(135deg, #78350f 0%, #92400e 50%, #b45309 100%); border: 2px solid #f59e0b; box-shadow: 0 4px 20px rgba(180,83,9,0.35); }
+        .season-toggle-bar.offpeak { background: linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 50%, #2563eb 100%); border: 2px solid #60a5fa; box-shadow: 0 4px 20px rgba(37,99,235,0.35); }
+        .season-toggle-bar::before { content: ''; position: absolute; top: -50%; right: -20px; width: 160px; height: 160px; border-radius: 50%; opacity: 0.07; transition: background 0.4s; }
         .season-toggle-bar.peak::before { background: #fbbf24; }
         .season-toggle-bar.offpeak::before { background: #93c5fd; }
-
         .season-info { flex: 1; min-width: 0; }
         .season-label-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .season-icon { font-size: 24px; }
         .season-name { font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.3px; }
         .season-desc { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
         .season-rates-row { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
-        .season-rate-chip {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 8px;
-            padding: 5px 12px;
-            font-size: 12px;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .season-rate-chip { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; }
         .season-rate-chip .chip-label { opacity: 0.7; font-weight: 500; }
-
-        /* The actual toggle switch */
         .season-switch-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
         .season-switch-labels { display: flex; gap: 8px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; }
         .season-switch-labels span.active-label { color: white; }
-
-        .season-switch {
-            position: relative;
-            width: 72px;
-            height: 36px;
-            cursor: pointer;
-        }
+        .season-switch { position: relative; width: 72px; height: 36px; cursor: pointer; }
         .season-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
-        .season-slider {
-            position: absolute;
-            inset: 0;
-            border-radius: 36px;
-            transition: background 0.35s;
-            background: rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-        .season-slider::before {
-            content: '';
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            left: 3px;
-            top: 3px;
-            border-radius: 50%;
-            background: white;
-            transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        .season-switch input:checked + .season-slider::before {
-            transform: translateX(36px);
-        }
-        .season-switch input:checked + .season-slider {
-            background: rgba(96,165,250,0.4);
-            border-color: rgba(147,197,253,0.6);
-        }
-
-        /* Active rate indicator badge shown globally */
-        .active-rate-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-        .active-rate-badge.peak { background: #fef3c7; color: #92400e; border: 1.5px solid #fcd34d; }
-        .active-rate-badge.offpeak { background: #dbeafe; color: #1e40af; border: 1.5px solid #93c5fd; }
-
-        /* ===== CREW & TIME ESTIMATE STYLES ===== */
-        .crew-time-bar {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            border: 2px solid #4338ca;
-            border-radius: 14px;
-            padding: 16px 18px;
-            margin-bottom: 16px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
+        .season-slider { position: absolute; inset: 0; border-radius: 36px; transition: background 0.35s; background: rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.3); }
+        .season-slider::before { content: ''; position: absolute; width: 26px; height: 26px; left: 3px; top: 3px; border-radius: 50%; background: white; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .season-switch input:checked + .season-slider::before { transform: translateX(36px); }
+        .season-switch input:checked + .season-slider { background: rgba(96,165,250,0.4); border-color: rgba(147,197,253,0.6); }
+        .season-result-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+        .season-result-badge.peak { background: #fef3c7; color: #92400e; }
+        .season-result-badge.offpeak { background: #dbeafe; color: #1e40af; }
+        .crew-time-bar { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); border: 2px solid #4338ca; border-radius: 14px; padding: 16px 18px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         @media (max-width: 640px) { .crew-time-bar { grid-template-columns: 1fr; } }
         .crew-time-bar label { color: #c7d2fe; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
         .crew-time-bar select, .crew-time-bar input { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(165,180,252,0.5); border-radius: 10px; color: white; padding: 10px 14px; font-size: 14px; font-weight: 600; width: 100%; }
@@ -226,8 +95,6 @@
         .crew-time-bar .bar-title { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
         .crew-time-bar .bar-title-text { color: white; font-weight: 700; font-size: 15px; }
         .crew-time-bar .bar-subtitle { color: #a5b4fc; font-size: 12px; margin-top: 2px; }
-
-        /* Mower fleet selector */
         .mower-fleet-row { grid-column: 1 / -1; background: rgba(255,255,255,0.07); border-radius: 10px; padding: 12px 14px; margin-top: 2px; }
         .mower-fleet-title { color: #e0e7ff; font-weight: 700; font-size: 13px; margin-bottom: 8px; display:flex; align-items:center; gap:8px; }
         .mower-chip-list { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -240,185 +107,15 @@
         .mower-fleet-summary { margin-top: 10px; font-size: 12px; color: #c7d2fe; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 8px 12px; line-height: 1.6; }
         .mower-fleet-summary b { color: #fff; }
         .mower-fleet-warning { margin-top: 6px; font-size: 12px; color: #fde68a; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; padding: 6px 10px; }
-
-        /* Manual time override section */
         .manual-time-section { display: none; }
         .manual-time-section.visible { display: block; }
         .manual-time-note { background: #fef9c3; border: 1.5px solid #fde047; border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #713f12; margin-top: 10px; }
-
-        /* On-site time display badge */
-        .onsite-badge { display: inline-flex; align-items: center; gap: 6px; background: #eef2ff; border: 1.5px solid #818cf8; border-radius: 8px; padding: 4px 10px; font-size: 13px; font-weight: 700; color: #3730a3; margin-top: 4px; }
-
-        /* Result time breakdown */
         .time-breakdown-box { background: #eef2ff; border: 1.5px solid #818cf8; border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; }
         .time-breakdown-box .tbb-title { font-size: 12px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
         .time-breakdown-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 3px 0; }
         .time-breakdown-row .tbd-label { color: #6b7280; }
         .time-breakdown-row .tbd-value { font-weight: 700; color: #1f2937; }
         .time-breakdown-row.highlight .tbd-value { color: #4338ca; font-size: 15px; }
-
-        /* Season mode indicator on results modal */
-        .season-result-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .season-result-badge.peak { background: #fef3c7; color: #92400e; }
-        .season-result-badge.offpeak { background: #dbeafe; color: #1e40af; }
-
-
-        /* ===== SA FORM MODAL ===== */
-        #saFormModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.78);
-            z-index: 10000002;
-            overflow-y: auto;
-            padding: 16px;
-        }
-        .sa-modal-inner {
-            background: white;
-            border-radius: 20px;
-            max-width: 680px;
-            width: 100%;
-            margin: 20px auto;
-            position: relative;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.45);
-            overflow: hidden;
-            animation: slideUp 0.3s ease-out;
-        }
-        .sa-modal-header {
-            background: linear-gradient(135deg, #14532d, #166534, #15803d);
-            padding: 18px 22px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-        .sa-modal-close-btn {
-            background: rgba(255,255,255,0.18);
-            border: 1.5px solid rgba(255,255,255,0.3);
-            color: white;
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            line-height: 1;
-            transition: background 0.2s;
-        }
-        .sa-modal-close-btn:hover { background: rgba(255,255,255,0.3); }
-        /* SA form field styles */
-        .sa-field { margin-bottom: 14px; }
-        .sa-field label { display:block; font-size:13px; font-weight:700; color:#374151; margin-bottom:5px; }
-        .sa-field input, .sa-field select {
-            width: 100%; padding: 10px 14px; border: 2px solid #e5e7eb;
-            border-radius: 10px; font-size: 14px; box-sizing: border-box;
-            outline: none; font-family: inherit; transition: border-color .2s;
-            background: white;
-        }
-        .sa-field input:focus, .sa-field select:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.1); }
-        .sa-field input.invalid { border-color: #ef4444; background: #fef2f2; }
-        .sa-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .sa-field-row3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; }
-        .sa-test-bar { background: #fef9c3; border: 1.5px solid #fde047; border-radius: 10px; padding: 10px 14px; margin: 0 20px 14px; font-size: 12px; color: #713f12; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .sa-test-btn { background: #d97706; color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-        #saSubmitBtn {
-            width: 100%; padding: 14px;
-            background: linear-gradient(135deg,#166534,#15803d);
-            color: white; border: none; border-radius: 12px;
-            font-weight: 700; font-size: 16px; cursor: pointer;
-            font-family: inherit; transition: opacity .2s;
-        }
-        #saSubmitBtn:hover { opacity: .92; }
-        #saSubmitBtn:disabled { opacity: .6; cursor: not-allowed; }
-        #saSubmitStatus { display:none; margin-top:12px; text-align:center; font-size:13px; font-weight:600; }
-        .sa-copy-field {
-            background: white; border: 1.5px solid #e5e7eb; border-radius:8px;
-            padding: 8px 12px; cursor: pointer; transition: all 0.15s; position: relative;
-        }
-        .sa-copy-field:hover { border-color: #16a34a; background: #f0fdf4; }
-        .sa-copy-field:active { transform: scale(0.98); }
-        .sa-copy-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px; }
-        .sa-copy-val { font-size:14px; font-weight:700; color:#111827; }
-        .sa-copy-field.copied { border-color:#16a34a; background:#f0fdf4; }
-        .sa-copy-field.copied::after { content:'✅ Copied!'; position:absolute; top:4px; right:8px; font-size:10px; color:#16a34a; font-weight:700; }
-        /* v1 SA form styles scoped inside modal */
-        #saFormModal .formHeaderClass { display:none; }
-        #saFormModal .formRightColumnContent { display:none; }
-        #saFormModal .formHelpTextDisplay { display:none; }
-        #saFormModal .formTableClass { width:100%; border-spacing:0; }
-        #saFormModal .formLeftColumnContent { width:100%; vertical-align:top; padding:0 16px 14px; background:white; border:none; }
-        #saFormModal .trFormFooterClass { background:white; }
-        #saFormModal .formLeftFooterClassBottom { border:none; padding:0 16px 16px; }
-        #saFormModal .formRightFooterClassBottom { display:none; }
-        #saFormModal .formLabelClass { font-size:13px; font-weight:700; color:#374151; margin-left:0; display:block; margin-bottom:5px; }
-        #saFormModal .boldNameClass, #saFormModal .boldAddressClass { font-size:11px; font-weight:600; color:#6b7280; margin-left:0; }
-        #saFormModal .labelMarginLeft { margin-left:0 !important; }
-        #saFormModal input[type=text], #saFormModal input[type=number] {
-            border:2px solid #e5e7eb; border-radius:10px; padding:10px 14px;
-            font-size:14px; box-sizing:border-box; outline:none; font-family:inherit;
-            transition:border-color .2s;
-        }
-        #saFormModal input[type=text]:focus, #saFormModal input[type=number]:focus { border-color:#16a34a; box-shadow:0 0 0 3px rgba(22,163,74,.1); }
-        #saFormModal .requiredInput { width:97%; }
-        #saFormModal .requiredRedInput { background:#fef2f2 !important; border:2px solid #ef4444 !important; border-radius:10px; }
-        #saFormModal input[name*="_Address"], #saFormModal input[name*="_AddressTwo"] { width:97%; }
-        #saFormModal input[name*="_City"] { width:52%; }
-        #saFormModal input[name*="_State"] { width:20%; margin-left:4px; }
-        #saFormModal input[name*="_Zip"] { width:20%; margin-left:4px; }
-        #saFormModal select { border:2px solid #e5e7eb; border-radius:10px; padding:10px 14px; font-size:14px; width:97%; box-sizing:border-box; outline:none; background:white; font-family:inherit; transition:border-color .2s; }
-        #saFormModal select:focus { border-color:#16a34a; }
-        #saFormModal #BackFormSubmitButtonDomID {
-            display:block; width:100%; padding:14px;
-            background:linear-gradient(135deg,#166534,#15803d);
-            color:white; border:none; border-radius:12px;
-            font-weight:700; font-size:16px; cursor:pointer; text-align:center;
-            font-family:inherit; transition:opacity .2s;
-        }
-        #saFormModal #BackFormSubmitButtonDomID:hover { opacity:.9; }
-        #saFormModal .sa-ohnohoney { display:none !important; }
-        #saFormModal #sa-submit-status { margin-top:12px; text-align:center; font-size:13px; font-weight:600; display:none; }
-        #saFormModal .formTableClass {width:98%;border-spacing:0;}
-        #saFormModal .formHeaderClass {display:none;}
-        #saFormModal .formLabelClass {font-size:13px;font-weight:700;padding:0 0 3px 0;display:inline-block;margin-left:10px;color:#374151;}
-        #saFormModal .formLeftColumnContent {width:100%;vertical-align:top;padding-bottom:16px;background:white;}
-        #saFormModal .formRightColumnContent {display:none;}
-        #saFormModal .formHelpTextDisplay {display:none;}
-        #saFormModal .requiredInput {border:2px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;width:95%;box-sizing:border-box;outline:none;transition:border-color .2s;font-family:inherit;}
-        #saFormModal .requiredInput:focus {border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.1);}
-        #saFormModal .requiredRedInput {background:#fef2f2;border:2px solid #ef4444;border-radius:10px;padding:10px 14px;font-size:14px;width:95%;box-sizing:border-box;}
-        #saFormModal select.labelMarginLeft {border:2px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;width:97%;box-sizing:border-box;outline:none;background:white;font-family:inherit;}
-        #saFormModal select.labelMarginLeft:focus {border-color:#16a34a;}
-        #saFormModal input[name*="_Address"],#saFormModal input[name*="_AddressTwo"],#saFormModal input[name*="_City"],#saFormModal input[name*="_State"],#saFormModal input[name*="_Zip"] {border:2px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;box-sizing:border-box;outline:none;font-family:inherit;margin-bottom:4px;}
-        #saFormModal input[name*="_Address"],#saFormModal input[name*="_AddressTwo"] {width:97%;}
-        #saFormModal input[name*="_City"] {width:52%;}
-        #saFormModal input[name*="_State"] {width:20%;margin-left:4px;}
-        #saFormModal input[name*="_Zip"] {width:20%;margin-left:4px;}
-        #saFormModal .boldNameClass {font-size:12px;font-weight:600;color:#6b7280;margin-left:10px;}
-        #saFormModal .boldAddressClass {font-size:12px;font-weight:600;color:#6b7280;}
-        #saFormModal .labelMarginLeft {margin-left:10px;}
-        #saFormModal .trFormFooterClass {background:white;}
-        #saFormModal .formLeftFooterClassBottom {border:none;padding:0 0 16px 10px;}
-        #saFormModal .formRightFooterClassBottom {display:none;}
-        #saFormModal #BackFormSubmitButtonDomID {
-            display:block;width:calc(100% - 20px);margin:8px 10px 0;
-            padding:14px;background:linear-gradient(135deg,#166534,#15803d);
-            color:white;border:none;border-radius:12px;font-weight:700;
-            font-size:16px;cursor:pointer;text-align:center;
-        }
-        #saFormModal #BackFormSubmitButtonDomID:hover {opacity:.92;}
-        #saFormModal .sa-ohnohoney {display:none;}
-        #saFormModal input[type=number] {border:2px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;box-sizing:border-box;outline:none;font-family:inherit;}
-        #saFormModal input[type=number]:focus {border-color:#16a34a;}
     </style>
 </head>
 <body>
@@ -429,7 +126,7 @@
         <!-- STEP 1: Customer Info -->
         <div id="step1" class="mb-6 md:mb-8">
             <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 border-2 border-blue-200">
-                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Step 1: Customer Information</h2>
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Step 1: Customer Information <span class="text-xs font-normal text-gray-400">(for reference only)</span></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block text-gray-700 font-semibold mb-2 text-sm">Customer First Name <span class="text-xs font-normal text-gray-400">(optional)</span></label>
@@ -439,98 +136,36 @@
                         <label class="block text-gray-700 font-semibold mb-2 text-sm">Customer Last Name <span class="text-xs font-normal text-gray-400">(optional)</span></label>
                         <input type="text" id="customerLastName" class="form-input" placeholder="Enter last name...">
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-semibold mb-2 text-sm">Phone (Optional)</label>
-                        <input type="tel" id="customerPhone" class="form-input" placeholder="(321) 000-0000">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 font-semibold mb-2 text-sm">Email <span class="text-xs font-normal text-gray-400">(optional)</span></label>
-                        <input type="email" id="customerEmail" class="form-input" placeholder="email@example.com">
-                    </div>
                 </div>
                 <div>
-                    <label class="block text-gray-700 font-semibold mb-2 text-sm">Property Address <span class="text-red-500">*</span></label>
-                    <input type="text" id="addressInput" class="w-full px-4 py-3 md:py-4 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none text-base md:text-lg" placeholder="Enter property address..." autocomplete="off">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm">Property Address <span class="text-xs font-normal text-gray-400">(optional, for reference)</span></label>
+                    <input type="text" id="addressInput" class="w-full px-4 py-3 md:py-4 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none text-base md:text-lg" placeholder="Enter property address..." autocomplete="off" oninput="propertyAddress = this.value;">
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button id="continueToStep2Btn" class="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition font-semibold shadow-lg">Continue to Measurements →</button>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 2: Map -->
-        <div id="step2" class="hidden mb-6 md:mb-8">
+        <!-- STEP 2: Measurements -->
+        <div id="step2" class="mb-6 md:mb-8">
             <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 border-2 border-purple-200">
-                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Step 2: Measure Lawn Area</h2>
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Step 2: Enter Lawn Measurement</h2>
                 <div class="bg-purple-50 border border-purple-300 rounded-lg p-3 md:p-4 mb-4">
                     <div class="font-bold text-purple-900 mb-2 text-sm md:text-base">📐 Instructions:</div>
                     <ol class="list-decimal list-inside space-y-1 text-xs md:text-sm text-purple-800">
-                        <li>Use Street View to check property access and bed/hedge locations</li>
-                        <li>Click fullscreen for easier drawing</li>
-                        <li><strong>Polygon mode:</strong> Click around edges of grass areas — double-click to complete</li>
-                        <li><strong>Linear mode:</strong> Click points along hedge/bed edges — double-click the last point to lock in each segment, then immediately draw the next</li>
-                        <li>Draw multiple areas as needed (front + back yards, multiple bed sections)</li>
-                        <li>If satellite imagery is unclear, use <strong>"Can't Measure — Enter Time"</strong> below, or enter a <strong>known square footage</strong> from LotScope</li>
+                        <li>Enter a <strong>known square footage</strong> from LotScope (or another measuring source), or</li>
+                        <li>Use <strong>"Can't Measure — Enter Time"</strong> to estimate pricing directly from mow time</li>
                     </ol>
-                </div>
-                <!-- Map Mode Buttons -->
-                <div class="map-mode-bar">
-                    <button id="polygonModeBtn" class="map-mode-btn polygon-mode active" onclick="setMapMode('polygon')">✏️ Draw Lawn (Polygon)</button>
-                    <button id="linearModeBtn" class="map-mode-btn linear-mode" onclick="setMapMode('linear')">📏 Measure Linear Ft</button>
-                    <button id="clearLinearBtn" class="map-mode-btn clear-btn-sm" onclick="clearLinearMeasurements()">🗑️ Clear Linear</button>
-                    <button id="clearAllBtn" class="map-mode-btn clear-btn-sm" onclick="clearAll()">🗑️ Clear All</button>
-                </div>
-                <div class="mb-3 flex justify-end">
-                    <button id="customFullscreenBtn" class="bg-green-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-green-700 transition font-semibold shadow-lg flex items-center gap-2 text-sm md:text-base">
-                        <span style="font-size:16px;">⛶</span> <span class="hidden sm:inline">Open</span> Fullscreen Map
-                    </button>
-                </div>
-                <!-- Map wrapper -->
-                <div id="mapWrapper" style="width:100%;height:400px;position:relative;" class="rounded-xl border-2 border-gray-300 shadow-lg bg-gray-200 md:h-[500px]">
-                    <div id="map" style="width:100%;height:100%;"></div>
-                </div>
-                <!-- Fullscreen overlay -->
-                <div id="mapFullscreenOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:#000;"></div>
-                <div id="floatingControls" class="floating-controls">
-                    <div class="zoom-controls">
-                        <div class="zoom-btn" id="zoomInBtn">+</div>
-                        <div class="zoom-btn" id="zoomOutBtn">−</div>
-                    </div>
-                    <div class="map-type-toggle" id="mapTypeBtn">📍 Map</div>
-                    <div class="drawing-toggle" id="drawingBtn">✏️ Draw</div>
-                    <div class="streetview-toggle" id="streetViewBtn">👁️ Street View</div>
-                    <div class="linear-toggle" id="linearBtn">📏 Linear</div>
-                </div>
-                <div class="mt-4 space-y-3">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 flex-wrap">
-                        <div class="text-gray-700">
-                            <span class="font-semibold text-base md:text-lg">Total Lawn Area:</span>
-                            <span id="totalArea" class="text-green-600 font-bold text-xl md:text-2xl ml-2">0 sq ft</span>
-                        </div>
-                        <div class="text-gray-700">
-                            <span class="font-semibold text-base md:text-lg">Total Linear:</span>
-                            <span id="totalLinearDisplay" class="text-amber-600 font-bold text-xl md:text-2xl ml-2">0 linear ft</span>
-                        </div>
-                        <button id="clearBtn" class="w-full sm:w-auto px-4 md:px-6 py-2 md:py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold text-sm md:text-base">🗑️ Clear Lawn Areas</button>
-                    </div>
-                    <div id="areasList" class="bg-white rounded-lg p-4 border-2 border-gray-300"></div>
-                    <!-- Linear Measurements Panel -->
-                    <div id="linearPanel" style="display:none;" class="linear-measurements">
-                        <div class="flex justify-between items-center mb-2">
-                            <div class="font-bold text-amber-800 text-sm">📏 Linear Measurements</div>
-                            <div class="text-amber-700 font-bold text-sm">Total: <span id="totalLinearFt" class="text-amber-900 font-extrabold">0</span> linear ft</div>
-                        </div>
-                        <div id="linearList"></div>
-                        <div class="mt-2 text-xs text-amber-700 bg-amber-100 rounded p-2">
-                            💡 Use these measurements in the <strong>Bed Maintenance</strong> and <strong>Hedge/Shrub</strong> linear foot fields below.
-                        </div>
-                    </div>
                 </div>
 
                 <!-- ===== CAN'T MEASURE / MANUAL TIME OVERRIDE ===== -->
-                <div class="mt-6 border-t-2 border-dashed border-gray-200 pt-5">
+                <div class="border-t-2 border-dashed border-gray-200 pt-5">
                     <div class="flex items-start gap-3 mb-3">
                         <input type="checkbox" id="manualTimeToggle" class="mt-1" style="width:18px;height:18px;accent-color:#6366f1;flex-shrink:0;" onchange="toggleManualTime()">
                         <div>
                             <div class="font-bold text-gray-800 text-sm">🚫 Can't Measure — Enter Estimated Time Instead</div>
-                            <div class="text-xs text-gray-500 mt-0.5">Use when satellite imagery is unclear, obstructed by trees, or property cannot be accurately measured. Staff enter estimated mow time directly — pricing will be calculated from time, not square footage.</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Use when the property cannot be accurately measured. Staff enter estimated mow time directly — pricing will be calculated from time, not square footage.</div>
                         </div>
                     </div>
                     <div id="manualTimeSection" class="manual-time-section">
@@ -545,8 +180,7 @@
                                     <label class="block text-indigo-900 font-semibold mb-2 text-sm">Reason for Manual Entry</label>
                                     <select id="manualTimeReason" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none text-sm">
                                         <option value="tree_cover">Heavy tree cover / canopy</option>
-                                        <option value="imagery_old">Satellite imagery outdated</option>
-                                        <option value="resolution">Low resolution / unclear imagery</option>
+                                        <option value="resolution">Property difficult to measure</option>
                                         <option value="structure_cover">Structure / roof obstruction</option>
                                         <option value="staff_visited">Staff already visited property</option>
                                         <option value="customer_info">Customer provided info directly</option>
@@ -573,7 +207,7 @@
                         <input type="checkbox" id="manualSqftToggle" class="mt-1" style="width:18px;height:18px;accent-color:#0891b2;flex-shrink:0;" onchange="toggleManualSqft()">
                         <div>
                             <div class="font-bold text-gray-800 text-sm">📐 Enter Known Square Footage (e.g. LotScope)</div>
-                            <div class="text-xs text-gray-500 mt-0.5">Use when you have an accurate lawn sq ft measurement from LotScope or another tool. Overrides any drawn area — pricing calculated from entered square footage using standard rate tables.</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Use when you have an accurate lawn sq ft measurement from LotScope or another tool. Pricing calculated from entered square footage using standard rate tables.</div>
                         </div>
                     </div>
                     <div id="manualSqftSection" class="manual-time-section">
@@ -590,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 p-3 bg-cyan-100 rounded-lg text-xs text-cyan-900 font-medium">
-                                📐 <strong>Square footage entry uses standard mowing rate tables</strong> — same pricing as a drawn polygon. Select service type and difficulty in Step 3 to complete the estimate.
+                                📐 <strong>Square footage entry uses standard mowing rate tables.</strong> Select service type and difficulty in Step 3 to complete the estimate.
                             </div>
                             <div id="manualSqftPreview" class="hidden mt-3 bg-cyan-100 rounded-lg p-3 text-sm text-cyan-900 font-semibold"></div>
                         </div>
@@ -602,6 +236,9 @@
                     </div>
                 </div>
 
+                <div class="mt-5 flex justify-end">
+                    <button id="clearBtn" class="px-4 md:px-6 py-2 md:py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold text-sm md:text-base">🗑️ Clear Measurement</button>
+                </div>
             </div>
         </div>
 
@@ -668,7 +305,7 @@
                     <div>
                         <label>Crew Time Preview</label>
                         <div id="crewTimePreview" style="background:rgba(255,255,255,0.12);border:1.5px solid rgba(165,180,252,0.5);border-radius:10px;padding:10px 14px;color:white;font-weight:700;font-size:14px;min-height:42px;display:flex;align-items:center;">
-                            — draw a lawn area first
+                            — enter a lawn measurement first
                         </div>
                     </div>
                     <div style="grid-column: 1 / -1; display:flex; align-items:flex-start; gap:10px; background:rgba(255,255,255,0.07); border-radius:10px; padding:10px 14px; margin-top:2px;">
@@ -950,7 +587,7 @@
                         <span class="tbd-value" id="resOnsiteTime" style="font-size:17px;color:#3730a3;">—</span>
                     </div>
                     <div id="manualTimeNotice" style="display:none;" class="mt-2 text-xs text-indigo-700 bg-indigo-50 rounded p-2 font-medium">
-                        ⚠️ Mowing time based on manual staff estimate — satellite measurement not available
+                        ⚠️ Mowing time based on manual staff estimate — measurement not available
                     </div>
                 </div>
 
@@ -1031,7 +668,7 @@
                         </div>
                     </div>
                     <div style="background:#fffbeb;border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#92400e;line-height:1.5;">
-                        💡 Price billed is flat regardless of crew/mower count (see chat). This panel shows whether running extra mowers on this job is still profitable — it does not change what the customer is charged.
+                        💡 Price billed is flat regardless of crew/mower count. This panel shows whether running extra mowers on this job is still profitable — it does not change what the customer is charged.
                     </div>
                 </div>
 
@@ -1062,11 +699,6 @@
             </div>
         </div>
 
-
-
-
-
-
     </div>
 </div>
 <script>
@@ -1078,7 +710,6 @@
     const OFFPEAK_MIN_STANDON     = 45;
     const OFFPEAK_MIN_PUSH        = 45;
 
-    // Active pricing (mutable — driven by season toggle)
     let HOURLY_RATE               = PEAK_HOURLY_RATE;
     let MINIMUM_CHARGE_STANDON    = PEAK_MIN_STANDON;
     let MINIMUM_CHARGE_PUSH       = PEAK_MIN_PUSH;
@@ -1093,7 +724,6 @@
         extreme:  { multiplier: 1.5, rate: 0.0027 }
     };
     const B_HRS_MIN = 0.43, B_HRS_TRIGGER = 8250, B_HRS_STEP_RATE = 0.02;
-    const BREVARD_BOUNDS = {north:28.65, south:27.85, east:-80.40, west:-81.15};
     const BED_RATES = {
         spray_light: { sqft: 0.10, linear: 0.30, label: 'Spray Only — Light/Maintenance' },
         spray_heavy: { sqft: 0.18, linear: 0.55, label: 'Spray Only — Heavy Overgrowth' },
@@ -1108,8 +738,6 @@
     };
 
     // ===== MOWER FLEET =====
-    // widthIn = deck width in inches. "available:false" mowers are greyed out / not selectable.
-    // When the 3rd Grandstand arrives, just flip gs3's available to true.
     const MOWER_FLEET = [
         { id:'gs1',    label:'Grandstand 36" (Unit 1)', type:'standon', widthIn:36, available:true  },
         { id:'gs2',    label:'Grandstand 36" (Unit 2)', type:'standon', widthIn:36, available:true  },
@@ -1118,10 +746,8 @@
         { id:'push22', label:'Push Mower 22"',          type:'push',    widthIn:22, available:true  }
     ];
 
-    let selectedMowerIds = new Set(['gs1','gs2']); // default: 2 standons mowing
+    let selectedMowerIds = new Set(['gs1','gs2']);
 
-    // Combined cutting rate (sqft/hr) for a given mower, scaled off the calibrated
-    // single-unit rates (STANDON_SQFT_PER_HOUR = 1x 36" standon, PUSH_SQFT_PER_HOUR = 1x 22" push)
     function getMowerRate(m) {
         if (m.type === 'standon') return STANDON_SQFT_PER_HOUR * (m.widthIn / 36);
         return PUSH_SQFT_PER_HOUR * (m.widthIn / 22);
@@ -1133,11 +759,10 @@
         return total;
     }
 
-    // Speedup factor vs. the single-unit baseline used to calculate bMins for the selected service type
     function getMowSpeedupFactor(svcType) {
         const baseline = svcType === 'push' ? PUSH_SQFT_PER_HOUR : STANDON_SQFT_PER_HOUR;
         const combined = getCombinedMowerRate();
-        if (combined <= 0) return 1; // nothing selected — fall back to solo estimate
+        if (combined <= 0) return 1;
         return combined / baseline;
     }
 
@@ -1191,13 +816,9 @@
         return names.length ? names.join(', ') : 'None selected';
     }
 
-    // ===== INTERNAL COST / MARGIN ESTIMATE (staff-only — never shown to customer) =====
-    // Adjust these to match actual wage + fuel burn. This does NOT change customer price —
-    // it's a side-by-side sanity check so staff can see if a job is actually profitable
-    // once extra mowers/fuel are factored in, since the billed price is flat regardless
-    // of how many mowers or techs are sent.
-    const TECH_HOURLY_WAGE   = 18;   // $/hr paid per tech on site (all roles — mowing, trimming, etc.)
-    const MOWER_FUEL_RATE = {        // $/hr fuel burn while a given mower is actively running
+    // ===== INTERNAL COST / MARGIN ESTIMATE (staff-only) =====
+    const TECH_HOURLY_WAGE   = 18;
+    const MOWER_FUEL_RATE = {
         standon: 3.00,
         push:    1.25
     };
@@ -1210,22 +831,11 @@
         return { laborCost, fuelCost, totalCost: laborCost + fuelCost };
     }
 
-    // ===== SA FORM — v1 native POST (bypasses CORS/sandbox entirely) =====
-
-    // SA frequency UUIDs from form option elements
-    const SA_FREQ_MAP = {
-        onetime:  '4bbad4f5-38d2-4e52-b79f-e997c6a1db64', // One Time
-        weekly:   '39899a92-756c-4a17-beec-2a52a83b60e3', // Weekly
-        biweekly: '64b9649b-25dc-49bf-8d76-44a2942e8caa', // Bi-Weekly
-        monthly:  'cab531da-95ce-40c1-852f-d050fa434849'  // Monthly
-    };
-
     // ===== PRINT SUMMARY (SA Data Reference) =====
     function openPrintSummary() {
         const grid = document.getElementById('saDataGrid');
         if (!grid || grid.children.length === 0) { alert('Please calculate an estimate first'); return; }
 
-        // Collect SA data rows from the grid
         const rows = [];
         grid.querySelectorAll('div').forEach(cell => {
             const label = cell.querySelector('div:first-child')?.textContent || '';
@@ -1239,7 +849,6 @@
         const dateStr      = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
         const pricingMode  = isOffPeak ? '❄️ Off-Peak ($110/hr)' : '☀️ Peak ($158/hr)';
 
-        // Build mowing/bed/hedge summary rows
         const inclMow   = document.getElementById('mowingResults').style.display !== 'none';
         const inclBed   = document.getElementById('bedResults').style.display   !== 'none';
         const inclHedge = document.getElementById('hedgeResults').style.display !== 'none';
@@ -1273,7 +882,6 @@
             .sa-cell { background:white; border:1px solid #e0e7ff; border-radius:6px; padding:7px 10px; }
             .sa-cell-label { font-size:10px; color:#6366f1; font-weight:700; text-transform:uppercase; margin-bottom:2px; }
             .sa-cell-val { font-size:13px; font-weight:700; color:#111827; }
-            .pricing-badge { display:inline-block; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700; background:${isOffPeak ? '#dbeafe' : '#fef3c7'}; color:${isOffPeak ? '#1e40af' : '#92400e'}; margin-bottom:12px; }
             .onsite { background:#eef2ff; border:1.5px solid #818cf8; border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; margin-bottom:14px; }
             .onsite-label { font-size:12px; color:#4338ca; font-weight:700; }
             .onsite-val { font-size:18px; font-weight:800; color:#3730a3; }
@@ -1335,33 +943,19 @@
             HOURLY_RATE            = OFFPEAK_HOURLY_RATE;
             MINIMUM_CHARGE_STANDON = OFFPEAK_MIN_STANDON;
             MINIMUM_CHARGE_PUSH    = OFFPEAK_MIN_PUSH;
-
-            bar.classList.remove('peak');
-            bar.classList.add('offpeak');
-            icon.textContent  = '❄️';
-            name.textContent  = 'Off-Peak Pricing';
-            desc.textContent  = 'Low demand · Competitive rates active';
-            labelPeak.classList.remove('active-label');
-            labelOffpeak.classList.add('active-label');
-            rateChip.textContent  = '$110/hr';
-            minSChip.textContent  = '$45';
-            minPChip.textContent  = '$45';
+            bar.classList.remove('peak'); bar.classList.add('offpeak');
+            icon.textContent  = '❄️'; name.textContent  = 'Off-Peak Pricing'; desc.textContent  = 'Low demand · Competitive rates active';
+            labelPeak.classList.remove('active-label'); labelOffpeak.classList.add('active-label');
+            rateChip.textContent  = '$110/hr'; minSChip.textContent  = '$45'; minPChip.textContent  = '$45';
             rateNote.textContent  = '❄️ Off-Peak: $110/hr · Stand-On min $45 · Push min $45';
         } else {
             HOURLY_RATE            = PEAK_HOURLY_RATE;
             MINIMUM_CHARGE_STANDON = PEAK_MIN_STANDON;
             MINIMUM_CHARGE_PUSH    = PEAK_MIN_PUSH;
-
-            bar.classList.remove('offpeak');
-            bar.classList.add('peak');
-            icon.textContent  = '☀️';
-            name.textContent  = 'Peak Season Pricing';
-            desc.textContent  = 'High demand · Full rates apply';
-            labelPeak.classList.add('active-label');
-            labelOffpeak.classList.remove('active-label');
-            rateChip.textContent  = '$158/hr';
-            minSChip.textContent  = '$45';
-            minPChip.textContent  = '$60';
+            bar.classList.remove('offpeak'); bar.classList.add('peak');
+            icon.textContent  = '☀️'; name.textContent  = 'Peak Season Pricing'; desc.textContent  = 'High demand · Full rates apply';
+            labelPeak.classList.add('active-label'); labelOffpeak.classList.remove('active-label');
+            rateChip.textContent  = '$158/hr'; minSChip.textContent  = '$45'; minPChip.textContent  = '$60';
             rateNote.textContent  = '☀️ Peak: $158/hr · Stand-On min $45 · Push min $60';
         }
 
@@ -1428,7 +1022,7 @@
         let hedgeBudg = 0, hedgeOnsite = 0;
         if (inclHedgeCheck) { try { const hedge = calculateHedge(); hedgeBudg = Math.round((hedge.total / PEAK_HOURLY_RATE) * 60); hedgeOnsite = splitHedge ? calcOnsiteTime(hedgeBudg, crew) : hedgeBudg; } catch(e) {} }
 
-        if (mowOnsite === 0 && bedOnsite === 0 && hedgeOnsite === 0) { preview.textContent = '— add measurements and services to preview'; return; }
+        if (mowOnsite === 0 && bedOnsite === 0 && hedgeOnsite === 0) { preview.textContent = '— enter a lawn measurement and add services to preview'; return; }
         const parallelOnsite = Math.max(mowOnsite, hedgeOnsite);
         const totalOnsite = parallelOnsite + bedOnsite;
         let parts = [];
@@ -1438,17 +1032,15 @@
         preview.textContent = `Total stop: ${formatMins(totalOnsite)} (${crew}-person crew)${parts.length ? ' — ' + parts.join(' · ') : ''}`;
     }
 
-    // ===== MANUAL TIME MODE =====
+    // ===== STATE =====
     let isManualTimeMode = false, manualTimeMins = 0;
-    let map, drawingManager, autocomplete, marker;
-    let polygons = [], totalArea = 0, propertyAddress = '', customerName = '', mapSnapshot = null;
-    let linearPolylines = [], linearMeasurements = [], totalLinearFt = 0;
-    let isLinearMode = false, linearLabels = [];
+    let isManualSqftMode = false;
+    let totalArea = 0, propertyAddress = '', customerName = '';
 
     function toggleManualTime() {
         const checked = document.getElementById('manualTimeToggle').checked;
         document.getElementById('manualTimeSection').classList.toggle('visible', checked);
-        if (!checked) { isManualTimeMode = false; manualTimeMins = 0; }
+        if (!checked) { isManualTimeMode = false; manualTimeMins = 0; updateStep3Visibility(); }
     }
 
     function updateManualTimeDisplay() {
@@ -1471,23 +1063,15 @@
         recalcCrewTime();
     }
 
-    // ===== MANUAL SQFT MODE =====
-    let isManualSqftMode = false;
-
     function toggleManualSqft() {
         const checked = document.getElementById('manualSqftToggle').checked;
         document.getElementById('manualSqftSection').classList.toggle('visible', checked);
         if (!checked) {
             isManualSqftMode = false;
-            if (polygons.length === 0) {
-                totalArea = 0;
-                document.getElementById('totalArea').textContent = '0 sq ft';
-                document.getElementById('areasList').innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
-                if (!isManualTimeMode) document.getElementById('step3').classList.add('hidden');
-            } else {
-                calculateTotalArea();
-            }
+            totalArea = 0;
             document.getElementById('manualSqftPreview').classList.add('hidden');
+            updateStep3Visibility();
+            recalcCrewTime();
         }
     }
 
@@ -1508,13 +1092,36 @@
         if (sqft < 1) { alert('Please enter a square footage greater than 0'); return; }
         isManualSqftMode = true;
         totalArea = sqft;
-        document.getElementById('totalArea').textContent = sqft.toLocaleString() + ' sq ft';
-        const source = document.getElementById('manualSqftSource').value.trim();
-        document.getElementById('areasList').innerHTML = `<div class="space-y-2"><p class="font-semibold text-gray-700 mb-2 text-sm">Individual Areas:</p><div class="flex justify-between items-center bg-cyan-50 p-2 rounded text-sm border border-cyan-200"><span class="text-gray-700">Area 1 <span class="text-xs text-cyan-600">(entered${source ? ' · ' + source : ''})</span>:</span><span class="font-semibold text-cyan-700">${sqft.toLocaleString()} sq ft</span></div></div>`;
         document.getElementById('step3').classList.remove('hidden');
         document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
         recalcCrewTime();
     }
+
+    function updateStep3Visibility() {
+        if (!isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
+    }
+
+    document.getElementById('continueToStep2Btn').addEventListener('click', () => {
+        document.getElementById('step2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+        totalArea = 0;
+        isManualTimeMode = false; manualTimeMins = 0;
+        isManualSqftMode = false;
+        document.getElementById('manualTimeToggle').checked = false;
+        document.getElementById('manualTimeSection').classList.remove('visible');
+        document.getElementById('manualTimeMins').value = '';
+        document.getElementById('manualTimePreview').classList.add('hidden');
+        document.getElementById('manualSqftToggle').checked = false;
+        document.getElementById('manualSqftSection').classList.remove('visible');
+        document.getElementById('manualSqftInput').value = '';
+        document.getElementById('manualSqftSource').value = '';
+        document.getElementById('manualSqftPreview').classList.add('hidden');
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('resultsModal').classList.remove('active');
+        recalcCrewTime();
+    });
 
     function calculateBed() {
         const st = document.getElementById('bedServiceType').value;
@@ -1584,55 +1191,10 @@
         document.getElementById('hedgeRate').innerHTML = HEDGE_RATE_OPTIONS[cat].map(o => `<option value="${o.v}">${o.l}</option>`).join('');
     }
 
-    // ===== MAP MODE & LINEAR MEASUREMENT =====
-    function setMapMode(mode) {
-        isLinearMode = mode === 'linear';
-        document.getElementById('polygonModeBtn').classList.toggle('active', !isLinearMode);
-        document.getElementById('linearModeBtn').classList.toggle('active', isLinearMode);
-        if (!drawingManager) return;
-        drawingManager.setDrawingMode(isLinearMode ? google.maps.drawing.OverlayType.POLYLINE : google.maps.drawing.OverlayType.POLYGON);
-    }
-    function computePolylineFt(points) {
-        let meters = 0;
-        for (let i = 1; i < points.length; i++) meters += google.maps.geometry.spherical.computeDistanceBetween(points[i-1], points[i]);
-        return meters * 3.28084;
-    }
-    function updateLinearPanel() {
-        totalLinearFt = linearMeasurements.reduce((a, b) => a + b, 0);
-        document.getElementById('totalLinearFt').textContent = Math.round(totalLinearFt);
-        document.getElementById('totalLinearDisplay').textContent = Math.round(totalLinearFt) + ' linear ft';
-        let html = '';
-        linearMeasurements.forEach((ft, i) => { html += `<div class="linear-measure-item"><span class="font-medium text-amber-800">Segment ${i+1}</span><span class="font-bold text-amber-900">${Math.round(ft)} linear ft</span></div>`; });
-        document.getElementById('linearList').innerHTML = html || '<p class="text-amber-700 text-xs">No segments yet</p>';
-        const panel = document.getElementById('linearPanel');
-        panel.style.display = linearMeasurements.length > 0 ? 'block' : 'none';
-        if (linearMeasurements.length > 0) document.getElementById('step3').classList.remove('hidden');
-        else if (polygons.length === 0 && !isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
-    }
-    function clearLinearMeasurements() {
-        linearPolylines.forEach(p => p.setMap(null)); linearPolylines = []; linearMeasurements = []; totalLinearFt = 0;
-        linearLabels.forEach(l => l.close()); linearLabels = [];
-        document.getElementById('linearPanel').style.display = 'none';
-        document.getElementById('totalLinearDisplay').textContent = '0 linear ft';
-        if (polygons.length === 0 && !isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
-        if (drawingManager && isLinearMode) drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
-    }
-    function clearAll() {
-        polygons.forEach(p => p.setMap(null)); polygons = []; totalArea = 0;
-        document.getElementById('totalArea').textContent = '0 sq ft';
-        document.getElementById('areasList').innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
-        if (!isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
-        clearLinearMeasurements();
-        document.getElementById('resultsModal').classList.remove('active');
-        if (drawingManager && !isLinearMode) drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-        recalcCrewTime();
-    }
-
     // ===== CALCULATE BUTTON =====
     document.getElementById('calculateBtn').addEventListener('click', () => {
         const firstName = document.getElementById('customerFirstName').value.trim();
         const lastName  = document.getElementById('customerLastName').value.trim();
-        if (!propertyAddress && totalArea === 0 && !isManualTimeMode && !isManualSqftMode) { alert('Please enter a property address'); return; }
         const inclMow   = document.getElementById('includeMowing').checked;
         const inclBed   = document.getElementById('includeBed').checked;
         const inclHedge = document.getElementById('includeHedge').checked;
@@ -1640,22 +1202,17 @@
         if (inclMow) {
             const svc = document.getElementById('serviceType').value;
             if (!svc) { alert('Please select a mowing service type'); return; }
-            if (!isManualTimeMode && totalArea === 0) { alert('Please draw your lawn area on the map, enter a known square footage, or use "Can\'t Measure" to enter time manually'); return; }
+            if (!isManualTimeMode && totalArea === 0) { alert('Please enter a known square footage or use "Can\'t Measure" to enter time manually'); return; }
             if (isManualTimeMode && manualTimeMins < 1) { alert('Please enter estimated mow time in minutes'); return; }
         }
 
-        customerName = `${firstName} ${lastName}`;
-        document.getElementById('resultCustomerName').textContent = customerName;
+        customerName = `${firstName} ${lastName}`.trim();
+        document.getElementById('resultCustomerName').textContent = customerName || 'Not entered';
         document.getElementById('resultAddress').textContent = propertyAddress || 'Not entered';
 
         const badge = document.getElementById('seasonResultBadge');
-        if (isOffPeak) {
-            badge.className = 'season-result-badge offpeak';
-            badge.textContent = '❄️ Off-Peak Pricing ($110/hr)';
-        } else {
-            badge.className = 'season-result-badge peak';
-            badge.textContent = '☀️ Peak Pricing ($158/hr)';
-        }
+        if (isOffPeak) { badge.className = 'season-result-badge offpeak'; badge.textContent = '❄️ Off-Peak Pricing ($110/hr)'; }
+        else { badge.className = 'season-result-badge peak'; badge.textContent = '☀️ Peak Pricing ($158/hr)'; }
 
         let grandTotal = 0;
         const crew = getCrewSize();
@@ -1674,12 +1231,8 @@
                 areaLabel = `Est. (manual) — ${reasonEl.options[reasonEl.selectedIndex].text}`;
             } else {
                 mow = calculateMowing(totalArea, svc, diff);
-                if (isManualSqftMode) {
-                    const sqftSource = document.getElementById('manualSqftSource').value.trim();
-                    areaLabel = totalArea.toLocaleString() + ' sq ft (entered' + (sqftSource ? ' · ' + sqftSource : '') + ')';
-                } else {
-                    areaLabel = totalArea.toLocaleString() + ' sq ft';
-                }
+                const sqftSource = document.getElementById('manualSqftSource').value.trim();
+                areaLabel = totalArea.toLocaleString() + ' sq ft (entered' + (sqftSource ? ' · ' + sqftSource : '') + ')';
             }
             const onsiteMins = Math.ceil(mow.bMins / getMowSpeedupFactor(svc));
             const svcNames  = {standard:'Stand-On Mowing', push:'Push Mowing - Bagged'};
@@ -1785,9 +1338,8 @@
         document.getElementById('resOnsiteTime').textContent= formatMins(totalOnsiteMins);
         document.getElementById('timeBreakdownBox').style.display = 'block';
         document.getElementById('resGrandTotal').textContent = '$' + grandTotal.toFixed(2);
-        captureMapSnapshot();
 
-        // ===== INTERNAL MARGIN ESTIMATE (staff-only) =====
+        // ===== INTERNAL MARGIN ESTIMATE =====
         const jobCost = estimateJobCost(totalOnsiteMins, crew);
         const margin  = grandTotal - jobCost.totalCost;
         const marginPct = grandTotal > 0 ? (margin / grandTotal * 100) : 0;
@@ -1818,12 +1370,10 @@
         const depositF   = (grandTotal * freqMultF).toFixed(2);
         const fnF  = document.getElementById('customerFirstName').value.trim();
         const lnF  = document.getElementById('customerLastName').value.trim();
-        const emailF = document.getElementById('customerEmail').value.trim();
 
         const saRows = [
             ['First Name',          fnF   || '—'],
             ['Last Name',           lnF   || '—'],
-            ['Email',               emailF || '—'],
             ['Services Interested', jobLabelF],
             ['Frequency',           freqLabelF],
             ['Service Area',        'Front & Back'],
@@ -1903,10 +1453,6 @@
             <div style="font-size:24px;font-weight:800;color:#3730a3;">${document.getElementById('resOnsiteTime').textContent}</div>
         </div>`;
 
-        const mapHtml = mapSnapshot
-            ? `<div class="pdf-section"><div class="pdf-section-title">Property Map</div><img src="${mapSnapshot}" style="width:100%;max-height:400px;object-fit:contain;border:2px solid #21A348;border-radius:12px;margin-top:15px;"></div>`
-            : `<div class="pdf-section"><div class="pdf-section-title">Property Map</div><div style="padding:40px;text-align:center;background:#f3f4f6;border:2px dashed #d1d5db;border-radius:12px;"><p style="color:#6b7280;font-size:14px;">Map image not available</p></div></div>`;
-
         const pricingBannerColor = isOffPeak ? '#1d4ed8' : '#b45309';
         const pricingBannerBg    = isOffPeak ? '#dbeafe' : '#fef3c7';
 
@@ -1943,13 +1489,12 @@
         <div class="pricing-banner">${pricingMode}</div>
         <div class="pdf-section"><div class="pdf-section-title">Customer Information</div>
         <div class="pdf-info-grid">
-            <div class="pdf-info-item"><div class="pdf-info-label">Customer Name</div><div class="pdf-info-value">${customerName}</div></div>
+            <div class="pdf-info-item"><div class="pdf-info-label">Customer Name</div><div class="pdf-info-value">${customerName || 'Not entered'}</div></div>
             <div class="pdf-info-item"><div class="pdf-info-label">Property Address</div><div class="pdf-info-value">${propertyAddress || 'Not entered'}</div></div>
         </div></div>
         ${mowSec}${bedSec}${hedgeSec}
         ${totalStopTimeSec}
         <div class="grand-box"><div class="grand-label">Total Estimate</div><div class="grand-amount">${grandTotal}</div></div>
-        ${mapHtml}
         <div class="pdf-footer">
             <p><strong>WS Lawn Care Services, LLC</strong></p>
             <p>This is an estimate. Final pricing subject to site inspection and customer approval.</p>
@@ -2002,8 +1547,6 @@
             </div></div>`;
         }
 
-        const mapHtml = mapSnapshot ? `<div class="pdf-section"><div class="pdf-section-title">Property Overview</div><img src="${mapSnapshot}" style="width:100%;max-height:380px;object-fit:contain;border:2px solid #21A348;border-radius:12px;margin-top:12px;"></div>` : '';
-
         const pw = window.open('','_blank','width=900,height=800');
         pw.document.write(`<!DOCTYPE html><html><head><title>Service Estimate — ${customerName}</title>
         <style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Helvetica Neue',Arial,sans-serif;background:white;color:#1f2937;}
@@ -2039,7 +1582,7 @@
             <div class="pdf-subtitle">Prepared for you on ${dateStr}</div>
         </div>
         <div class="customer-bar">
-            <div><div class="customer-bar-label">Prepared For</div><div class="customer-bar-value">${customerName}</div></div>
+            <div><div class="customer-bar-label">Prepared For</div><div class="customer-bar-value">${customerName || 'Valued Customer'}</div></div>
             <div><div class="customer-bar-label">Property Address</div><div class="customer-bar-value">${propertyAddress || 'On file'}</div></div>
         </div>
         ${mowSec}${bedSec}${hedgeSec}
@@ -2048,7 +1591,6 @@
             <div><div class="grand-label">Total Estimate</div><div class="grand-date">Valid through ${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div></div>
             <div class="grand-amount">${grandTotal}</div>
         </div>
-        ${mapHtml}
         <div class="pdf-footer">
             <p><strong>WS Lawn Care Services, LLC</strong></p>
             <p>Questions? Contact us to schedule or discuss your service options.</p>
@@ -2060,195 +1602,13 @@
         pw.document.close();
     });
 
-    // ===== SA FORM BUTTON =====
-
-    // ===== GOOGLE MAPS =====
-    window.initMap = function() {
-        setupFloatingControls();
-        setTimeout(() => { setupAutocomplete(); }, 100);
-        const fsBtn = document.getElementById('customFullscreenBtn');
-        if (fsBtn) {
-            fsBtn.addEventListener('click', function() {
-                const mapEl = document.getElementById('map');
-                const mapWrapper = document.getElementById('mapWrapper');
-                const overlay = document.getElementById('mapFullscreenOverlay');
-                const fc = document.getElementById('floatingControls');
-                const isExpanded = overlay.style.display === 'block';
-                if (!isExpanded) {
-                    if (map) { fsBtn._savedCenter = map.getCenter(); fsBtn._savedZoom = map.getZoom(); }
-                    overlay.appendChild(mapEl);
-                    mapEl.style.width = '100vw'; mapEl.style.height = '100vh';
-                    overlay.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                    if (fc) fc.classList.add('active');
-                    fsBtn.innerHTML = '<span style="font-size:18px;">✕</span> <span class="exit-text">Exit</span>';
-                    fsBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:1000000;background:#16a34a;color:white;padding:8px 16px;border-radius:8px;font-weight:600;border:none;cursor:pointer;';
-                    setTimeout(() => { google.maps.event.trigger(map, 'resize'); if (fsBtn._savedCenter) map.setCenter(fsBtn._savedCenter); }, 100);
-                } else {
-                    mapWrapper.appendChild(mapEl);
-                    mapEl.style.width = '100%'; mapEl.style.height = '100%';
-                    overlay.style.display = 'none';
-                    document.body.style.overflow = '';
-                    if (fc) fc.classList.remove('active');
-                    fsBtn.innerHTML = '<span style="font-size:20px;">⛶</span> <span class="hidden sm:inline">Open</span> Fullscreen Map';
-                    fsBtn.style.cssText = '';
-                    const restoreMap = () => { google.maps.event.trigger(map, 'resize'); if (fsBtn._savedCenter) map.setCenter(fsBtn._savedCenter); if (fsBtn._savedZoom) map.setZoom(fsBtn._savedZoom); };
-                    setTimeout(restoreMap, 50); setTimeout(restoreMap, 200); setTimeout(restoreMap, 500);
-                }
-            });
-        }
-    };
-
-    function setupFloatingControls() {
-        document.getElementById('zoomInBtn').addEventListener('click', () => { if (map) map.setZoom(map.getZoom()+1); });
-        document.getElementById('zoomOutBtn').addEventListener('click', () => { if (map) map.setZoom(map.getZoom()-1); });
-        let isSat = true;
-        document.getElementById('mapTypeBtn').addEventListener('click', function() {
-            if (!map) return; isSat = !isSat;
-            map.setMapTypeId(isSat ? 'satellite' : 'roadmap');
-            this.textContent = isSat ? '📍 Map' : '🛰️ Satellite';
-        });
-        let isDrawing = false;
-        document.getElementById('drawingBtn').addEventListener('click', function() {
-            if (!drawingManager) return; isDrawing = !isDrawing;
-            if (isDrawing && isLinearMode) { setMapMode('polygon'); document.getElementById('linearBtn').classList.remove('active-linear'); document.getElementById('linearBtn').textContent = '📏 Linear'; }
-            drawingManager.setDrawingMode(isDrawing ? google.maps.drawing.OverlayType.POLYGON : null);
-            this.classList.toggle('active-draw', isDrawing);
-            this.textContent = isDrawing ? '⏸️ Stop' : '✏️ Draw';
-        });
-        let svActive = false;
-        document.getElementById('streetViewBtn').addEventListener('click', function() {
-            if (!map) return; svActive = !svActive;
-            const pano = map.getStreetView();
-            if (svActive) { pano.setPosition(map.getCenter()); pano.setVisible(true); this.textContent = '🗺️ Back to Map'; this.style.cssText = 'background:#3B82F6;color:white;'; }
-            else { pano.setVisible(false); this.textContent = '👁️ Street View'; this.style.cssText = ''; }
-        });
-        document.getElementById('linearBtn').addEventListener('click', function() {
-            if (!map) return;
-            const nowLinear = !isLinearMode;
-            setMapMode(nowLinear ? 'linear' : 'polygon');
-            this.classList.toggle('active-linear', nowLinear);
-            this.textContent = nowLinear ? '⏹️ Stop Linear' : '📏 Linear';
-            const drawBtn = document.getElementById('drawingBtn');
-            if (drawBtn) { drawBtn.classList.toggle('active-draw', !nowLinear); drawBtn.textContent = nowLinear ? '✏️ Draw' : '⏸️ Stop'; }
-        });
-    }
-
-    function setupAutocomplete() {
-        try {
-            const input = document.getElementById('addressInput');
-            if (!input || typeof google === 'undefined' || !google.maps.places) return;
-            const bounds = new google.maps.LatLngBounds(new google.maps.LatLng(BREVARD_BOUNDS.south, BREVARD_BOUNDS.west), new google.maps.LatLng(BREVARD_BOUNDS.north, BREVARD_BOUNDS.east));
-            autocomplete = new google.maps.places.Autocomplete(input, { bounds, strictBounds: false, componentRestrictions: {country:'us'}, fields: ['geometry','formatted_address'], types: ['address'] });
-            autocomplete.addListener('place_changed', () => {
-                const place = autocomplete.getPlace();
-                if (!place.geometry) { alert('Please select an address from the dropdown'); return; }
-                propertyAddress = place.formatted_address;
-                loadMap(place.geometry.location.lat(), place.geometry.location.lng());
-            });
-        } catch(e) { console.error('Autocomplete error:', e); }
-    }
-
-    function loadMap(lat, lng) {
-        if (!map) {
-            map = new google.maps.Map(document.getElementById('map'), { center:{lat,lng}, zoom:20, mapTypeId:'satellite', mapTypeControl:true, streetViewControl:true, fullscreenControl:true, zoomControl:true });
-            marker = new google.maps.Marker({position:{lat,lng}, map, draggable:true});
-            marker.addListener('dragend', () => map.setCenter(marker.getPosition()));
-            drawingManager = new google.maps.drawing.DrawingManager({
-                drawingMode: google.maps.drawing.OverlayType.POLYGON,
-                drawingControl: false,
-                polygonOptions: { fillColor:'#22c55e', fillOpacity:0.35, strokeWeight:3, strokeColor:'#16a34a', editable:true, clickable:false },
-                polylineOptions: { strokeColor:'#d97706', strokeWeight:3, strokeOpacity:1.0, editable:false, clickable:false }
-            });
-            drawingManager.setMap(map);
-            google.maps.event.addListener(drawingManager, 'overlaycomplete', (e) => {
-                if (e.type === google.maps.drawing.OverlayType.POLYGON) {
-                    polygons.push(e.overlay);
-                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-                    calculateTotalArea();
-                    google.maps.event.addListener(e.overlay.getPath(), 'set_at', calculateTotalArea);
-                    google.maps.event.addListener(e.overlay.getPath(), 'insert_at', calculateTotalArea);
-                } else if (e.type === google.maps.drawing.OverlayType.POLYLINE) {
-                    const path = e.overlay.getPath();
-                    const ft = computePolylineFt(path.getArray());
-                    if (ft > 0) {
-                        linearPolylines.push(e.overlay); linearMeasurements.push(ft);
-                        const pts = path.getArray();
-                        const mid = pts[Math.floor(pts.length / 2)];
-                        const segIndex = linearMeasurements.length;
-                        const label = new google.maps.InfoWindow({ content: '<div style="font-weight:700;font-size:13px;color:#92400e;white-space:nowrap;">📏 Seg ' + segIndex + ': ' + Math.round(ft) + ' ft</div>', disableAutoPan: true });
-                        label.setPosition(mid); label.open(map); linearLabels.push(label);
-                        updateLinearPanel();
-                    } else { e.overlay.setMap(null); }
-                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
-                }
-            });
-            document.getElementById('step2').classList.remove('hidden');
-        } else {
-            map.setCenter({lat,lng}); map.setZoom(20);
-            if (marker) marker.setPosition({lat,lng});
-            document.getElementById('step2').classList.remove('hidden');
-        }
-    }
-
-    function calculateTotalArea() {
-        totalArea = 0;
-        const list = document.getElementById('areasList');
-        if (polygons.length === 0) {
-            list.innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
-            document.getElementById('totalArea').textContent = '0 sq ft';
-            if (linearMeasurements.length === 0 && !isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
-            recalcCrewTime(); return;
-        }
-        let html = '<div class="space-y-2"><p class="font-semibold text-gray-700 mb-2 text-sm">Individual Areas:</p>';
-        polygons.forEach((poly, i) => {
-            const sqft = Math.round(google.maps.geometry.spherical.computeArea(poly.getPath()) * 10.764);
-            totalArea += sqft;
-            html += `<div class="flex justify-between items-center bg-green-50 p-2 rounded text-sm"><span class="text-gray-700">Area ${i+1}:</span><span class="font-semibold text-green-600">${sqft.toLocaleString()} sq ft</span></div>`;
-        });
-        html += '</div>';
-        list.innerHTML = html;
-        document.getElementById('totalArea').textContent = totalArea.toLocaleString() + ' sq ft';
-        document.getElementById('step3').classList.remove('hidden');
-        recalcCrewTime();
-    }
-
-    document.getElementById('clearBtn').addEventListener('click', () => {
-        polygons.forEach(p => p.setMap(null)); polygons = []; totalArea = 0;
-        document.getElementById('totalArea').textContent = '0 sq ft';
-        document.getElementById('areasList').innerHTML = '<p class="text-gray-500 text-sm">No areas drawn yet</p>';
-        if (!isManualTimeMode && !isManualSqftMode) document.getElementById('step3').classList.add('hidden');
-        document.getElementById('resultsModal').classList.remove('active');
-        if (drawingManager) drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-        recalcCrewTime();
-    });
-
     document.getElementById('closeModal').addEventListener('click', () => document.getElementById('resultsModal').classList.remove('active'));
     document.getElementById('resultsModal').addEventListener('click', (e) => { if (e.target.id === 'resultsModal') document.getElementById('resultsModal').classList.remove('active'); });
 
-    function captureMapSnapshot() {
-        if (!map) return;
-        if (typeof html2canvas === 'undefined') {
-            const s = document.createElement('script');
-            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-            s.onload = () => setTimeout(doCapture, 500);
-            document.head.appendChild(s);
-        } else { setTimeout(doCapture, 500); }
-    }
-    function doCapture() {
-        setTimeout(() => {
-            html2canvas(document.getElementById('map'), {useCORS:true,allowTaint:true,logging:false,backgroundColor:'#e5e7eb',scale:2,foreignObjectRendering:false})
-            .then(c => { mapSnapshot = c.toDataURL('image/png',1.0); })
-            .catch(() => { mapSnapshot = null; });
-        }, 1000);
-    }
-
     window.addEventListener('load', () => {
-        setTimeout(() => { if (!autocomplete && typeof google !== 'undefined' && google.maps && google.maps.places) setupAutocomplete(); }, 1000);
         toggleMowingSection();
         renderMowerFleet();
     });
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvZq7kiDX_thzi8F9XTg_bySLcxpd_ME&libraries=places,drawing,geometry&callback=initMap" async defer></script>
 </body>
 </html>
