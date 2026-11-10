@@ -25,7 +25,7 @@
             .modal-overlay { position: static !important; background: none !important; padding: 0 !important; display: block !important; align-items: unset !important; }
             .modal-content { box-shadow: none !important; max-height: none !important; overflow: visible !important; border-radius: 0 !important; padding: 20px !important; max-width: 100% !important; }
             .modal-close, #pdfBtn, #pdfCustomerBtn { display: none !important; }
-            #saSummaryPanel { break-inside: avoid; }
+            #snippetPanel, #crewSummaryBanner { display: none !important; }
             .result-section { break-inside: avoid; }
         }
         .modal-close { position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 10; }
@@ -116,6 +116,46 @@
         .time-breakdown-row .tbd-label { color: #6b7280; }
         .time-breakdown-row .tbd-value { font-weight: 700; color: #1f2937; }
         .time-breakdown-row.highlight .tbd-value { color: #4338ca; font-size: 15px; }
+        /* Verify-before-calculate banner (fixed to the bottom of the screen) */
+        .crew-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: linear-gradient(135deg, #fffbeb, #fef3c7); border-top: 4px solid #f59e0b; box-shadow: 0 -8px 28px rgba(217,119,6,0.35); }
+        .crew-banner.warn { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-top-color: #ef4444; box-shadow: 0 -8px 28px rgba(220,38,38,0.35); }
+        .crew-banner.verified { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-top-color: #16a34a; box-shadow: 0 -8px 28px rgba(22,163,74,0.3); }
+        .crew-banner-inner { max-width: 1100px; margin: 0 auto; padding: 10px 16px 12px; }
+        .crew-banner-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .crew-banner-title { font-weight: 800; font-size: 14px; color: #78350f; }
+        .crew-banner.warn .crew-banner-title { color: #7f1d1d; }
+        .crew-banner.verified .crew-banner-title { color: #14532d; }
+        .crew-banner-tag { display: inline-block; margin-left: 6px; background: #f59e0b; color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; }
+        .crew-banner.warn .crew-banner-tag { background: #ef4444; }
+        .crew-banner.verified .crew-banner-tag { background: #16a34a; }
+        .crew-banner-toggle { background: transparent; border: 1.5px solid rgba(0,0,0,0.25); color: #374151; border-radius: 8px; padding: 3px 10px; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; }
+        .crew-banner-body { max-height: 38vh; overflow-y: auto; margin-top: 6px; }
+        .crew-banner-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .crew-banner-chip { background: white; border: 1.5px solid #fcd34d; border-radius: 8px; padding: 3px 10px; font-size: 12.5px; color: #1f2937; }
+        .crew-banner.warn .crew-banner-chip { border-color: #fca5a5; }
+        .crew-banner.verified .crew-banner-chip { border-color: #86efac; }
+        .crew-banner-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; }
+        @media (max-width: 760px) { .crew-banner-list { grid-template-columns: 1fr; } }
+        .crew-check { display: flex; gap: 7px; font-size: 12px; line-height: 1.4; color: #374151; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,0.55); }
+        .crew-check.warn { background: #fef3c7; color: #78350f; font-weight: 600; }
+        .crew-check.error { background: #fecaca; color: #7f1d1d; font-weight: 700; }
+        .crew-check-icon { flex-shrink: 0; }
+        .crew-banner-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+        .crew-ack-btn { background: #16a34a; color: white; border: none; border-radius: 10px; padding: 10px 22px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: inherit; box-shadow: 0 3px 10px rgba(22,163,74,0.4); }
+        .crew-ack-btn:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; }
+        @media (max-width: 640px) { .crew-ack-btn { width: 100%; } }
+        .crew-ack-note { font-size: 11.5px; color: #78350f; font-weight: 600; }
+        .crew-banner.verified .crew-ack-note { color: #14532d; }
+        /* Email snippet generator */
+        .sn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (max-width: 640px) { .sn-grid { grid-template-columns: 1fr; } }
+        .sn-field label { display: block; font-size: 10.5px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+        .sn-input { width: 100%; padding: 8px 10px; border: 1.5px solid #c7d2fe; border-radius: 8px; font-size: 13px; background: white; color: #111827; font-family: inherit; }
+        .sn-input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+        .sn-input.sn-missing { border-color: #f59e0b; background: #fffbeb; }
+        .sn-badge { font-size: 9.5px; font-weight: 700; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+        .sn-badge.ok { color: #16a34a; }
+        .sn-badge.empty { color: #d97706; }
     </style>
 </head>
 <body>
@@ -285,7 +325,7 @@
                 </div>
 
                 <!-- ===== CREW SIZE & TIME ESTIMATE BAR ===== -->
-                <div class="crew-time-bar mb-5">
+                <div id="crewSettingsBar" class="crew-time-bar mb-5">
                     <div class="bar-title">
                         <span style="font-size:22px;">👷</span>
                         <div>
@@ -356,6 +396,7 @@
                                     <option value="standard">Stand-On Mowing</option>
                                     <option value="push">Push Mowing - Bagged</option>
                                 </select>
+                                <div id="serviceTypeHint" class="text-xs text-gray-500 mt-1">Choose the mowers running this job (Crew &amp; Time Settings) and the service type will match.</div>
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2 text-sm">Difficulty Level</label>
@@ -532,9 +573,28 @@
                     </div>
                 </div>
 
-                <button id="calculateBtn" class="w-full py-3 md:py-4 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-xl font-bold text-base md:text-lg hover:shadow-lg transition mt-2">
+                <!-- ===== VERIFY-BEFORE-CALCULATE BANNER (fixed to bottom) ===== -->
+                <div id="crewSummaryBanner" class="crew-banner">
+                    <div class="crew-banner-inner">
+                        <div class="crew-banner-top">
+                            <div class="crew-banner-title">👷 Verify before getting totals <span id="crewBannerTag" class="crew-banner-tag"></span></div>
+                            <button type="button" id="crewBannerToggle" class="crew-banner-toggle" onclick="toggleBannerDetails()">▾ Hide details</button>
+                        </div>
+                        <div id="crewBannerBody" class="crew-banner-body">
+                            <div id="crewBannerChips" class="crew-banner-chips"></div>
+                            <ul id="crewBannerChecklist" class="crew-banner-list"></ul>
+                        </div>
+                        <div class="crew-banner-actions">
+                            <button type="button" id="crewAckBtn" class="crew-ack-btn" onclick="acknowledgeSetup()">✅ Yes — all looks good</button>
+                            <div id="crewAckNote" class="crew-ack-note"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="calculateBtn" style="display:none;" class="w-full py-3 md:py-4 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-xl font-bold text-base md:text-lg hover:shadow-lg transition mt-2">
                     📊 Get Estimate Totals
                 </button>
+                <div id="bannerSpacer" style="height:0;"></div>
             </div>
         </div>
 
@@ -599,6 +659,7 @@
                     <div class="result-row"><span class="result-label">Difficulty</span><span class="result-value" id="resMowDifficulty">-</span></div>
                     <div class="result-row"><span class="result-label">Frequency</span><span class="result-value" id="resMowFrequency">-</span></div>
                     <div class="result-row"><span class="result-label">Budgeted Time (Solo)</span><span class="result-value green" id="resMowBHrs">-</span></div>
+                    <div class="result-row"><span class="result-label">Cut / Trim Split (of budget)</span><span class="result-value" id="resMowSplit">-</span></div>
                     <div class="result-row"><span class="result-label">Crew Size</span><span class="result-value" id="resMowCrew">-</span></div>
                     <div class="result-row" style="background:#eef2ff;"><span class="result-label" style="font-weight:700;color:#3730a3;">⏰ On-Site Time</span><span class="result-value" style="color:#3730a3;font-size:16px;" id="resMowOnsite">-</span></div>
                     <div class="result-row"><span class="result-label">Pricing Mode</span><span class="result-value" id="resMowPricingMode">-</span></div>
@@ -675,16 +736,56 @@
                 <div class="bg-orange-50 border border-orange-200 rounded-xl p-3 text-xs text-orange-900 mb-4">
                     <strong>📋 Note:</strong> Final pricing may vary based on actual site conditions. Customer approval required for price changes.
                 </div>
-                <!-- ===== SA DATA SUMMARY FOR MANUAL ENTRY ===== -->
-                <div id="saSummaryPanel" style="background:#f8faff;border:2px solid #6366f1;border-radius:14px;padding:16px 18px;margin-bottom:16px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-                        <div style="font-size:13px;font-weight:800;color:#3730a3;">📋 ServiceAutopilot — Data Entry Reference</div>
-                        <button onclick="openPrintSummary()" style="background:#3730a3;color:white;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">🖨️ Print This</button>
+                <!-- ===== EMAIL SNIPPET GENERATOR ===== -->
+                <div id="snippetPanel" style="background:#f8faff;border:2px solid #6366f1;border-radius:14px;padding:16px 18px;margin-bottom:16px;">
+                    <div style="font-size:13px;font-weight:800;color:#3730a3;">📧 Estimate Email Snippet Generator</div>
+                    <div style="font-size:11px;color:#6366f1;margin:2px 0 12px;">Prefilled from this estimate. Edit any field and the code updates. Empty fields keep their merge tag, except Important Notes, which stays blank.</div>
+                    <div class="sn-grid">
+                        <div class="sn-field">
+                            <label>Services Interested In <span id="snServicesBadge" class="sn-badge"></span></label>
+                            <input type="text" id="snServices" class="sn-input" list="snServiceList" oninput="refreshSnippet()">
+                            <datalist id="snServiceList"><option value="Mowing Service"><option value="Bed Maintenance"><option value="Bed/Shrub Maintenance"><option value="Mowing/Bed Maintenance"></datalist>
+                        </div>
+                        <div class="sn-field">
+                            <label>Frequency <span id="snFrequencyBadge" class="sn-badge"></span></label>
+                            <select id="snFrequency" class="sn-input" onchange="snAutoMonthly(); refreshSnippet()">
+                                <option value="One Time">One Time</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Bi-Weekly">Bi-Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="sn-field">
+                            <label>Per Visit Cost ($) <span id="snPerVisitBadge" class="sn-badge"></span></label>
+                            <input type="text" id="snPerVisit" class="sn-input" inputmode="decimal" oninput="snAutoMonthly(); refreshSnippet()">
+                        </div>
+                        <div class="sn-field">
+                            <label>Total Monthly Cost ($) <span id="snMonthlyBadge" class="sn-badge"></span></label>
+                            <input type="text" id="snMonthly" class="sn-input" inputmode="decimal" oninput="this.dataset.edited='1'; refreshSnippet()">
+                        </div>
+                        <div class="sn-field">
+                            <label>Service Area <span id="snAreaBadge" class="sn-badge"></span></label>
+                            <select id="snArea" class="sn-input" onchange="this.dataset.edited='1'; refreshSnippet()">
+                                <option value="">— Select —</option>
+                                <option value="Front">Front</option>
+                                <option value="Back">Back</option>
+                                <option value="Front &amp; Back">Front &amp; Back</option>
+                            </select>
+                        </div>
+                        <div class="sn-field" style="grid-column: 1 / -1;">
+                            <label>Important Notes <span id="snNotesBadge" class="sn-badge"></span></label>
+                            <textarea id="snNotes" class="sn-input" rows="2" style="resize:vertical;" placeholder="e.g. Gate code, dogs in yard, skip side yard..." oninput="refreshSnippet()"></textarea>
+                        </div>
                     </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="saDataGrid"></div>
-                    <div style="background:#eef2ff;border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#4338ca;line-height:1.5;">
-                        💡 Open SA → find client by name/email → Edit → update Custom Fields with values above.
+                    <div id="snStatus" style="font-size:11px;color:#4338ca;background:#eef2ff;border-radius:8px;padding:7px 10px;margin:10px 0;line-height:1.5;"></div>
+                    <textarea id="snCode" readonly rows="5" onclick="this.select()" style="width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;border:1.5px solid #c7d2fe;border-radius:8px;padding:8px;background:white;color:#1f2937;"></textarea>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+                        <button id="snCopyBtn" type="button" onclick="copySnippet()" style="background:#3730a3;color:white;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">📋 Copy HTML Code</button>
                     </div>
+                    <details style="margin-top:10px;">
+                        <summary style="cursor:pointer;font-size:12px;font-weight:700;color:#3730a3;">👁️ Preview how it will look</summary>
+                        <div id="snPreview" style="margin-top:8px;border:1.5px solid #e0e7ff;border-radius:8px;padding:12px;background:white;overflow-x:auto;"></div>
+                    </details>
                 </div>
 
                 <!-- ACTION BUTTONS -->
@@ -741,15 +842,22 @@
     const MOWER_FLEET = [
         { id:'gs1',    label:'Grandstand 36" (Unit 1)', type:'standon', widthIn:36, available:true  },
         { id:'gs2',    label:'Grandstand 36" (Unit 2)', type:'standon', widthIn:36, available:true  },
-        { id:'gs3',    label:'Grandstand 36" (Unit 3 — coming soon)', type:'standon', widthIn:36, available:false },
+        { id:'gs60',   label:'Toro Grandstand 60"',     type:'standon', widthIn:60, available:true, efficiency:0.90, fuelPerHr:4.00 },
         { id:'push30', label:'Push Mower 30"',          type:'push',    widthIn:30, available:true  },
         { id:'push22', label:'Push Mower 22"',          type:'push',    widthIn:22, available:true  }
     ];
 
-    let selectedMowerIds = new Set(['gs1','gs2']);
+    let selectedMowerIds = new Set(); // all mowers unchecked by default
 
+    // Stand-on rate is scaled from the 36" baseline (STANDON_SQFT_PER_HOUR) using EFFECTIVE cut width
+    // (deck width minus a pass-to-pass overlap). 36" = 1.00x exactly, so existing pricing is unchanged.
+    // Optional m.efficiency derates big decks for extra turning/trimming/gate-fit losses.
+    const PASS_OVERLAP_IN = 4;
     function getMowerRate(m) {
-        if (m.type === 'standon') return STANDON_SQFT_PER_HOUR * (m.widthIn / 36);
+        if (m.type === 'standon') {
+            const effRatio = (m.widthIn - PASS_OVERLAP_IN) / (36 - PASS_OVERLAP_IN);
+            return STANDON_SQFT_PER_HOUR * effRatio * (m.efficiency || 1);
+        }
         return PUSH_SQFT_PER_HOUR * (m.widthIn / 22);
     }
 
@@ -766,9 +874,64 @@
         return combined / baseline;
     }
 
+    // Splits the solo budget (bMins, which already includes trim/edge/blow) into a cutting part and a
+    // trim part, WITHOUT adding any time: cut + trim = bMins. Pricing is untouched.
+    //  - trim part = FIXED_TRIM_TIME (the same 20 min baked into price) x difficulty, capped at the budget
+    //  - cutting runs at the combined speed of the mowers checked
+    //  - with support techs (crew - mowers), trim runs alongside cutting: on-site = longer of the two
+    //  - with no support techs, mower operators trim after cutting, sharing the trim: cut + trim / mowers
+    //  - no mowers checked: no way to know who is doing what, so show the solo budget
+    function calcMowOnsite(bMins, svcType, difficulty, crewSize) {
+        const mowers = selectedMowerIds.size;
+        if (mowers === 0 || bMins <= 0) return { onsite: bMins, trim: 0, cut: bMins, cutOnsite: bMins, trimOnsite: 0, support: 0, mode: 'solo' };
+        const diffMult = (DIFFICULTY_MULTIPLIERS[difficulty] || DIFFICULTY_MULTIPLIERS.standard).multiplier;
+        const trim = Math.min(Math.ceil(FIXED_TRIM_TIME * diffMult), bMins);
+        const cut = bMins - trim;
+        const cutOnsite = Math.ceil(cut / getMowSpeedupFactor(svcType));
+        const support = Math.max(0, crewSize - mowers);
+        let trimOnsite, onsite, mode;
+        if (support > 0) {
+            trimOnsite = Math.ceil(trim / support);
+            onsite = Math.max(cutOnsite, trimOnsite);
+            mode = 'parallel';
+        } else {
+            trimOnsite = Math.ceil(trim / mowers);
+            onsite = cutOnsite + trimOnsite;
+            mode = 'sequential';
+        }
+        return { onsite, trim, cut, cutOnsite, trimOnsite, support, mode };
+    }
+
+    // Service type follows the mowers checked: stand-on only -> Stand-On Mowing only,
+    // push only -> Push Mowing only, mixed or none -> both options stay available.
+    function syncServiceTypeToMowers() {
+        const sel = document.getElementById('serviceType');
+        const hint = document.getElementById('serviceTypeHint');
+        if (!sel) return;
+        const chosen = MOWER_FLEET.filter(m => selectedMowerIds.has(m.id));
+        const hasStandon = chosen.some(m => m.type === 'standon');
+        const hasPush    = chosen.some(m => m.type === 'push');
+        const standonOpt = sel.querySelector('option[value="standard"]');
+        const pushOpt    = sel.querySelector('option[value="push"]');
+        standonOpt.disabled = hasPush && !hasStandon;
+        pushOpt.disabled    = hasStandon && !hasPush;
+        let msg = 'Choose the mowers running this job (Crew & Time Settings) and the service type will match.';
+        if (hasStandon && !hasPush) {
+            sel.value = 'standard';
+            msg = '🔒 Locked to Stand-On Mowing — only stand-on mowers are checked.';
+        } else if (hasPush && !hasStandon) {
+            sel.value = 'push';
+            msg = '🔒 Locked to Push Mowing — only push mowers are checked.';
+        } else if (hasStandon && hasPush) {
+            msg = 'Stand-on and push mowers are both checked — pick the service type this job is priced as.';
+        }
+        if (hint) hint.textContent = msg;
+    }
+
     function toggleMower(id) {
         if (selectedMowerIds.has(id)) selectedMowerIds.delete(id);
         else selectedMowerIds.add(id);
+        syncServiceTypeToMowers();
         renderMowerFleet();
         recalcCrewTime();
     }
@@ -804,7 +967,7 @@
                 warn.textContent = `⚠️ ${mowersRunning} mowers selected but only ${crew} techs on site — reduce mowers or increase crew size.`;
             } else if (mowersRunning === 0) {
                 warn.style.display = 'block';
-                warn.textContent = `⚠️ No mowers selected — on-site mow time will default to the solo estimate.`;
+                warn.textContent = `⚠️ No mowers selected — on-site mow time shows the solo estimate until you check the mowers running.`;
             } else {
                 warn.style.display = 'none';
             }
@@ -827,102 +990,270 @@
         const hours = totalOnsiteMins / 60;
         const laborCost = hours * crewSize * TECH_HOURLY_WAGE;
         let fuelCost = 0;
-        MOWER_FLEET.forEach(m => { if (selectedMowerIds.has(m.id)) fuelCost += MOWER_FUEL_RATE[m.type] * hours; });
+        MOWER_FLEET.forEach(m => { if (selectedMowerIds.has(m.id)) fuelCost += (m.fuelPerHr || MOWER_FUEL_RATE[m.type]) * hours; });
         return { laborCost, fuelCost, totalCost: laborCost + fuelCost };
     }
 
-    // ===== PRINT SUMMARY (SA Data Reference) =====
-    function openPrintSummary() {
-        const grid = document.getElementById('saDataGrid');
-        if (!grid || grid.children.length === 0) { alert('Please calculate an estimate first'); return; }
+    // ===== EMAIL SNIPPET GENERATOR (replaces the old ServiceAutopilot data-entry panel) =====
+    // Builds the estimate email block with this job's values filled in. Any field left blank keeps its
+    // original merge tag, so the email system can still fill it in when the email is sent.
+    const SNIPPET_FREQ_MULT = { 'One Time': 1, 'Weekly': 4, 'Bi-Weekly': 2, 'Monthly': 1 };
+    const SNIPPET_FIELD_TAGS = { snServices: '[ServicesInterestedIn]', snFrequency: '[ServiceFrequency]', snArea: '[ServiceArea]', snPerVisit: '[ServicePerVisitCost]', snMonthly: '[ServiceDeposit/MonthlyCost]' };
 
-        const rows = [];
-        grid.querySelectorAll('div').forEach(cell => {
-            const label = cell.querySelector('div:first-child')?.textContent || '';
-            const val   = cell.querySelector('div:last-child')?.textContent  || '';
-            if (label && val) rows.push([label, val]);
+    function escHtml(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function cleanMoney(v) { const n = parseFloat(String(v).replace(/[^0-9.]/g, '')); return isNaN(n) ? '' : n.toFixed(2); }
+    function snVal(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+    function buildEmailSnippet(v) {
+        const G = 'font-family: Verdana; color: rgb(65, 168, 95);';
+        const tag = (name, inner) => `<code data-bee-code="" data-bee-name="${name}" data-bee-type="mergetag" spellcheck="false">${inner}</code>`;
+
+        const servicesHtml = v.services
+            ? `<strong><span style="font-size: 18px;">${escHtml(v.services)}</span></strong>`
+            : tag('Physical Address 1', `<strong><span style="font-size: 18px;">[ServicesInterestedIn]</span></strong>`);
+        const pad = `<strong><span style="${G}">&nbsp;</span></strong><br>`;
+        const freqHtml = (v.frequency
+            ? `<strong><span style="${G}">${escHtml(v.frequency)}</span></strong>`
+            : tag('Service Frequency', `<strong><span style="${G}">[ServiceFrequency]</span></strong>`)) + pad;
+        const areaHtml = (v.area
+            ? `<strong><span style="${G}">${escHtml(v.area)}</span></strong>`
+            : tag('Service Area', `<strong><span style="${G}">[ServiceArea]</span></strong>`)) + pad;
+        // Important Notes is optional: when nothing is noted it is simply left blank (no merge tag).
+        const notesHtml = v.notes ? escHtml(v.notes).replace(/\n/g, '<br>') : '';
+        const perVisit = cleanMoney(v.perVisit);
+        const monthly  = cleanMoney(v.monthly);
+        const perVisitHtml = (perVisit ? '$' + perVisit : tag('Service Per Visit Cost', '$[ServicePerVisitCost]')) + '&nbsp;';
+        const monthlyHtml  = '$' + (monthly ? monthly : tag('Service Deposit/Monthly Cost', '[ServiceDeposit/MonthlyCost]')) + '&nbsp;';
+
+        return `<div style="background: linear-gradient(to right, #f0f7f0, #ffffff); padding: 15px; border-left: 4px solid #2e7d32; margin: 10px 0;"><span style="${G}">${servicesHtml}</span></div><div style="background: linear-gradient(to right, #f0f7f0, #ffffff); padding: 15px; border-left: 4px solid #2e7d32; margin: 10px 0;"><em style="color: #666;">*Prices are estimated based on aerial footage and may need adjustment for anything not captured on aerial footage.&nbsp;</em></div><br><div style="margin: 15px 0;"><table style="width: 100%; border-collapse: collapse;"><tbody><tr><td style="padding: 8px; background: #e8f5e9; width: 30%; font-weight: bold;">📅 Frequency:</td><td style="padding: 8px;">${freqHtml}</td></tr><tr><td style="padding: 8px; background: #e8f5e9; font-weight: bold;">📍 Service Area:</td><td style="padding: 8px;">${areaHtml}</td></tr></tbody></table></div><div style="text-align: center; margin: 15px 0;"><a href="https://www.wslawncareservicesllc.com/lawnmowingservices" rel="noopener noreferrer" style="display: inline-block; background: #2e7d32; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">📖 Learn More About This Service</a></div><div style="background: #fff9e6; border: 2px dashed #f9a825; padding: 12px; margin: 15px 0; border-radius: 5px;"><strong>⚠️ Important Notes: ${notesHtml}</strong><br><em>Excessive grass fee applies if over 1' tall<br>&nbsp;***Some months may have extra visit due to 31 days - for example every 2 weeks Monday 1st, Monday 15, and Monday 29th = 3 visits for that month.*** 🌞 Spring/Summer Schedule April-September Frequency 1-2 week (depends on grass type) ❄ Fall/Winter Schedule October-March Frequency 3-4 week (depends on grass type)</em></div><br><div style="background: linear-gradient(135deg, #2e7d32, #43a047); color: white; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><div style="font-size: 16px; margin-bottom: 10px;">💰 <strong>Your Per Visit Cost:</strong></div><div style="font-size: 28px; font-weight: bold; margin-bottom: 15px;">${perVisitHtml}</div><div style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 15px; margin-top: 10px;"><div style="font-size: 16px; margin-bottom: 5px;"><strong>Your Total Monthly Cost:</strong></div><div style="font-size: 24px; font-weight: bold;">${monthlyHtml}</div></div></div><div style="background: #f1f8f4; padding: 20px; border-radius: 0; margin: 20px 0;"><h3 style="color: #2e7d32; border-bottom: 3px solid #2e7d32; padding-bottom: 10px; margin: -20px -20px 15px -20px; padding: 10px 20px; background: linear-gradient(to right, #e8f5e9, #f1f8f4);">✓ What's Included - Our Scope of Work:</h3><div style="line-height: 1.8;"><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>1.</strong> Mowing with a professional grade mower</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>2.</strong> Line trimming areas around mail boxes, and tree rings</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>3.</strong> Edging the sidewalks, driveways, and curbs with a metal blade edger (if applicable)</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>4.</strong> Cleaning up includes blowing all grass clippings off sidewalks, walkways, and driveways</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>5.</strong> Convert to leaf clean up in the fall utilizing mulching blades and blowers</div></div></div>`;
+    }
+
+    function refreshSnippet() {
+        if (!document.getElementById('snCode')) return;
+        const v = {
+            services: snVal('snServices'), frequency: snVal('snFrequency'), area: snVal('snArea'),
+            perVisit: snVal('snPerVisit'), monthly: snVal('snMonthly'), notes: snVal('snNotes')
+        };
+        const html = buildEmailSnippet(v);
+        document.getElementById('snCode').value = html;
+        document.getElementById('snPreview').innerHTML = html;
+        const kept = [];
+        const notesEl = document.getElementById('snNotes');
+        const notesEmpty = !notesEl.value.trim();
+        notesEl.classList.remove('sn-missing');
+        const notesBadge = document.getElementById('snNotesBadge');
+        if (notesBadge) { notesBadge.textContent = notesEmpty ? 'optional — left blank' : '✓ filled'; notesBadge.className = 'sn-badge ' + (notesEmpty ? '' : 'ok'); }
+        Object.keys(SNIPPET_FIELD_TAGS).forEach(id => {
+            const el = document.getElementById(id);
+            const empty = !(id === 'snPerVisit' || id === 'snMonthly' ? cleanMoney(el.value) : el.value.trim());
+            el.classList.toggle('sn-missing', empty);
+            const badge = document.getElementById(id + 'Badge');
+            if (badge) { badge.textContent = empty ? 'empty — keeps merge tag' : '✓ filled'; badge.className = 'sn-badge ' + (empty ? 'empty' : 'ok'); }
+            if (empty) kept.push(SNIPPET_FIELD_TAGS[id]);
         });
+        document.getElementById('snStatus').innerHTML = kept.length
+            ? `Left blank, so these stay as merge tags for your email system to fill: <b>${kept.join(', ')}</b>`
+            : 'Every field is filled in — no merge tags left in the snippet.';
+    }
 
-        const customerName = document.getElementById('resultCustomerName').textContent;
-        const address      = document.getElementById('resultAddress').textContent;
-        const grandTotal   = document.getElementById('resGrandTotal').textContent;
-        const dateStr      = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
-        const pricingMode  = isOffPeak ? '❄️ Off-Peak ($110/hr)' : '☀️ Peak ($158/hr)';
+    function snAutoMonthly() {
+        const m = document.getElementById('snMonthly');
+        if (m.dataset.edited === '1') return;
+        const per = parseFloat(cleanMoney(snVal('snPerVisit')));
+        const mult = SNIPPET_FREQ_MULT[snVal('snFrequency')] || 1;
+        m.value = isNaN(per) ? '' : (per * mult).toFixed(2);
+    }
 
-        const inclMow   = document.getElementById('mowingResults').style.display !== 'none';
-        const inclBed   = document.getElementById('bedResults').style.display   !== 'none';
-        const inclHedge = document.getElementById('hedgeResults').style.display !== 'none';
-        let serviceRows = '';
-        if (inclMow)   serviceRows += '<tr><td>🌿 Mowing</td><td>' + document.getElementById('resMowService').textContent + ' — ' + document.getElementById('resMowDifficulty').textContent + '</td><td style="color:#16a34a;font-weight:700;">' + document.getElementById('resMowPrice').textContent + '</td></tr>';
-        if (inclBed)   serviceRows += '<tr><td>🌺 Bed Maintenance</td><td>' + document.getElementById('resBedService').textContent + '</td><td style="color:#16a34a;font-weight:700;">' + document.getElementById('resBedTotal').textContent + '</td></tr>';
-        if (inclHedge) serviceRows += '<tr><td>✂️ Hedge/Shrub</td><td>' + document.getElementById('resHedgeCategory').textContent + ' — ' + document.getElementById('resHedgeFt').textContent + '</td><td style="color:#16a34a;font-weight:700;">' + document.getElementById('resHedgeTotal').textContent + '</td></tr>';
+    function populateSnippetFields(grandTotal) {
+        const inclMow   = document.getElementById('includeMowing').checked;
+        const inclBed   = document.getElementById('includeBed').checked;
+        const inclHedge = document.getElementById('includeHedge').checked;
+        const isPush    = document.getElementById('serviceType').value === 'push';
+        let key = 'mow_only';
+        if (inclMow && inclBed && inclHedge)  key = 'mow_bed_hedge';
+        else if (inclMow && inclBed)          key = 'mow_bed';
+        else if (inclBed && inclHedge)        key = 'bed_hedge';
+        else if (inclMow && inclHedge)        key = 'mow_hedge';
+        else if (inclMow)                     key = isPush ? 'push_only' : 'mow_only';
+        else if (inclBed)                     key = 'bed_only';
+        else if (inclHedge)                   key = 'hedge_only';
+        const serviceLabel = { mow_only:'Mowing Service', push_only:'Mowing Service', bed_only:'Bed Maintenance', hedge_only:'Bed/Shrub Maintenance', mow_bed:'Mowing/Bed Maintenance', bed_hedge:'Bed/Shrub Maintenance', mow_hedge:'Mowing Service', mow_bed_hedge:'Mowing/Bed Maintenance' }[key];
+        const freqVal = inclMow ? (document.getElementById('frequency').value || 'onetime') : 'onetime';
+        const freqLabel = { onetime:'One Time', weekly:'Weekly', biweekly:'Bi-Weekly', monthly:'Monthly' }[freqVal] || 'One Time';
 
-        const pw = window.open('', '_blank', 'width=800,height=900');
-        pw.document.write(`<!DOCTYPE html><html><head><title>Staff Summary — ${customerName}</title>
-        <style>
-            * { margin:0; padding:0; box-sizing:border-box; }
-            body { font-family: Arial, sans-serif; padding: 30px; color: #1f2937; }
-            .header { text-align:center; border-bottom:3px solid #21A348; padding-bottom:16px; margin-bottom:20px; }
-            .logo { max-width:150px; margin:0 auto 10px; display:block; }
-            h1 { font-size:22px; color:#21A348; margin-bottom:4px; }
-            .sub { font-size:13px; color:#6b7280; }
-            .info-bar { background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:8px; padding:10px 14px; margin-bottom:16px; display:flex; gap:20px; flex-wrap:wrap; font-size:13px; }
-            .info-bar strong { color:#166534; }
-            .section-title { font-size:14px; font-weight:800; color:#374151; border-left:4px solid #21A348; padding-left:10px; margin:16px 0 8px; }
-            table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:16px; }
-            th { background:#1f2937; color:white; padding:7px 10px; text-align:left; font-size:11px; text-transform:uppercase; }
-            td { padding:7px 10px; border-bottom:1px solid #f3f4f6; }
-            tr:nth-child(even) td { background:#f9fafb; }
-            .total-bar { background:linear-gradient(135deg,#166534,#15803d); color:white; border-radius:10px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-            .total-label { font-size:12px; font-weight:600; opacity:0.85; text-transform:uppercase; }
-            .total-amount { font-size:26px; font-weight:800; }
-            .sa-panel { background:#f8faff; border:2px solid #6366f1; border-radius:10px; padding:14px; margin-bottom:16px; }
-            .sa-panel-title { font-size:12px; font-weight:800; color:#3730a3; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
-            .sa-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-            .sa-cell { background:white; border:1px solid #e0e7ff; border-radius:6px; padding:7px 10px; }
-            .sa-cell-label { font-size:10px; color:#6366f1; font-weight:700; text-transform:uppercase; margin-bottom:2px; }
-            .sa-cell-val { font-size:13px; font-weight:700; color:#111827; }
-            .onsite { background:#eef2ff; border:1.5px solid #818cf8; border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; margin-bottom:14px; }
-            .onsite-label { font-size:12px; color:#4338ca; font-weight:700; }
-            .onsite-val { font-size:18px; font-weight:800; color:#3730a3; }
-            .footer { margin-top:20px; padding-top:14px; border-top:2px solid #e5e7eb; text-align:center; font-size:11px; color:#9ca3af; }
-            @media print { body { padding:15px; } @page { margin:0.4in; } }
-        </style></head><body>
-        <div class="header">
-            <img src="https://04bab2c6a63da3ec5306-1c92bab3ac761f2036299816f4cab718.ssl.cf1.rackcdn.com//eaf97ab3-bb79-4ee9-8077-7feb7fb9e12c.png" class="logo" onerror="this.style.display='none'">
-            <h1>Staff Property Estimate Summary</h1>
-            <div class="sub">Generated: ${dateStr}</div>
-        </div>
-        <div class="info-bar">
-            <span><strong>Customer:</strong> ${customerName}</span>
-            <span><strong>Address:</strong> ${address}</span>
-            <span><strong>Pricing:</strong> ${pricingMode}</span>
-        </div>
-        <div class="onsite">
-            <div class="onsite-label">⏰ Total On-Site Time &nbsp;·&nbsp; ${document.getElementById('resCrewSize').textContent}</div>
-            <div class="onsite-val">${document.getElementById('resOnsiteTime').textContent}</div>
-        </div>
-        <div class="section-title">Services Estimated</div>
-        <table>
-            <thead><tr><th>Service</th><th>Details</th><th>Price</th></tr></thead>
-            <tbody>${serviceRows}</tbody>
-        </table>
-        <div class="total-bar">
-            <div class="total-label">Total Estimate</div>
-            <div class="total-amount">${grandTotal}</div>
-        </div>
-        <div class="sa-panel">
-            <div class="sa-panel-title">📋 ServiceAutopilot — Data Entry Reference</div>
-            <div class="sa-grid">
-                ${rows.map(([label, val]) => `<div class="sa-cell"><div class="sa-cell-label">${label}</div><div class="sa-cell-val">${val}</div></div>`).join('')}
-            </div>
-        </div>
-        <div class="footer">
-            <p><strong>WS Lawn Care Services, LLC</strong> &nbsp;·&nbsp; Staff Use Only &nbsp;·&nbsp; Not for distribution</p>
-        </div>
-        <script>window.onload=function(){setTimeout(function(){window.print();},300);};<\/script>
-        </body></html>`);
-        pw.document.close();
+        document.getElementById('snServices').value  = serviceLabel;
+        document.getElementById('snFrequency').value = freqLabel;
+        document.getElementById('snPerVisit').value  = grandTotal.toFixed(2);
+        const monthly = document.getElementById('snMonthly');
+        monthly.dataset.edited = '0';
+        snAutoMonthly();
+        const area = document.getElementById('snArea');
+        if (!area.value.trim() && area.dataset.edited !== '1') area.value = 'Front & Back';
+        refreshSnippet();
+    }
+
+    function copySnippet() {
+        const ta = document.getElementById('snCode');
+        const btn = document.getElementById('snCopyBtn');
+        const done = (ok) => { btn.textContent = ok ? '✅ Copied!' : '⚠️ Press Ctrl+C to copy'; setTimeout(() => { btn.textContent = '📋 Copy HTML Code'; }, 2000); };
+        const fallback = () => { ta.focus(); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} done(ok); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(() => done(true)).catch(fallback);
+        else fallback();
+    }
+
+    // ===== VERIFY-BEFORE-CALCULATE BANNER =====
+    // Fixed to the bottom of the screen. "Get Estimate Totals" stays hidden until the user confirms the setup.
+    // Changing anything in Steps 2-3 clears the confirmation so the totals always match what was reviewed.
+    let lastTotalOnsiteMins = null;
+    let setupAcknowledged = false;
+    let bannerDetailsOpen = true;
+
+    function selText(id) { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex].text : ''; }
+    function numVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    function getSetupChecks() {
+        const checks = [];
+        const add = (level, text) => checks.push({ level, text });
+        const crew = getCrewSize();
+        const mowers = selectedMowerIds.size;
+        const support = Math.max(0, crew - mowers);
+        const inclMow   = document.getElementById('includeMowing').checked;
+        const inclBed   = document.getElementById('includeBed').checked;
+        const inclHedge = document.getElementById('includeHedge').checked;
+
+        // Pricing mode
+        add('info', isOffPeak ? '❄️ Pricing mode: Off-Peak — $110/hr. Is this right for the season?' : '☀️ Pricing mode: Peak season — $158/hr. Is this right for the season?');
+        if (isOffPeak && (inclBed || inclHedge)) add('info', 'Off-Peak only changes the mowing price. Bed and hedge prices use their own rate tables.');
+
+        // Mowing
+        if (inclMow) {
+            if (isManualTimeMode && manualTimeMins > 0) add('ok', `Lawn: manual time estimate of ${manualTimeMins} min (${selText('manualTimeReason')}). No square footage is used.`);
+            else if (totalArea > 0) {
+                const src = document.getElementById('manualSqftSource').value.trim();
+                add('ok', `Lawn: ${totalArea.toLocaleString()} sq ft entered${src ? ' (' + src + ')' : ''}`);
+            } else add('error', 'Lawn: no measurement. Enter square footage or a manual mow time in Step 2.');
+
+            if (!document.getElementById('serviceType').value) add('error', 'Mowing: choose a service type (Stand-On or Push).');
+            else add('ok', `Mowing: ${selText('serviceType')} · ${selText('difficultyLevel')} · ${selText('frequency')}`);
+        } else {
+            add('info', 'Add-on quote: lawn mowing is not included.');
+        }
+
+        // Crew and mowers
+        if (mowers > crew) {
+            add('error', `Crew: ${mowers} mowers are checked but only ${crew} tech${crew !== 1 ? 's' : ''} on site.`);
+        } else if (mowers === 0) {
+            add(inclMow ? 'warn' : 'info', inclMow
+                ? 'Mowers: none checked, so mow time falls back to the solo estimate and fuel cost shows $0.'
+                : 'Mowers: none checked (not needed, no mowing in this quote).');
+        } else {
+            add('ok', `Crew: ${crew}-person · ${getMowersRunningLabel()} · ` + (support > 0
+                ? `${support} support tech${support !== 1 ? 's' : ''} trimming alongside`
+                : 'no support tech, operators trim after cutting'));
+        }
+
+        // Beds
+        if (inclBed) {
+            const method = document.getElementById('bedPricingMethod').value;
+            const meas = method === 'sqft' ? numVal('bedSqFt') : numVal('bedLinearFt');
+            const unit = method === 'sqft' ? 'sq ft' : 'linear ft';
+            const svcVal = document.getElementById('bedServiceType').value;
+            const fee = document.getElementById('bedMaterialFee').value;
+            if (meas <= 0) add('error', `Beds: enter the bed ${method === 'sqft' ? 'area (sq ft)' : 'linear feet'}.`);
+            else add('ok', `Beds: ${selText('bedServiceType')} · ${meas} ${unit} · ` + (document.getElementById('bedFirstCut').value === 'yes' ? 'first-cut surcharge +50% ON' : 'no first-cut surcharge') + ` · disposal: ${selText('bedDisposal')}`);
+            if (svcVal.startsWith('pull') && fee !== '0') add('warn', 'Beds: Hard Pull is selected but an RM18 material fee is being charged.');
+            if ((svcVal.startsWith('spray') || svcVal === 'hybrid') && fee === '0') add('warn', 'Beds: this service uses RM18 but the material fee is $0.');
+            if (method === 'sqft' && meas > 500 && fee === '15') add('warn', 'Beds: area is over 500 sq ft but the material fee is set to Small Job ($15).');
+            if (method === 'sqft' && meas > 0 && meas < 500 && fee === '30') add('warn', 'Beds: area is under 500 sq ft but the material fee is set to Large Job ($30).');
+            if (crew > 1) add('info', 'Bed time ' + (document.getElementById('splitBedTime').checked ? 'is split across the crew (both techs working beds together).' : 'stays solo, not split across the crew.'));
+        }
+
+        // Hedges
+        if (inclHedge) {
+            const ft = numVal('hedgeLinearFt');
+            if (ft <= 0) add('error', 'Hedges: enter the linear feet to trim.');
+            else add('ok', `Hedges: ${selText('hedgeCategory')} · ${ft} linear ft · $${parseFloat(document.getElementById('hedgeRate').value).toFixed(2)}/ft · ` + (document.getElementById('hedgeDepth').value === '2' ? 'DEEP WALL 2x rate' : 'standard depth') + ' · ' + (document.getElementById('hedgeFirstCut').value === 'yes' ? 'first-cut surcharge +50% ON' : 'no first-cut surcharge') + ` · disposal: ${selText('hedgeDisposal')}`);
+            if (crew > 1) add('info', 'Hedge time ' + (document.getElementById('splitHedgeTime').checked ? 'is split across the crew (both techs running trimmers).' : 'stays solo, not split across the crew.'));
+        }
+
+        return checks;
+    }
+
+    function updateBannerSpacer() {
+        const banner = document.getElementById('crewSummaryBanner');
+        const spacer = document.getElementById('bannerSpacer');
+        if (banner && spacer) spacer.style.height = (banner.offsetHeight + 24) + 'px';
+    }
+
+    function updateCrewBanner() {
+        const banner = document.getElementById('crewSummaryBanner');
+        if (!banner) return;
+        const crew = getCrewSize();
+        const mowers = selectedMowerIds.size;
+        const support = Math.max(0, crew - mowers);
+        const speedup = STANDON_SQFT_PER_HOUR > 0 ? getCombinedMowerRate() / STANDON_SQFT_PER_HOUR : 0;
+        const chips = [
+            `👥 <b>${crew}</b>-person crew`,
+            `🚜 <b>${mowers}</b> mower${mowers !== 1 ? 's' : ''} running`,
+            `✂️ <b>${support}</b> tech${support !== 1 ? 's' : ''} trimming/support`,
+            `⚡ <b>${mowers > 0 ? speedup.toFixed(2) + 'x' : '—'}</b> cutting speed`,
+            `⏰ Est. stop: <b>${lastTotalOnsiteMins != null ? formatMins(lastTotalOnsiteMins) : '—'}</b>`
+        ];
+        document.getElementById('crewBannerChips').innerHTML = chips.map(c => `<span class="crew-banner-chip">${c}</span>`).join('');
+
+        const checks = getSetupChecks();
+        const icons = { ok: '✔️', info: 'ℹ️', warn: '⚠️', error: '⛔' };
+        document.getElementById('crewBannerChecklist').innerHTML = checks.map(c => `<li class="crew-check ${c.level}"><span class="crew-check-icon">${icons[c.level]}</span><span>${escHtml(c.text)}</span></li>`).join('');
+        const errors = checks.filter(c => c.level === 'error').length;
+        const warns  = checks.filter(c => c.level === 'warn').length;
+
+        const tag = document.getElementById('crewBannerTag');
+        const ackBtn = document.getElementById('crewAckBtn');
+        const note = document.getElementById('crewAckNote');
+        banner.classList.toggle('verified', setupAcknowledged);
+        banner.classList.toggle('warn', !setupAcknowledged && errors > 0);
+
+        if (setupAcknowledged) {
+            tag.textContent = 'Confirmed';
+            ackBtn.style.display = 'none';
+            note.textContent = '✅ You confirmed this setup. If you change anything, you will be asked to confirm again.';
+        } else {
+            ackBtn.style.display = '';
+            if (errors > 0) {
+                tag.textContent = `Fix ${errors} item${errors !== 1 ? 's' : ''}`;
+                ackBtn.disabled = true;
+                ackBtn.textContent = '⛔ Fix the red items first';
+                note.textContent = 'Get Estimate Totals unlocks after you confirm.';
+            } else {
+                tag.textContent = warns > 0 ? `Review ${warns} warning${warns !== 1 ? 's' : ''}` : 'Check, then confirm';
+                ackBtn.disabled = false;
+                ackBtn.textContent = '✅ Yes — all looks good';
+                note.textContent = warns > 0 ? 'Read the warnings above before you confirm.' : 'Get Estimate Totals unlocks after you confirm.';
+            }
+        }
+        document.getElementById('crewBannerBody').style.display = bannerDetailsOpen ? '' : 'none';
+        document.getElementById('crewBannerToggle').textContent = bannerDetailsOpen ? '▾ Hide details' : '▸ Show details';
+        updateBannerSpacer();
+    }
+
+    function toggleBannerDetails() { bannerDetailsOpen = !bannerDetailsOpen; updateCrewBanner(); }
+
+    function acknowledgeSetup() {
+        if (getSetupChecks().some(c => c.level === 'error')) { updateCrewBanner(); return; }
+        setupAcknowledged = true;
+        bannerDetailsOpen = false;
+        const calcBtn = document.getElementById('calculateBtn');
+        calcBtn.style.display = 'block';
+        updateCrewBanner();
+        calcBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function resetAcknowledgement() {
+        if (!setupAcknowledged) return;
+        setupAcknowledged = false;
+        bannerDetailsOpen = true;
+        document.getElementById('calculateBtn').style.display = 'none';
+        updateCrewBanner();
     }
 
     // ===== SEASON MODE =====
@@ -997,6 +1328,7 @@
     }
 
     function recalcCrewTime() {
+        resetAcknowledgement();
         renderMowerFleet();
         const svc  = document.getElementById('serviceType').value;
         const diff = document.getElementById('difficultyLevel').value;
@@ -1010,10 +1342,10 @@
         let mowBudg = 0, mowOnsite = 0;
         if (isManualTimeMode && manualTimeMins > 0 && diff) {
             const result = calculateMowingFromTime(manualTimeMins, svc || 'standard', diff);
-            mowBudg = result.bMins; mowOnsite = Math.ceil(mowBudg / getMowSpeedupFactor(svc || 'standard'));
+            mowBudg = result.bMins; mowOnsite = calcMowOnsite(mowBudg, svc || 'standard', diff, crew).onsite;
         } else if (svc && diff && totalArea > 0) {
             const result = calculateMowing(totalArea, svc, diff);
-            mowBudg = result.bMins; mowOnsite = Math.ceil(mowBudg / getMowSpeedupFactor(svc));
+            mowBudg = result.bMins; mowOnsite = calcMowOnsite(mowBudg, svc, diff, crew).onsite;
         }
 
         let bedBudg = 0, bedOnsite = 0;
@@ -1022,7 +1354,7 @@
         let hedgeBudg = 0, hedgeOnsite = 0;
         if (inclHedgeCheck) { try { const hedge = calculateHedge(); hedgeBudg = Math.round((hedge.total / PEAK_HOURLY_RATE) * 60); hedgeOnsite = splitHedge ? calcOnsiteTime(hedgeBudg, crew) : hedgeBudg; } catch(e) {} }
 
-        if (mowOnsite === 0 && bedOnsite === 0 && hedgeOnsite === 0) { preview.textContent = '— enter a lawn measurement and add services to preview'; return; }
+        if (mowOnsite === 0 && bedOnsite === 0 && hedgeOnsite === 0) { preview.textContent = '— enter a lawn measurement and add services to preview'; lastTotalOnsiteMins = null; updateCrewBanner(); return; }
         const parallelOnsite = Math.max(mowOnsite, hedgeOnsite);
         const totalOnsite = parallelOnsite + bedOnsite;
         let parts = [];
@@ -1030,6 +1362,8 @@
         if (hedgeBudg > 0) parts.push(`Hedges: ${formatMins(hedgeOnsite)}`);
         if (bedBudg > 0)   parts.push(`Beds: ${formatMins(bedOnsite)}`);
         preview.textContent = `Total stop: ${formatMins(totalOnsite)} (${crew}-person crew)${parts.length ? ' — ' + parts.join(' · ') : ''}`;
+        lastTotalOnsiteMins = totalOnsite;
+        updateCrewBanner();
     }
 
     // ===== STATE =====
@@ -1193,6 +1527,7 @@
 
     // ===== CALCULATE BUTTON =====
     document.getElementById('calculateBtn').addEventListener('click', () => {
+        if (!setupAcknowledged) { alert('Please review the crew and setup banner and confirm it first.'); return; }
         const firstName = document.getElementById('customerFirstName').value.trim();
         const lastName  = document.getElementById('customerLastName').value.trim();
         const inclMow   = document.getElementById('includeMowing').checked;
@@ -1234,7 +1569,8 @@
                 const sqftSource = document.getElementById('manualSqftSource').value.trim();
                 areaLabel = totalArea.toLocaleString() + ' sq ft (entered' + (sqftSource ? ' · ' + sqftSource : '') + ')';
             }
-            const onsiteMins = Math.ceil(mow.bMins / getMowSpeedupFactor(svc));
+            const mowSplit = calcMowOnsite(mow.bMins, svc, diff, crew);
+            const onsiteMins = mowSplit.onsite;
             const svcNames  = {standard:'Stand-On Mowing', push:'Push Mowing - Bagged'};
             const diffNames = {standard:'Standard (Flat)', sloped:'Sloped/Hilly', extreme:'Extreme/Obstacles'};
             const freqNames = {onetime:'One-time', weekly:'Weekly', biweekly:'Bi-weekly', monthly:'Monthly'};
@@ -1247,6 +1583,11 @@
             document.getElementById('resMowBHrs').textContent      = formatMins(mow.bMins);
             document.getElementById('resMowCrew').textContent      = `${crewLabel} — ${getMowersRunningLabel()}${techsSupport > 0 ? ` (+${techsSupport} trimming/support)` : ''}`;
             document.getElementById('resMowOnsite').textContent    = formatMins(onsiteMins);
+            document.getElementById('resMowSplit').textContent     = mowSplit.mode === 'solo'
+                ? 'Check mowers to split'
+                : `${formatMins(mowSplit.cut)} cut + ${formatMins(mowSplit.trim)} trim` + (mowSplit.mode === 'parallel'
+                    ? ` → ${formatMins(mowSplit.cutOnsite)} cut ‖ ${formatMins(mowSplit.trimOnsite)} trim (${mowSplit.support} support, in parallel)`
+                    : ` → ${formatMins(mowSplit.cutOnsite)} cut, then ${formatMins(mowSplit.trimOnsite)} trim (no support tech)`);
             document.getElementById('resMowPricingMode').textContent = pricingModeLabel;
             document.getElementById('resMowPrice').textContent     = '$' + mow.price.toFixed(2);
             document.getElementById('mowingResults').style.display = 'block';
@@ -1325,7 +1666,7 @@
         const mowBMinsForTotal = inclMow ? (isManualTimeMode
             ? Math.ceil(manualTimeMins * DIFFICULTY_MULTIPLIERS[document.getElementById('difficultyLevel').value].multiplier * (document.getElementById('serviceType').value === 'push' ? 2.5 : 1.0))
             : calculateMowing(totalArea, document.getElementById('serviceType').value, document.getElementById('difficultyLevel').value).bMins) : 0;
-        const mowOnsite   = inclMow ? Math.ceil(mowBMinsForTotal / getMowSpeedupFactor(document.getElementById('serviceType').value)) : 0;
+        const mowOnsite   = inclMow ? calcMowOnsite(mowBMinsForTotal, document.getElementById('serviceType').value, document.getElementById('difficultyLevel').value, crew).onsite : 0;
         const splitHedgeF = document.getElementById('splitHedgeTime').checked;
         const splitBedF   = document.getElementById('splitBedTime').checked;
         const hedgeOnsite = inclHedge ? (splitHedgeF ? calcOnsiteTime(hedgeBudgMins, crew) : hedgeBudgMins) : 0;
@@ -1350,47 +1691,8 @@
         marginEl.textContent = '$' + margin.toFixed(2) + ' (' + marginPct.toFixed(0) + '%)';
         marginEl.style.color = margin >= 0 ? '#16a34a' : '#dc2626';
 
-        // ===== POPULATE SA DATA SUMMARY GRID =====
-        const inclMowF  = document.getElementById('includeMowing').checked;
-        const inclBedF  = document.getElementById('includeBed').checked;
-        const inclHedgeF= document.getElementById('includeHedge').checked;
-        const isPushF   = document.getElementById('serviceType')?.value === 'push';
-        const freqValF  = inclMowF ? (document.getElementById('frequency').value || 'onetime') : 'onetime';
-        let jobKeyF = 'mow_only';
-        if (inclMowF && inclBedF && inclHedgeF)      jobKeyF = 'mow_bed_hedge';
-        else if (inclMowF && inclBedF)               jobKeyF = 'mow_bed';
-        else if (inclBedF && inclHedgeF)             jobKeyF = 'bed_hedge';
-        else if (inclMowF && inclHedgeF)             jobKeyF = 'mow_hedge';
-        else if (inclMowF)                           jobKeyF = isPushF ? 'push_only' : 'mow_only';
-        else if (inclBedF)                           jobKeyF = 'bed_only';
-        else if (inclHedgeF)                         jobKeyF = 'hedge_only';
-        const jobLabelF = { mow_only:'Mowing Service', push_only:'Mowing Service', bed_only:'Bed Maintenance', hedge_only:'Bed/Shrub Maintenance', mow_bed:'Mowing/Bed Maintenance', bed_hedge:'Bed/Shrub Maintenance', mow_hedge:'Mowing Service', mow_bed_hedge:'Mowing/Bed Maintenance' }[jobKeyF] || 'Mowing Service';
-        const freqLabelF = { onetime:'One Time', weekly:'Weekly', biweekly:'Bi-Weekly', monthly:'Monthly' }[freqValF] || 'One Time';
-        const freqMultF  = { onetime:1, weekly:4, biweekly:2, monthly:1 }[freqValF] || 1;
-        const depositF   = (grandTotal * freqMultF).toFixed(2);
-        const fnF  = document.getElementById('customerFirstName').value.trim();
-        const lnF  = document.getElementById('customerLastName').value.trim();
-
-        const saRows = [
-            ['First Name',          fnF   || '—'],
-            ['Last Name',           lnF   || '—'],
-            ['Services Interested', jobLabelF],
-            ['Frequency',           freqLabelF],
-            ['Service Area',        'Front & Back'],
-            ['Per Visit Cost',      '$' + grandTotal.toFixed(2)],
-            ['Deposit/Monthly',     '$' + depositF],
-            ['Material',            'N/A'],
-            ['Project Notes',       '—']
-        ];
-        const grid = document.getElementById('saDataGrid');
-        grid.innerHTML = '';
-        saRows.forEach(([label, val]) => {
-            const cell = document.createElement('div');
-            cell.style.cssText = 'background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 10px;';
-            cell.innerHTML = '<div style="font-size:10px;color:#6366f1;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px;">' + label + '</div>'
-                           + '<div style="font-size:13px;font-weight:700;color:#111827;">' + val + '</div>';
-            grid.appendChild(cell);
-        });
+        // ===== PREFILL EMAIL SNIPPET GENERATOR =====
+        populateSnippetFields(grandTotal);
 
         document.getElementById('resultsModal').classList.add('active');
     });
@@ -1607,7 +1909,12 @@
 
     window.addEventListener('load', () => {
         toggleMowingSection();
+        syncServiceTypeToMowers();
         renderMowerFleet();
+        updateCrewBanner();
+        ['step2', 'step3'].forEach(id => ['input', 'change'].forEach(evt => document.getElementById(id).addEventListener(evt, () => { resetAcknowledgement(); updateCrewBanner(); })));
+        window.addEventListener('resize', updateBannerSpacer);
+        if (window.ResizeObserver) new ResizeObserver(updateBannerSpacer).observe(document.getElementById('crewSummaryBanner'));
     });
 </script>
 </body>
