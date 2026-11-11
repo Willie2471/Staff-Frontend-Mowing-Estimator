@@ -637,9 +637,12 @@
                     </div>
                     <div class="time-breakdown-row highlight" style="margin-top:8px;padding-top:8px;border-top:2px solid #818cf8;">
                         <span class="tbd-label" style="font-weight:700;color:#1e1b4b;font-size:14px;">⏰ Budgeted Time for Service Autopilot</span>
-                        <span class="tbd-value" id="resOnsiteTime" style="font-size:17px;color:#3730a3;">—</span>
+                        <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+                            <span class="tbd-value" id="resOnsiteTime" style="font-size:17px;color:#3730a3;">—</span>
+                            <span id="resOnsiteDecimal" title="Service Autopilot takes budgeted time in decimal hours (minutes ÷ 60)" style="background:#3730a3;color:white;border-radius:8px;padding:3px 10px;font-size:15px;font-weight:800;white-space:nowrap;">—</span>
+                        </span>
                     </div>
-                    <div style="font-size:11.5px;color:#4338ca;margin-top:6px;line-height:1.45;">This is the total on-site time for the stop. It is the budgeted time you will enter in Service Autopilot.</div>
+                    <div style="font-size:11.5px;color:#4338ca;margin-top:6px;line-height:1.45;">This is the total on-site time for the stop. It is the budgeted time you will enter in Service Autopilot. <b>Service Autopilot takes decimal hours</b> (minutes ÷ 60): <span id="resOnsiteDecimalNote">—</span></div>
                     <div id="manualTimeNotice" style="display:none;" class="mt-2 text-xs text-indigo-700 bg-indigo-50 rounded p-2 font-medium">
                         ⚠️ Mowing time based on manual staff estimate — measurement not available
                     </div>
@@ -1431,6 +1434,9 @@
     // ===== CREW SIZE HELPERS =====
     function getCrewSize() { return parseInt(document.getElementById('crewSize').value) || 1; }
     function calcOnsiteTime(bMins, crewSize) { return Math.ceil(bMins / crewSize); }
+    // Service Autopilot takes budgeted time as decimal hours (minutes / 60), so show that next to the h/min version.
+    function toDecimalHours(mins) { return (mins / 60).toFixed(2); }
+
     function formatMins(mins) {
         if (mins < 60) return mins + ' min';
         const h = Math.floor(mins / 60), m = mins % 60;
@@ -1800,6 +1806,8 @@
         const techsSupportTotal  = Math.max(0, crew - mowersRunningTotal);
         document.getElementById('resCrewSize').textContent  = `${crewLabel}${inclMow ? ` (🚜 ${mowersRunningTotal} mowing${techsSupportTotal > 0 ? `, ✂️ ${techsSupportTotal} support` : ''})` : ''}`;
         document.getElementById('resOnsiteTime').textContent= formatMins(totalOnsiteMins);
+        document.getElementById('resOnsiteDecimal').textContent = toDecimalHours(totalOnsiteMins) + ' hrs';
+        document.getElementById('resOnsiteDecimalNote').textContent = `${totalOnsiteMins} min ÷ 60 = ${toDecimalHours(totalOnsiteMins)} hrs`;
         document.getElementById('timeBreakdownBox').style.display = 'block';
         document.getElementById('resGrandTotal').textContent = '$' + grandTotal.toFixed(2);
 
@@ -1875,7 +1883,7 @@
 
         const totalStopTimeSec = `<div style="background:#eef2ff;border:2px solid #818cf8;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
             <div><div style="font-size:11px;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:0.5px;">⏱️ Budgeted Time for Service Autopilot (${document.getElementById('resCrewSize').textContent})</div><div style="font-size:11px;color:#818cf8;margin-top:3px;">Total on-site time: enter this as the budgeted time in Service Autopilot · Mow/hedge run in parallel · Beds sequential</div></div>
-            <div style="font-size:24px;font-weight:800;color:#3730a3;">${document.getElementById('resOnsiteTime').textContent}</div>
+            <div style="text-align:right;"><div style="font-size:24px;font-weight:800;color:#3730a3;">${document.getElementById('resOnsiteDecimal').textContent}</div><div style="font-size:12px;font-weight:700;color:#6366f1;">${document.getElementById('resOnsiteTime').textContent} · Service Autopilot decimal hours</div></div>
         </div>`;
 
         const pricingBannerColor = isOffPeak ? '#1d4ed8' : '#b45309';
