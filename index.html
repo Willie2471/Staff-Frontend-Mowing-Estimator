@@ -25,7 +25,7 @@
             .modal-overlay { position: static !important; background: none !important; padding: 0 !important; display: block !important; align-items: unset !important; }
             .modal-content { box-shadow: none !important; max-height: none !important; overflow: visible !important; border-radius: 0 !important; padding: 20px !important; max-width: 100% !important; }
             .modal-close, #pdfBtn, #pdfCustomerBtn { display: none !important; }
-            #snippetPanel, #crewSummaryBanner { display: none !important; }
+            #snippetPanel, .guide-progress, .guide-slot { display: none !important; }
             .result-section { break-inside: avoid; }
         }
         .modal-close { position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 10; }
@@ -116,36 +116,37 @@
         .time-breakdown-row .tbd-label { color: #6b7280; }
         .time-breakdown-row .tbd-value { font-weight: 700; color: #1f2937; }
         .time-breakdown-row.highlight .tbd-value { color: #4338ca; font-size: 15px; }
-        /* Verify-before-calculate banner (fixed to the bottom of the screen) */
-        .crew-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: linear-gradient(135deg, #fffbeb, #fef3c7); border-top: 4px solid #f59e0b; box-shadow: 0 -8px 28px rgba(217,119,6,0.35); }
-        .crew-banner.warn { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-top-color: #ef4444; box-shadow: 0 -8px 28px rgba(220,38,38,0.35); }
-        .crew-banner.verified { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-top-color: #16a34a; box-shadow: 0 -8px 28px rgba(22,163,74,0.3); }
-        .crew-banner-inner { max-width: 1100px; margin: 0 auto; padding: 10px 16px 12px; }
-        .crew-banner-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .crew-banner-title { font-weight: 800; font-size: 14px; color: #78350f; }
-        .crew-banner.warn .crew-banner-title { color: #7f1d1d; }
-        .crew-banner.verified .crew-banner-title { color: #14532d; }
-        .crew-banner-tag { display: inline-block; margin-left: 6px; background: #f59e0b; color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; }
-        .crew-banner.warn .crew-banner-tag { background: #ef4444; }
-        .crew-banner.verified .crew-banner-tag { background: #16a34a; }
-        .crew-banner-toggle { background: transparent; border: 1.5px solid rgba(0,0,0,0.25); color: #374151; border-radius: 8px; padding: 3px 10px; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; }
-        .crew-banner-body { max-height: 38vh; overflow-y: auto; margin-top: 6px; }
-        .crew-banner-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-        .crew-banner-chip { background: white; border: 1.5px solid #fcd34d; border-radius: 8px; padding: 3px 10px; font-size: 12.5px; color: #1f2937; }
-        .crew-banner.warn .crew-banner-chip { border-color: #fca5a5; }
-        .crew-banner.verified .crew-banner-chip { border-color: #86efac; }
-        .crew-banner-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; }
-        @media (max-width: 760px) { .crew-banner-list { grid-template-columns: 1fr; } }
-        .crew-check { display: flex; gap: 7px; font-size: 12px; line-height: 1.4; color: #374151; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,0.55); }
-        .crew-check.warn { background: #fef3c7; color: #78350f; font-weight: 600; }
-        .crew-check.error { background: #fecaca; color: #7f1d1d; font-weight: 700; }
-        .crew-check-icon { flex-shrink: 0; }
-        .crew-banner-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-        .crew-ack-btn { background: #16a34a; color: white; border: none; border-radius: 10px; padding: 10px 22px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: inherit; box-shadow: 0 3px 10px rgba(22,163,74,0.4); }
-        .crew-ack-btn:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; }
-        @media (max-width: 640px) { .crew-ack-btn { width: 100%; } }
-        .crew-ack-note { font-size: 11.5px; color: #78350f; font-weight: 600; }
-        .crew-banner.verified .crew-ack-note { color: #14532d; }
+        /* Guided Step 3: progress strip, small tag, and a call-out that only appears on hover/tap */
+        .guide-progress { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px; padding: 8px 12px; margin-bottom: 14px; }
+        .guide-progress-title { font-weight: 800; font-size: 13px; color: #334155; margin-right: 4px; }
+        .guide-chip { border: 2px solid #cbd5e1; background: white; color: #64748b; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+        .guide-chip.done { border-color: #16a34a; background: #f0fdf4; color: #166534; }
+        .guide-chip.active { border-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .guide-progress-count { margin-left: auto; font-size: 12px; font-weight: 600; color: #64748b; }
+        .guide-slot { position: relative; margin: 0 0 6px; }
+        .guide-tag { display: inline-flex; align-items: center; gap: 6px; background: #fffbeb; border: 2px solid #f59e0b; color: #92400e; border-radius: 999px; padding: 1px 12px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: inherit; }
+        .guide-tag.attn { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+        .guide-pop { position: absolute; left: 0; right: 0; bottom: 100%; margin-bottom: 10px; max-width: 760px; z-index: 60; display: none; }
+        .guide-slot.open .guide-pop { display: block; animation: guideFade 0.15s ease-out; }
+        @keyframes guideFade { from { opacity: 0; } to { opacity: 1; } }
+        .guide-callout.active { position: relative; background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 3px solid #f59e0b; border-radius: 14px; padding: 14px 16px; box-shadow: 0 10px 28px rgba(0,0,0,0.28); font-family: inherit; }
+        .guide-callout.active::after { content: ''; position: absolute; left: 32px; bottom: -12px; width: 18px; height: 18px; background: #fef3c7; border-right: 3px solid #f59e0b; border-bottom: 3px solid #f59e0b; transform: rotate(45deg); }
+        .guide-badge { display: inline-block; background: #f59e0b; color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 9px; border-radius: 999px; }
+        .guide-q { font-size: 16px; font-weight: 800; color: #78350f; margin: 6px 0 4px; line-height: 1.3; }
+        .guide-body { font-size: 13px; color: #78350f; line-height: 1.55; }
+        .guide-why { font-size: 12px; color: #92400e; margin-top: 8px; background: rgba(255,255,255,0.65); border-radius: 8px; padding: 6px 10px; line-height: 1.45; }
+        .guide-now { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .guide-now span { background: white; border: 1.5px solid #fcd34d; border-radius: 8px; padding: 3px 10px; font-size: 12.5px; color: #1f2937; font-weight: 600; }
+        .guide-msg { margin-top: 8px; font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 8px; line-height: 1.45; }
+        .guide-msg.error { background: #fecaca; color: #7f1d1d; }
+        .guide-msg.warn { background: #fde68a; color: #78350f; }
+        .guide-msg.note { background: rgba(255,255,255,0.7); color: #78350f; font-weight: 600; }
+        .guide-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .guide-confirm { background: #16a34a; color: white; border: none; border-radius: 10px; padding: 10px 18px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: inherit; box-shadow: 0 3px 10px rgba(22,163,74,0.35); text-align: left; }
+        .guide-confirm:disabled { background: #9ca3af; box-shadow: none; cursor: not-allowed; }
+        .guide-later { background: white; color: #92400e; border: 2px solid #fcd34d; border-radius: 10px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+        @media (max-width: 640px) { .guide-confirm, .guide-later { width: 100%; } }
+        .guide-target { outline: 2px solid rgba(245,158,11,0.75); outline-offset: 4px; border-radius: 14px; }
         /* Email snippet generator */
         .sn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         @media (max-width: 640px) { .sn-grid { grid-template-columns: 1fr; } }
@@ -246,8 +247,8 @@
                     <div class="flex items-start gap-3 mb-3">
                         <input type="checkbox" id="manualSqftToggle" class="mt-1" style="width:18px;height:18px;accent-color:#0891b2;flex-shrink:0;" onchange="toggleManualSqft()">
                         <div>
-                            <div class="font-bold text-gray-800 text-sm">📐 Enter Known Square Footage (e.g. LotScope)</div>
-                            <div class="text-xs text-gray-500 mt-0.5">Use when you have an accurate lawn sq ft measurement from LotScope or another tool. Pricing calculated from entered square footage using standard rate tables.</div>
+                            <div class="font-bold text-gray-800 text-sm">📐 Enter Known Lawn Area: sq ft or acres (e.g. LotScope)</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Use when you have an accurate lawn measurement from LotScope or another tool. If it gives acreage, enter the acres and the square feet fill in for you. Pricing is calculated from square footage using standard rate tables.</div>
                         </div>
                     </div>
                     <div id="manualSqftSection" class="manual-time-section">
@@ -255,12 +256,13 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-cyan-900 font-semibold mb-2 text-sm">Lawn Area (Square Feet)</label>
-                                    <input type="number" id="manualSqftInput" class="form-input" placeholder="e.g. 4500" min="1" oninput="updateManualSqftDisplay()">
+                                    <input type="number" id="manualSqftInput" class="form-input" placeholder="e.g. 4500" min="1" oninput="sqftToAcres()">
                                     <div class="text-xs text-cyan-600 mt-1">Enter total mowable lawn area in square feet</div>
                                 </div>
                                 <div>
-                                    <label class="block text-cyan-900 font-semibold mb-2 text-sm">Source / Notes (Optional)</label>
-                                    <input type="text" id="manualSqftSource" class="form-input" placeholder="e.g. LotScope, county records, staff estimate...">
+                                    <label class="block text-cyan-900 font-semibold mb-2 text-sm">Lawn Area (Acres)</label>
+                                    <input type="number" id="manualAcreInput" class="form-input" placeholder="e.g. 1.28" min="0" step="0.01" oninput="acresToSqft()">
+                                    <div class="text-xs text-cyan-600 mt-1">1 acre = 43,560 sq ft. LotScope rounds acres, so if it also shows square feet, enter that instead for a tighter number.</div>
                                 </div>
                             </div>
                             <div class="mt-2 p-3 bg-cyan-100 rounded-lg text-xs text-cyan-900 font-medium">
@@ -287,6 +289,10 @@
             <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 border-2 border-green-200">
                 <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-1">Step 3: Select Services</h2>
                 <p class="text-sm text-gray-500 mb-5">Select all services needed. Mix and match for full-package or add-on quotes.</p>
+
+                <!-- Guided setup: progress strip + call-outs (rendered by renderGuide) -->
+                <div id="guideProgress" class="guide-progress"></div>
+                <div id="guideSlot-season"></div>
 
                 <!-- ===== SEASON / PRICING MODE TOGGLE ===== -->
                 <div id="seasonToggleBar" class="season-toggle-bar peak">
@@ -333,7 +339,8 @@
                             <div class="bar-subtitle">Affects on-site time calculation for all mowing services</div>
                         </div>
                     </div>
-                    <div>
+                    <div id="guideSlot-crew" style="grid-column: 1 / -1; margin-bottom:-2px;"></div>
+                    <div id="crewSelectWrap">
                         <label>Crew Size</label>
                         <select id="crewSize" onchange="recalcCrewTime()">
                             <option value="1">1 Person (Solo)</option>
@@ -342,7 +349,7 @@
                             <option value="4">4 Person Crew</option>
                         </select>
                     </div>
-                    <div>
+                    <div id="crewPreviewWrap">
                         <label>Crew Time Preview</label>
                         <div id="crewTimePreview" style="background:rgba(255,255,255,0.12);border:1.5px solid rgba(165,180,252,0.5);border-radius:10px;padding:10px 14px;color:white;font-weight:700;font-size:14px;min-height:42px;display:flex;align-items:center;">
                             — enter a lawn measurement first
@@ -362,7 +369,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mower-fleet-row">
+                    <div id="guideSlot-mowers" style="grid-column: 1 / -1; margin-bottom:-2px;"></div>
+                    <div class="mower-fleet-row" id="mowerFleetRow">
                         <div class="mower-fleet-title">🚜 Mowers Running This Job</div>
                         <div class="mower-chip-list" id="mowerChipList"></div>
                         <div class="mower-fleet-summary" id="mowerFleetSummary"></div>
@@ -378,6 +386,8 @@
                         <div class="text-xs text-blue-600 mt-0.5">Uncheck for add-on bed/hedge quote only (existing mowing customer)</div>
                     </div>
                 </div>
+
+                <div id="guideSlot-job"></div>
 
                 <!-- MOWING PANEL -->
                 <div class="service-panel active" id="mowingPanel">
@@ -422,9 +432,11 @@
                     </div>
                 </div>
 
+                <div id="guideSlot-addons"></div>
+
                 <!-- BED MAINTENANCE PANEL -->
                 <div class="service-panel" id="bedPanel">
-                    <div class="service-panel-header" onclick="togglePanel('bed')">
+                    <div class="service-panel-header" id="bedPanelHeader" onclick="togglePanel('bed')">
                         <input type="checkbox" id="includeBed" class="service-checkbox" onclick="event.stopPropagation(); togglePanel('bed', this.checked)">
                         <div>
                             <div class="service-panel-title">🌺 Bed Maintenance — Weed Control</div>
@@ -573,28 +585,9 @@
                     </div>
                 </div>
 
-                <!-- ===== VERIFY-BEFORE-CALCULATE BANNER (fixed to bottom) ===== -->
-                <div id="crewSummaryBanner" class="crew-banner">
-                    <div class="crew-banner-inner">
-                        <div class="crew-banner-top">
-                            <div class="crew-banner-title">👷 Verify before getting totals <span id="crewBannerTag" class="crew-banner-tag"></span></div>
-                            <button type="button" id="crewBannerToggle" class="crew-banner-toggle" onclick="toggleBannerDetails()">▾ Hide details</button>
-                        </div>
-                        <div id="crewBannerBody" class="crew-banner-body">
-                            <div id="crewBannerChips" class="crew-banner-chips"></div>
-                            <ul id="crewBannerChecklist" class="crew-banner-list"></ul>
-                        </div>
-                        <div class="crew-banner-actions">
-                            <button type="button" id="crewAckBtn" class="crew-ack-btn" onclick="acknowledgeSetup()">✅ Yes — all looks good</button>
-                            <div id="crewAckNote" class="crew-ack-note"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <button id="calculateBtn" style="display:none;" class="w-full py-3 md:py-4 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-xl font-bold text-base md:text-lg hover:shadow-lg transition mt-2">
+                <button id="calculateBtn" class="w-full py-3 md:py-4 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-xl font-bold text-base md:text-lg hover:shadow-lg transition mt-2">
                     📊 Get Estimate Totals
                 </button>
-                <div id="bannerSpacer" style="height:0;"></div>
             </div>
         </div>
 
@@ -619,7 +612,7 @@
                         <span class="tbd-value" id="resCrewSize" style="font-size:13px;">—</span>
                     </div>
                     <div class="time-breakdown-row" id="tbbMowRow" style="display:none;">
-                        <span class="tbd-label">🌿 Mowing — budgeted (solo)</span>
+                        <span class="tbd-label">🌿 Mowing — solo estimate</span>
                         <span class="tbd-value" id="resBudgetedTime">—</span>
                     </div>
                     <div class="time-breakdown-row" id="tbbMowOnsiteRow" style="display:none;">
@@ -627,7 +620,7 @@
                         <span class="tbd-value" style="color:#4338ca;" id="resMowOnsiteTime">—</span>
                     </div>
                     <div class="time-breakdown-row" id="tbbBedRow" style="display:none;">
-                        <span class="tbd-label">🌺 Beds — budgeted (solo)</span>
+                        <span class="tbd-label">🌺 Beds — solo estimate</span>
                         <span class="tbd-value" id="resBedBudgTime">—</span>
                     </div>
                     <div class="time-breakdown-row" id="tbbBedOnsiteRow" style="display:none;">
@@ -635,7 +628,7 @@
                         <span class="tbd-value" style="color:#4338ca;" id="resBedOnsiteTime">—</span>
                     </div>
                     <div class="time-breakdown-row" id="tbbHedgeRow" style="display:none;">
-                        <span class="tbd-label">✂️ Hedges — budgeted (solo)</span>
+                        <span class="tbd-label">✂️ Hedges — solo estimate</span>
                         <span class="tbd-value" id="resHedgeBudgTime">—</span>
                     </div>
                     <div class="time-breakdown-row" id="tbbHedgeOnsiteRow" style="display:none;">
@@ -643,9 +636,10 @@
                         <span class="tbd-value" style="color:#4338ca;" id="resHedgeOnsiteTime">—</span>
                     </div>
                     <div class="time-breakdown-row highlight" style="margin-top:8px;padding-top:8px;border-top:2px solid #818cf8;">
-                        <span class="tbd-label" style="font-weight:700;color:#1e1b4b;font-size:14px;">⏰ Total On-Site Time</span>
+                        <span class="tbd-label" style="font-weight:700;color:#1e1b4b;font-size:14px;">⏰ Budgeted Time for Service Autopilot</span>
                         <span class="tbd-value" id="resOnsiteTime" style="font-size:17px;color:#3730a3;">—</span>
                     </div>
+                    <div style="font-size:11.5px;color:#4338ca;margin-top:6px;line-height:1.45;">This is the total on-site time for the stop. It is the budgeted time you will enter in Service Autopilot.</div>
                     <div id="manualTimeNotice" style="display:none;" class="mt-2 text-xs text-indigo-700 bg-indigo-50 rounded p-2 font-medium">
                         ⚠️ Mowing time based on manual staff estimate — measurement not available
                     </div>
@@ -658,7 +652,7 @@
                     <div class="result-row"><span class="result-label">Service Type</span><span class="result-value" id="resMowService">-</span></div>
                     <div class="result-row"><span class="result-label">Difficulty</span><span class="result-value" id="resMowDifficulty">-</span></div>
                     <div class="result-row"><span class="result-label">Frequency</span><span class="result-value" id="resMowFrequency">-</span></div>
-                    <div class="result-row"><span class="result-label">Budgeted Time (Solo)</span><span class="result-value green" id="resMowBHrs">-</span></div>
+                    <div class="result-row"><span class="result-label">Solo Time Estimate</span><span class="result-value green" id="resMowBHrs">-</span></div>
                     <div class="result-row"><span class="result-label">Cut / Trim Split (of budget)</span><span class="result-value" id="resMowSplit">-</span></div>
                     <div class="result-row"><span class="result-label">Crew Size</span><span class="result-value" id="resMowCrew">-</span></div>
                     <div class="result-row" style="background:#eef2ff;"><span class="result-label" style="font-weight:700;color:#3730a3;">⏰ On-Site Time</span><span class="result-value" style="color:#3730a3;font-size:16px;" id="resMowOnsite">-</span></div>
@@ -960,18 +954,9 @@
                 ✂️ <b>${techsSupport}</b> tech${techsSupport !== 1 ? 's' : ''} trimming/support &nbsp;·&nbsp;
                 ⚡ <b>${speedup.toFixed(2)}x</b> a single 36" standon's cutting speed`;
         }
+        // Mower/crew warnings now live in the guided Step 3 call-out (renderGuide), so the old inline warning stays hidden.
         const warn = document.getElementById('mowerFleetWarning');
-        if (warn) {
-            if (mowersRunning > crew) {
-                warn.style.display = 'block';
-                warn.textContent = `⚠️ ${mowersRunning} mowers selected but only ${crew} techs on site — reduce mowers or increase crew size.`;
-            } else if (mowersRunning === 0) {
-                warn.style.display = 'block';
-                warn.textContent = `⚠️ No mowers selected — on-site mow time shows the solo estimate until you check the mowers running.`;
-            } else {
-                warn.style.display = 'none';
-            }
-        }
+        if (warn) warn.style.display = 'none';
     }
 
     function getMowersRunningLabel() {
@@ -1101,159 +1086,284 @@
         else fallback();
     }
 
-    // ===== VERIFY-BEFORE-CALCULATE BANNER =====
-    // Fixed to the bottom of the screen. "Get Estimate Totals" stays hidden until the user confirms the setup.
-    // Changing anything in Steps 2-3 clears the confirmation so the totals always match what was reviewed.
+    // ===== GUIDED STEP-BY-STEP (Step 3) =====
+    // Each sub-step gets a call-out with a question that makes the user stop and think. The first unconfirmed
+    // step is highlighted; "Get Estimate Totals" unlocks once every applicable step is confirmed. A confirmed
+    // step drops back to "needs attention" on its own if its inputs become invalid (e.g. more mowers than techs).
     let lastTotalOnsiteMins = null;
-    let setupAcknowledged = false;
-    let bannerDetailsOpen = true;
+    const guideConfirmed = {};
+    let guideOpenId = null, guideActiveId = null, guideCloseTimer = null, guideSuppressed = null;
 
     function selText(id) { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex].text : ''; }
     function numVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
 
-    function getSetupChecks() {
-        const checks = [];
-        const add = (level, text) => checks.push({ level, text });
+    function guideState() {
         const crew = getCrewSize();
         const mowers = selectedMowerIds.size;
-        const support = Math.max(0, crew - mowers);
-        const inclMow   = document.getElementById('includeMowing').checked;
-        const inclBed   = document.getElementById('includeBed').checked;
-        const inclHedge = document.getElementById('includeHedge').checked;
-
-        // Pricing mode
-        add('info', isOffPeak ? '❄️ Pricing mode: Off-Peak — $110/hr. Is this right for the season?' : '☀️ Pricing mode: Peak season — $158/hr. Is this right for the season?');
-        if (isOffPeak && (inclBed || inclHedge)) add('info', 'Off-Peak only changes the mowing price. Bed and hedge prices use their own rate tables.');
-
-        // Mowing
-        if (inclMow) {
-            if (isManualTimeMode && manualTimeMins > 0) add('ok', `Lawn: manual time estimate of ${manualTimeMins} min (${selText('manualTimeReason')}). No square footage is used.`);
-            else if (totalArea > 0) {
-                const src = document.getElementById('manualSqftSource').value.trim();
-                add('ok', `Lawn: ${totalArea.toLocaleString()} sq ft entered${src ? ' (' + src + ')' : ''}`);
-            } else add('error', 'Lawn: no measurement. Enter square footage or a manual mow time in Step 2.');
-
-            if (!document.getElementById('serviceType').value) add('error', 'Mowing: choose a service type (Stand-On or Push).');
-            else add('ok', `Mowing: ${selText('serviceType')} · ${selText('difficultyLevel')} · ${selText('frequency')}`);
-        } else {
-            add('info', 'Add-on quote: lawn mowing is not included.');
-        }
-
-        // Crew and mowers
-        if (mowers > crew) {
-            add('error', `Crew: ${mowers} mowers are checked but only ${crew} tech${crew !== 1 ? 's' : ''} on site.`);
-        } else if (mowers === 0) {
-            add(inclMow ? 'warn' : 'info', inclMow
-                ? 'Mowers: none checked, so mow time falls back to the solo estimate and fuel cost shows $0.'
-                : 'Mowers: none checked (not needed, no mowing in this quote).');
-        } else {
-            add('ok', `Crew: ${crew}-person · ${getMowersRunningLabel()} · ` + (support > 0
-                ? `${support} support tech${support !== 1 ? 's' : ''} trimming alongside`
-                : 'no support tech, operators trim after cutting'));
-        }
-
-        // Beds
-        if (inclBed) {
-            const method = document.getElementById('bedPricingMethod').value;
-            const meas = method === 'sqft' ? numVal('bedSqFt') : numVal('bedLinearFt');
-            const unit = method === 'sqft' ? 'sq ft' : 'linear ft';
-            const svcVal = document.getElementById('bedServiceType').value;
-            const fee = document.getElementById('bedMaterialFee').value;
-            if (meas <= 0) add('error', `Beds: enter the bed ${method === 'sqft' ? 'area (sq ft)' : 'linear feet'}.`);
-            else add('ok', `Beds: ${selText('bedServiceType')} · ${meas} ${unit} · ` + (document.getElementById('bedFirstCut').value === 'yes' ? 'first-cut surcharge +50% ON' : 'no first-cut surcharge') + ` · disposal: ${selText('bedDisposal')}`);
-            if (svcVal.startsWith('pull') && fee !== '0') add('warn', 'Beds: Hard Pull is selected but an RM18 material fee is being charged.');
-            if ((svcVal.startsWith('spray') || svcVal === 'hybrid') && fee === '0') add('warn', 'Beds: this service uses RM18 but the material fee is $0.');
-            if (method === 'sqft' && meas > 500 && fee === '15') add('warn', 'Beds: area is over 500 sq ft but the material fee is set to Small Job ($15).');
-            if (method === 'sqft' && meas > 0 && meas < 500 && fee === '30') add('warn', 'Beds: area is under 500 sq ft but the material fee is set to Large Job ($30).');
-            if (crew > 1) add('info', 'Bed time ' + (document.getElementById('splitBedTime').checked ? 'is split across the crew (both techs working beds together).' : 'stays solo, not split across the crew.'));
-        }
-
-        // Hedges
-        if (inclHedge) {
-            const ft = numVal('hedgeLinearFt');
-            if (ft <= 0) add('error', 'Hedges: enter the linear feet to trim.');
-            else add('ok', `Hedges: ${selText('hedgeCategory')} · ${ft} linear ft · $${parseFloat(document.getElementById('hedgeRate').value).toFixed(2)}/ft · ` + (document.getElementById('hedgeDepth').value === '2' ? 'DEEP WALL 2x rate' : 'standard depth') + ' · ' + (document.getElementById('hedgeFirstCut').value === 'yes' ? 'first-cut surcharge +50% ON' : 'no first-cut surcharge') + ` · disposal: ${selText('hedgeDisposal')}`);
-            if (crew > 1) add('info', 'Hedge time ' + (document.getElementById('splitHedgeTime').checked ? 'is split across the crew (both techs running trimmers).' : 'stays solo, not split across the crew.'));
-        }
-
-        return checks;
+        return {
+            crew, mowers, support: Math.max(0, crew - mowers),
+            inclMow:   document.getElementById('includeMowing').checked,
+            inclBed:   document.getElementById('includeBed').checked,
+            inclHedge: document.getElementById('includeHedge').checked
+        };
     }
 
-    function updateBannerSpacer() {
-        const banner = document.getElementById('crewSummaryBanner');
-        const spacer = document.getElementById('bannerSpacer');
-        if (banner && spacer) spacer.style.height = (banner.offsetHeight + 24) + 'px';
+    const GUIDE_STEPS = [
+        {
+            id: 'season', label: 'Season', icon: '☀️', targets: ['seasonToggleBar'],
+            applies: s => s.inclMow,
+            title: 'Peak or off-peak: what does this job really deserve?',
+            body: 'Use peak pricing when demand is high. Off-peak rates are for the slow season, or for a neighborhood you truly want to work in and are willing to give a favorable rate. Ask yourself: if my schedule would fill at the full rate, why am I discounting this one?',
+            why: 'Switches the mowing rate and minimums ($158/hr peak vs $110/hr off-peak). Beds and hedges are not affected.',
+            now: s => [isOffPeak ? '❄️ Off-Peak · $110/hr' : '☀️ Peak · $158/hr'],
+            check: s => ({ errors: [], warns: [], notes: [] }),
+            confirm: s => isOffPeak ? 'Yes, Off-Peak is justified for this property' : 'Yes, Peak pricing is right for this job'
+        },
+        {
+            id: 'crew', label: 'Crew', icon: '👷', targets: ['crewSelectWrap', 'crewPreviewWrap'],
+            applies: s => true,
+            title: 'Who is on the truck 80% of the time?',
+            body: 'Pick the crew size you will be running this stop with on a normal day, not the best case. If the job only works with an extra tech who is not usually there, the time and margin below will be wrong.',
+            why: 'Changes on-site time and labor cost in the margin estimate. It never changes the price the customer pays.',
+            now: s => [`👥 ${s.crew}-person crew`].concat(s.mowers > 0 && lastTotalOnsiteMins != null ? [`⏰ Est. stop: ${formatMins(lastTotalOnsiteMins)}`] : []),
+            check: s => ({ errors: [], warns: [], notes: [] }),
+            confirm: s => s.crew === 1 ? 'Yes, I am running this solo' : `Yes, a ${s.crew}-person crew is my normal day`
+        },
+        {
+            id: 'mowers', label: 'Mowers', icon: '🚜', targets: ['mowerFleetRow'],
+            applies: s => s.inclMow,
+            title: 'What equipment will realistically do this job?',
+            body: 'Check what you would actually put on the truck for this lot: think lot size, gates, slopes and wet ground, not just the fastest machine you own. Every mower needs its own operator.',
+            why: 'Sets cutting speed, on-site time and fuel cost. The service type switches to match the mowers you pick.',
+            now: s => {
+                const names = MOWER_FLEET.filter(m => selectedMowerIds.has(m.id)).map(m => m.label);
+                if (!names.length) return ['No mowers checked yet'];
+                const speed = STANDON_SQFT_PER_HOUR > 0 ? getCombinedMowerRate() / STANDON_SQFT_PER_HOUR : 0;
+                return [`🚜 ${names.join(' + ')}`, `⚡ ${speed.toFixed(2)}x a 36" stand-on`].concat(lastTotalOnsiteMins != null ? [`⏰ Est. stop: ${formatMins(lastTotalOnsiteMins)}`] : []);
+            },
+            check: s => {
+                const errors = [], notes = [];
+                if (s.mowers === 0) errors.push('Check at least one mower. The stop time and fuel cost depend on it.');
+                else if (s.mowers > s.crew) errors.push(`${s.mowers} mowers are checked but only ${s.crew} tech${s.crew !== 1 ? 's' : ''} will be on site. Each mower needs an operator, so lower the mowers or raise the crew size.`);
+                else if (s.support === 0) notes.push('No support tech: mower operators will trim after cutting, so the stop runs longer.');
+                else notes.push(`${s.support} tech${s.support !== 1 ? 's' : ''} will trim and edge while the mower${s.mowers !== 1 ? 's' : ''} cut${s.mowers === 1 ? 's' : ''}.`);
+                return { errors, warns: [], notes };
+            },
+            confirm: s => 'Yes, this is the equipment that really goes on this job'
+        },
+        {
+            id: 'job', label: 'Lawn', icon: '🌿', targets: ['mowingPanel'],
+            applies: s => s.inclMow,
+            title: 'How hard is this lawn, really?',
+            body: 'Set the service type, difficulty and frequency for what you would see standing in the yard: slopes, obstacles, soft ground, gates, overgrowth. Choose the difficulty you would bet on, not the one that makes the price look nicer.',
+            why: 'Difficulty sets the per-sq-ft rate (Standard $0.0018, Sloped $0.0023, Extreme $0.0027) and the mowing time.',
+            now: s => [selText('serviceType') || 'No service type yet', selText('difficultyLevel'), selText('frequency')].filter(Boolean),
+            check: s => {
+                const errors = [], notes = [];
+                if (!isManualTimeMode && totalArea <= 0) errors.push('No lawn measurement yet. Go back to Step 2.');
+                if (!document.getElementById('serviceType').value) errors.push('Choose a service type (Stand-On or Push).');
+                if (document.getElementById('difficultyLevel').value === 'standard') notes.push('Standard means flat and open. Any slopes, obstacles, soft ground or tight gates? Bump the difficulty up.');
+                return { errors, warns: [], notes };
+            },
+            confirm: s => 'Yes, this service and difficulty match what I would see on site'
+        },
+        {
+            id: 'addons', label: 'Add-ons', icon: '🌺', targets: ['bedPanel', 'hedgePanel'], hover: ['bedPanelHeader'],
+            applies: s => true,
+            title: 'Any beds or hedges the customer would want handled?',
+            body: 'Walk the property in your head: flower beds, shrub lines, hedges. If there are any, add them below and measure them, do not guess. If this is mowing only, say so and move on.',
+            why: 'Beds and hedges use their own rate tables, so the season toggle does not change them.',
+            now: s => {
+                const out = [];
+                if (s.inclMow) out.push('🌿 Mowing');
+                if (s.inclBed) { const m = document.getElementById('bedPricingMethod').value; out.push(`🌺 Beds: ${m === 'sqft' ? numVal('bedSqFt') + ' sq ft' : numVal('bedLinearFt') + ' linear ft'}`); }
+                if (s.inclHedge) out.push(`✂️ Hedges: ${numVal('hedgeLinearFt')} linear ft`);
+                return out.length ? out : ['Nothing selected yet'];
+            },
+            check: s => {
+                const errors = [], warns = [], notes = [];
+                if (s.inclBed) {
+                    const method = document.getElementById('bedPricingMethod').value;
+                    const meas = method === 'sqft' ? numVal('bedSqFt') : numVal('bedLinearFt');
+                    const svcVal = document.getElementById('bedServiceType').value;
+                    const fee = document.getElementById('bedMaterialFee').value;
+                    if (meas <= 0) errors.push(`Beds: enter the bed ${method === 'sqft' ? 'area (sq ft)' : 'linear feet'}, or uncheck Bed Maintenance.`);
+                    if (svcVal.startsWith('pull') && fee !== '0') warns.push('Beds: Hard Pull is selected but an RM18 material fee is being charged.');
+                    if ((svcVal.startsWith('spray') || svcVal === 'hybrid') && fee === '0') warns.push('Beds: this service uses RM18 but the material fee is $0.');
+                    if (method === 'sqft' && meas > 500 && fee === '15') warns.push('Beds: area is over 500 sq ft but the material fee is set to Small Job ($15).');
+                    if (method === 'sqft' && meas > 0 && meas < 500 && fee === '30') warns.push('Beds: area is under 500 sq ft but the material fee is set to Large Job ($30).');
+                    if (s.crew > 1 && !document.getElementById('splitBedTime').checked) notes.push('Bed time is not split across the crew (solo estimate).');
+                }
+                if (s.inclHedge) {
+                    if (numVal('hedgeLinearFt') <= 0) errors.push('Hedges: enter the linear feet to trim, or uncheck Hedges.');
+                    if (s.crew > 1 && !document.getElementById('splitHedgeTime').checked) notes.push('Hedge time is not split across the crew (solo estimate).');
+                }
+                if (!s.inclMow && !s.inclBed && !s.inclHedge) errors.push('Nothing to quote yet. Include mowing, beds or hedges.');
+                return { errors, warns, notes };
+            },
+            confirm: s => (s.inclBed || s.inclHedge) ? 'Yes, the beds and hedges are measured and correct' : 'Yes, this is mowing only: no beds or hedges'
+        }
+    ];
+
+    function guideCompute() {
+        const s = guideState();
+        const list = GUIDE_STEPS.filter(st => st.applies(s)).map(st => {
+            const chk = st.check(s);
+            return { st, chk, done: !!guideConfirmed[st.id] && chk.errors.length === 0 };
+        });
+        return { s, list, active: list.find(x => !x.done) || null };
     }
 
-    function updateCrewBanner() {
-        const banner = document.getElementById('crewSummaryBanner');
-        if (!banner) return;
-        const crew = getCrewSize();
-        const mowers = selectedMowerIds.size;
-        const support = Math.max(0, crew - mowers);
-        const speedup = STANDON_SQFT_PER_HOUR > 0 ? getCombinedMowerRate() / STANDON_SQFT_PER_HOUR : 0;
-        const chips = [
-            `👥 <b>${crew}</b>-person crew`,
-            `🚜 <b>${mowers}</b> mower${mowers !== 1 ? 's' : ''} running`,
-            `✂️ <b>${support}</b> tech${support !== 1 ? 's' : ''} trimming/support`,
-            `⚡ <b>${mowers > 0 ? speedup.toFixed(2) + 'x' : '—'}</b> cutting speed`,
-            `⏰ Est. stop: <b>${lastTotalOnsiteMins != null ? formatMins(lastTotalOnsiteMins) : '—'}</b>`
-        ];
-        document.getElementById('crewBannerChips').innerHTML = chips.map(c => `<span class="crew-banner-chip">${c}</span>`).join('');
+    function guideAllDone() { return !guideCompute().active; }
 
-        const checks = getSetupChecks();
-        const icons = { ok: '✔️', info: 'ℹ️', warn: '⚠️', error: '⛔' };
-        document.getElementById('crewBannerChecklist').innerHTML = checks.map(c => `<li class="crew-check ${c.level}"><span class="crew-check-icon">${icons[c.level]}</span><span>${escHtml(c.text)}</span></li>`).join('');
-        const errors = checks.filter(c => c.level === 'error').length;
-        const warns  = checks.filter(c => c.level === 'warn').length;
+    // Only the active step is rendered: a small tag (always visible) plus the call-out, which stays hidden
+    // until the user hovers the highlighted section, hovers/taps the tag, or focuses one of its controls.
+    function guideSlotHtml(item, idx, total, s) {
+        const st = item.st;
+        const attn = !!guideConfirmed[st.id] && item.chk.errors.length > 0;
+        const chips = st.now(s).map(t => `<span>${escHtml(t)}</span>`).join('');
+        const msgs = item.chk.errors.map(m => `<div class="guide-msg error">⛔ ${escHtml(m)}</div>`).concat(
+            item.chk.warns.map(m => `<div class="guide-msg warn">⚠️ ${escHtml(m)}</div>`),
+            item.chk.notes.map(m => `<div class="guide-msg note">ℹ️ ${escHtml(m)}</div>`)).join('');
+        const blocked = item.chk.errors.length > 0;
+        const tag = `<button type="button" class="guide-tag${attn ? ' attn' : ''}" title="Hover the highlighted section (or tap here) to review this step" onclick="guideToggle('${st.id}')">${attn ? '⚠️' : '💡'} ${st.label} · ${idx} of ${total}${attn ? ' · needs attention' : ''}</button>`;
+        const pop = `<div class="guide-pop"><div class="guide-callout active">
+            <span class="guide-badge">Step 3 · ${idx} of ${total} · ${st.label}</span>
+            <div class="guide-q">${st.icon} ${st.title}</div>
+            <div class="guide-body">${st.body}</div>
+            <div class="guide-why"><b>Why it matters:</b> ${st.why}</div>
+            <div class="guide-now">${chips}</div>
+            ${msgs}
+            <div class="guide-actions">
+                <button type="button" class="guide-confirm" ${blocked ? 'disabled' : ''} onclick="guideConfirm('${st.id}')">${blocked ? '⛔ Fix the red item above first' : '✅ ' + escHtml(st.confirm(s))}</button>
+                <button type="button" class="guide-later" onclick="guideDismiss()">✏️ Not yet, let me adjust</button>
+            </div>
+        </div></div>`;
+        return tag + pop;
+    }
 
-        const tag = document.getElementById('crewBannerTag');
-        const ackBtn = document.getElementById('crewAckBtn');
-        const note = document.getElementById('crewAckNote');
-        banner.classList.toggle('verified', setupAcknowledged);
-        banner.classList.toggle('warn', !setupAcknowledged && errors > 0);
+    function renderGuide() {
+        const prog = document.getElementById('guideProgress');
+        if (!prog) return;
+        const g = guideCompute();
+        const total = g.list.length;
+        const doneCount = g.list.filter(x => x.done).length;
 
-        if (setupAcknowledged) {
-            tag.textContent = 'Confirmed';
-            ackBtn.style.display = 'none';
-            note.textContent = '✅ You confirmed this setup. If you change anything, you will be asked to confirm again.';
-        } else {
-            ackBtn.style.display = '';
-            if (errors > 0) {
-                tag.textContent = `Fix ${errors} item${errors !== 1 ? 's' : ''}`;
-                ackBtn.disabled = true;
-                ackBtn.textContent = '⛔ Fix the red items first';
-                note.textContent = 'Get Estimate Totals unlocks after you confirm.';
-            } else {
-                tag.textContent = warns > 0 ? `Review ${warns} warning${warns !== 1 ? 's' : ''}` : 'Check, then confirm';
-                ackBtn.disabled = false;
-                ackBtn.textContent = '✅ Yes — all looks good';
-                note.textContent = warns > 0 ? 'Read the warnings above before you confirm.' : 'Get Estimate Totals unlocks after you confirm.';
+        prog.innerHTML = `<span class="guide-progress-title">🧭 Guided setup</span>` +
+            g.list.map(x => x.done
+                ? `<button type="button" class="guide-chip done" title="${escHtml(x.st.now(g.s).join(' · '))} (click to change)" onclick="guideReopen('${x.st.id}')">✓ ${x.st.label}</button>`
+                : `<button type="button" class="guide-chip ${x === g.active ? 'active' : ''}" onclick="guideGoTo('${x.st.id}')">${x.st.label}</button>`).join('') +
+            `<span class="guide-progress-count">${g.active ? `${doneCount} of ${total} confirmed · hover the highlighted section for the next question` : '✅ All confirmed: totals unlocked'}</span>`;
+
+        guideActiveId = g.active ? g.active.st.id : null;
+        if (guideOpenId && guideOpenId !== guideActiveId) guideOpenId = null;
+        GUIDE_STEPS.forEach(st => {
+            const slot = document.getElementById('guideSlot-' + st.id);
+            if (!slot) return;
+            const item = g.list.find(x => x.st === st);
+            if (!item || item !== g.active) { slot.className = ''; slot.innerHTML = ''; return; }
+            slot.className = 'guide-slot' + (guideOpenId === st.id ? ' open' : '');
+            slot.innerHTML = guideSlotHtml(item, g.list.indexOf(item) + 1, total, g.s);
+        });
+        if (guideOpenId) guideClamp();
+
+        document.querySelectorAll('.guide-target').forEach(el => el.classList.remove('guide-target'));
+        if (g.active) g.active.st.targets.forEach(id => { const el = document.getElementById(id); if (el && el.offsetParent !== null) el.classList.add('guide-target'); });
+
+        const btn = document.getElementById('calculateBtn');
+        if (btn) {
+            const left = total - doneCount;
+            btn.textContent = g.active ? `🔒 Get Estimate Totals (confirm ${left} more step${left !== 1 ? 's' : ''} above)` : '📊 Get Estimate Totals';
+            btn.style.opacity = g.active ? '0.6' : '';
+            btn.setAttribute('aria-disabled', g.active ? 'true' : 'false');
+        }
+    }
+
+    function guideScrollTo(el) { if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    function guideGoTo(id) { guideScrollTo(document.getElementById('guideSlot-' + id)); }
+    function guideGoToActive() {
+        const g = guideCompute();
+        guideScrollTo(g.active ? document.getElementById('guideSlot-' + g.active.st.id) : document.getElementById('calculateBtn'));
+    }
+    function guideConfirm(id) {
+        const g = guideCompute();
+        const item = g.list.find(x => x.st.id === id);
+        if (!item || item.chk.errors.length) { renderGuide(); return; }
+        guideConfirmed[id] = true;
+        guideOpenId = null;
+        renderGuide();
+        guideGoToActive();
+    }
+    function guideReopen(id) {
+        guideConfirmed[id] = false;
+        guideOpenId = null;
+        renderGuide();
+        guideGoTo(id);
+    }
+    function resetGuide() {
+        Object.keys(guideConfirmed).forEach(k => delete guideConfirmed[k]);
+        guideOpenId = null;
+        renderGuide();
+    }
+
+    // --- show/hide the call-out ---
+    // If the call-out would run off the top of the screen, nudge it down just enough to be fully readable.
+    function guideClamp() {
+        requestAnimationFrame(() => {
+            const slot = document.getElementById('guideSlot-' + guideOpenId);
+            const pop = slot && slot.querySelector('.guide-pop');
+            if (!pop) return;
+            pop.style.transform = '';
+            const top = pop.getBoundingClientRect().top;
+            if (top < 8) pop.style.transform = `translateY(${Math.ceil(8 - top)}px)`;
+        });
+    }
+    // force = the user clearly asked for it (tapped the tag, focused a control), so it overrides a dismissal.
+    function guideOpen(id, force) {
+        clearTimeout(guideCloseTimer);
+        if (id !== guideActiveId || guideOpenId === id) return;
+        if (!force && guideSuppressed === id) return;
+        guideSuppressed = null;
+        guideOpenId = id;
+        renderGuide();
+    }
+    // Mouse truly left the section + tag + call-out: close it and forget any earlier dismissal.
+    function guideScheduleClose() { clearTimeout(guideCloseTimer); guideCloseTimer = setTimeout(() => { guideSuppressed = null; guideClose(); }, 250); }
+    function guideClose() {
+        clearTimeout(guideCloseTimer);
+        if (!guideOpenId) return;
+        guideOpenId = null;
+        renderGuide();
+    }
+    // Esc / "Not yet": stay closed even though the pointer is still hovering the section, until it leaves.
+    function guideDismiss() { guideSuppressed = guideOpenId; guideClose(); }
+    function guideToggle(id) { guideOpen(id, true); }
+    function guideBindEvents() {
+        GUIDE_STEPS.forEach(st => {
+            const slot = document.getElementById('guideSlot-' + st.id);
+            if (slot) {
+                slot.addEventListener('mouseenter', () => guideOpen(st.id));
+                slot.addEventListener('mouseleave', guideScheduleClose);
+                slot.addEventListener('focusin', () => clearTimeout(guideCloseTimer));
             }
-        }
-        document.getElementById('crewBannerBody').style.display = bannerDetailsOpen ? '' : 'none';
-        document.getElementById('crewBannerToggle').textContent = bannerDetailsOpen ? '▾ Hide details' : '▸ Show details';
-        updateBannerSpacer();
-    }
-
-    function toggleBannerDetails() { bannerDetailsOpen = !bannerDetailsOpen; updateCrewBanner(); }
-
-    function acknowledgeSetup() {
-        if (getSetupChecks().some(c => c.level === 'error')) { updateCrewBanner(); return; }
-        setupAcknowledged = true;
-        bannerDetailsOpen = false;
-        const calcBtn = document.getElementById('calculateBtn');
-        calcBtn.style.display = 'block';
-        updateCrewBanner();
-        calcBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function resetAcknowledgement() {
-        if (!setupAcknowledged) return;
-        setupAcknowledged = false;
-        bannerDetailsOpen = true;
-        document.getElementById('calculateBtn').style.display = 'none';
-        updateCrewBanner();
+            (st.hover || st.targets).forEach(tid => {
+                const el = document.getElementById(tid);
+                if (!el) return;
+                el.addEventListener('mouseenter', () => guideOpen(st.id));
+                el.addEventListener('mouseleave', guideScheduleClose);
+                el.addEventListener('focusin', () => guideOpen(st.id, true));
+            });
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') guideDismiss(); });
+        document.addEventListener('click', e => {
+            if (!guideOpenId) return;
+            const st = GUIDE_STEPS.find(x => x.id === guideOpenId);
+            const slot = document.getElementById('guideSlot-' + guideOpenId);
+            // Use the event path (fixed when the click started): re-rendering can detach the clicked button before this runs.
+            const path = e.composedPath ? e.composedPath() : [];
+            const inside = (slot && path.includes(slot)) || (st && (st.hover || st.targets).some(tid => { const el = document.getElementById(tid); return el && path.includes(el); }));
+            if (!inside) guideClose();
+        });
     }
 
     // ===== SEASON MODE =====
@@ -1328,7 +1438,6 @@
     }
 
     function recalcCrewTime() {
-        resetAcknowledgement();
         renderMowerFleet();
         const svc  = document.getElementById('serviceType').value;
         const diff = document.getElementById('difficultyLevel').value;
@@ -1354,7 +1463,7 @@
         let hedgeBudg = 0, hedgeOnsite = 0;
         if (inclHedgeCheck) { try { const hedge = calculateHedge(); hedgeBudg = Math.round((hedge.total / PEAK_HOURLY_RATE) * 60); hedgeOnsite = splitHedge ? calcOnsiteTime(hedgeBudg, crew) : hedgeBudg; } catch(e) {} }
 
-        if (mowOnsite === 0 && bedOnsite === 0 && hedgeOnsite === 0) { preview.textContent = '— enter a lawn measurement and add services to preview'; lastTotalOnsiteMins = null; updateCrewBanner(); return; }
+        if (mowOnsite === 0 && bedOnsite === 0 && hedgeOnsite === 0) { preview.textContent = '— enter a lawn measurement and add services to preview'; lastTotalOnsiteMins = null; renderGuide(); return; }
         const parallelOnsite = Math.max(mowOnsite, hedgeOnsite);
         const totalOnsite = parallelOnsite + bedOnsite;
         let parts = [];
@@ -1363,7 +1472,7 @@
         if (bedBudg > 0)   parts.push(`Beds: ${formatMins(bedOnsite)}`);
         preview.textContent = `Total stop: ${formatMins(totalOnsite)} (${crew}-person crew)${parts.length ? ' — ' + parts.join(' · ') : ''}`;
         lastTotalOnsiteMins = totalOnsite;
-        updateCrewBanner();
+        renderGuide();
     }
 
     // ===== STATE =====
@@ -1393,8 +1502,8 @@
         if (mins < 1) { alert('Please enter estimated mow time in minutes'); return; }
         isManualTimeMode = true; manualTimeMins = mins;
         document.getElementById('step3').classList.remove('hidden');
-        document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
         recalcCrewTime();
+        guideGoToActive();
     }
 
     function toggleManualSqft() {
@@ -1407,6 +1516,19 @@
             updateStep3Visibility();
             recalcCrewTime();
         }
+    }
+
+    const SQFT_PER_ACRE = 43560;
+    // Acres and square feet stay in sync: typing either one fills in the other (square feet drives pricing).
+    function acresToSqft() {
+        const ac = parseFloat(document.getElementById('manualAcreInput').value);
+        document.getElementById('manualSqftInput').value = ac > 0 ? Math.round(ac * SQFT_PER_ACRE) : '';
+        updateManualSqftDisplay();
+    }
+    function sqftToAcres() {
+        const sq = parseInt(document.getElementById('manualSqftInput').value) || 0;
+        document.getElementById('manualAcreInput').value = sq > 0 ? (sq / SQFT_PER_ACRE).toFixed(3) : '';
+        updateManualSqftDisplay();
     }
 
     function updateManualSqftDisplay() {
@@ -1427,8 +1549,8 @@
         isManualSqftMode = true;
         totalArea = sqft;
         document.getElementById('step3').classList.remove('hidden');
-        document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
         recalcCrewTime();
+        guideGoToActive();
     }
 
     function updateStep3Visibility() {
@@ -1450,10 +1572,11 @@
         document.getElementById('manualSqftToggle').checked = false;
         document.getElementById('manualSqftSection').classList.remove('visible');
         document.getElementById('manualSqftInput').value = '';
-        document.getElementById('manualSqftSource').value = '';
+        document.getElementById('manualAcreInput').value = '';
         document.getElementById('manualSqftPreview').classList.add('hidden');
         document.getElementById('step3').classList.add('hidden');
         document.getElementById('resultsModal').classList.remove('active');
+        resetGuide();
         recalcCrewTime();
     });
 
@@ -1506,6 +1629,7 @@
         const panel = document.getElementById('mowingPanel');
         panel.style.display = checked ? 'block' : 'none';
         panel.classList.toggle('active', checked);
+        recalcCrewTime();
     }
     function toggleBedPricingMethod() {
         const m = document.getElementById('bedPricingMethod').value;
@@ -1527,7 +1651,7 @@
 
     // ===== CALCULATE BUTTON =====
     document.getElementById('calculateBtn').addEventListener('click', () => {
-        if (!setupAcknowledged) { alert('Please review the crew and setup banner and confirm it first.'); return; }
+        if (!guideAllDone()) { guideGoToActive(); return; }
         const firstName = document.getElementById('customerFirstName').value.trim();
         const lastName  = document.getElementById('customerLastName').value.trim();
         const inclMow   = document.getElementById('includeMowing').checked;
@@ -1566,8 +1690,7 @@
                 areaLabel = `Est. (manual) — ${reasonEl.options[reasonEl.selectedIndex].text}`;
             } else {
                 mow = calculateMowing(totalArea, svc, diff);
-                const sqftSource = document.getElementById('manualSqftSource').value.trim();
-                areaLabel = totalArea.toLocaleString() + ' sq ft (entered' + (sqftSource ? ' · ' + sqftSource : '') + ')';
+                areaLabel = totalArea.toLocaleString() + ' sq ft (' + (totalArea / SQFT_PER_ACRE).toFixed(2) + ' acres, entered)';
             }
             const mowSplit = calcMowOnsite(mow.bMins, svc, diff, crew);
             const onsiteMins = mowSplit.onsite;
@@ -1713,7 +1836,7 @@
                 <div class="pdf-info-item"><div class="pdf-info-label">Service Type</div><div class="pdf-info-value">${document.getElementById('resMowService').textContent}</div></div>
                 <div class="pdf-info-item"><div class="pdf-info-label">Difficulty</div><div class="pdf-info-value">${document.getElementById('resMowDifficulty').textContent}</div></div>
                 <div class="pdf-info-item"><div class="pdf-info-label">Frequency</div><div class="pdf-info-value">${document.getElementById('resMowFrequency').textContent}</div></div>
-                <div class="pdf-info-item"><div class="pdf-info-label">Budgeted Time (Solo)</div><div class="pdf-info-value">${document.getElementById('resMowBHrs').textContent}</div></div>
+                <div class="pdf-info-item"><div class="pdf-info-label">Solo Time Estimate</div><div class="pdf-info-value">${document.getElementById('resMowBHrs').textContent}</div></div>
                 <div class="pdf-info-item"><div class="pdf-info-label">Crew Size</div><div class="pdf-info-value">${document.getElementById('resMowCrew').textContent}</div></div>
                 <div class="pdf-info-item onsite-highlight"><div class="pdf-info-label">⏰ On-Site Time</div><div class="pdf-info-value">${document.getElementById('resMowOnsite').textContent}</div></div>
                 <div class="pdf-info-item"><div class="pdf-info-label">Pricing Mode</div><div class="pdf-info-value">${document.getElementById('resMowPricingMode').textContent}</div></div>
@@ -1751,7 +1874,7 @@
         }
 
         const totalStopTimeSec = `<div style="background:#eef2ff;border:2px solid #818cf8;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
-            <div><div style="font-size:11px;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:0.5px;">⏱️ Total On-Site Time (${document.getElementById('resCrewSize').textContent})</div><div style="font-size:11px;color:#818cf8;margin-top:3px;">Mow/hedge run in parallel · Beds sequential</div></div>
+            <div><div style="font-size:11px;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:0.5px;">⏱️ Budgeted Time for Service Autopilot (${document.getElementById('resCrewSize').textContent})</div><div style="font-size:11px;color:#818cf8;margin-top:3px;">Total on-site time: enter this as the budgeted time in Service Autopilot · Mow/hedge run in parallel · Beds sequential</div></div>
             <div style="font-size:24px;font-weight:800;color:#3730a3;">${document.getElementById('resOnsiteTime').textContent}</div>
         </div>`;
 
@@ -1911,10 +2034,9 @@
         toggleMowingSection();
         syncServiceTypeToMowers();
         renderMowerFleet();
-        updateCrewBanner();
-        ['step2', 'step3'].forEach(id => ['input', 'change'].forEach(evt => document.getElementById(id).addEventListener(evt, () => { resetAcknowledgement(); updateCrewBanner(); })));
-        window.addEventListener('resize', updateBannerSpacer);
-        if (window.ResizeObserver) new ResizeObserver(updateBannerSpacer).observe(document.getElementById('crewSummaryBanner'));
+        guideBindEvents();
+        renderGuide();
+        ['step2', 'step3'].forEach(id => ['input', 'change'].forEach(evt => document.getElementById(id).addEventListener(evt, renderGuide)));
     });
 </script>
 </body>
