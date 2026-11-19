@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>try{if(new URLSearchParams(location.search).has('noavatar'))document.documentElement.classList.add('av')}catch(e){}</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Permissions-Policy" content="fullscreen=(self)">
@@ -157,6 +159,8 @@
         .sn-badge { font-size: 9.5px; font-weight: 700; text-transform: none; letter-spacing: 0; margin-left: 4px; }
         .sn-badge.ok { color: #16a34a; }
         .sn-badge.empty { color: #d97706; }
+            .av .popup-content h1{padding-left:64px;padding-right:64px}
+        @media (max-width:700px){.av .popup-content h1{font-size:22px!important;line-height:1.2!important;text-align:left!important;padding-left:0}}
     </style>
 </head>
 <body>
