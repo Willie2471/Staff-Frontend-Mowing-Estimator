@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{if(new URLSearchParams(location.search).has('noavatar'))document.documentElement.classList.add('av')}catch(e){}</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Permissions-Policy" content="fullscreen=(self)">
@@ -159,8 +157,6 @@
         .sn-badge { font-size: 9.5px; font-weight: 700; text-transform: none; letter-spacing: 0; margin-left: 4px; }
         .sn-badge.ok { color: #16a34a; }
         .sn-badge.empty { color: #d97706; }
-            .av .popup-content h1{padding-left:64px;padding-right:64px}
-        @media (max-width:700px){.av .popup-content h1{font-size:22px!important;line-height:1.2!important;text-align:left!important;padding-left:0}}
     </style>
 </head>
 <body>
@@ -788,6 +784,18 @@
                             </label>
                         </div>
                         <div class="sn-field" style="grid-column: 1 / -1;">
+                            <label style="display:flex;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-size:12.5px;cursor:pointer;">
+                                <input type="checkbox" id="snDocs" checked style="margin-top:3px;" onchange="refreshSnippet()">
+                                <span>Include <b>Terms &amp; Documents</b> (Terms and Conditions, Applicator License, Best Management Practices, General Liability Insurance). Each opens in place.</span>
+                            </label>
+                        </div>
+                        <div class="sn-field" style="grid-column: 1 / -1;">
+                            <label style="display:flex;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-size:12.5px;cursor:pointer;">
+                                <input type="checkbox" id="snInline" checked style="margin-top:3px;" onchange="refreshSnippet()">
+                                <span>Open <b>Learn More</b> and <b>Pet Waste Policy</b> in place too. Uncheck for plain link buttons that open a new tab.</span>
+                            </label>
+                        </div>
+                        <div class="sn-field" style="grid-column: 1 / -1;">
                             <label>Important Notes <span id="snNotesBadge" class="sn-badge"></span></label>
                             <textarea id="snNotes" class="sn-input" rows="2" style="resize:vertical;" placeholder="e.g. Gate code, dogs in yard, skip side yard..." oninput="refreshSnippet()"></textarea>
                         </div>
@@ -1005,6 +1013,27 @@
     // original merge tag, so the email system can still fill it in when the email is sent.
     // Pet Waste & Property Readiness Policy: PDF hosted on the Wix site (public usrfiles.com link). Swap this one line if it moves.
     const PET_POLICY_URL = 'https://99a075c2-a42b-4342-a3a7-90765639cf6c.usrfiles.com/ugd/99a075_45db89ae12db447f9c665bc63b110387.pdf';
+    // Learn More page (Wix site). Swap this one line if it moves.
+    const LEARN_MORE_URL = 'https://www.wslawncareservicesllc.com/lawnmowingservicepamplet';
+    // Documents shown in the "Terms & Documents" block of the snippet.
+    const DOC_LINKS = {
+        cert: 'https://d15k2d11r6t6rl.cloudfront.net/pub/6brz/ftj1sozt/n3x/r7f/tu0/Applicator%20Certificate.png',
+        bmp:  'https://d15k2d11r6t6rl.cloudfront.net/pub/6brz/ftj1sozt/05y/mtm/bxh/Florida%20Department%20of%20Environment%20Protection.png',
+        gl:   'https://d15k2d11r6t6rl.cloudfront.net/pub/6brz/ftj1sozt/mw9/4i5/om8/GL_ACORD_02_01_2026_P104393107-3248628897856.PDF'
+    };
+    const TERMS = [
+        ['1. Service Overview', ['We agree to provide lawn care services to the client as outlined in the agreed-upon service package.', 'Any additional request not covered by initial estimate will be considered add-ons and will incur additional costs to the owner.']],
+        ['2. Service Schedule', ['The service schedule will be established and communicated to the client in advance.', 'Weather conditions may affect the service schedule, and we will communicate any necessary adjustments.']],
+        ['3. Payment', ['The client agrees to pay the specified amount for the agreed-upon services.', 'Invoices are due upon arrival, and late payments may incur additional charges.']],
+        ['4. Cancellation and Rescheduling', ['The client agrees to provide a 7 day notice for cancellations or rescheduling of services.', 'Cancellation fees may apply for services canceled without proper notice.']],
+        ['5. Property Access', ['The client agrees to provide access to the property during scheduled service times.', 'We are not responsible for any damage caused to items left on the lawn, and the client should remove any obstacles or hazards including dog waste. Extra fee of $10 will be added after the second reminder if we have to remove any obstructing items.']],
+        ['6. Quality of Service', ['We strive to provide high-quality services, but results may vary based on factors such as weather and lawn condition.', 'We will address any concerns or issues promptly upon notification by the client.']],
+        ['7. Liability', ['WS Lawn Care Services, LLC is not liable for any damage to property or injuries that occur on the client\u2019s premises, except in the case of negligence on our part in this instance WS Lawn Care Services LLC is insured.']],
+        ['8. Equipment and Supplies', ['WS Lawn Care Services, LLC will provide all necessary equipment and supplies for the services.', 'The client agrees not to interfere with or attempt to operate the equipment.']],
+        ['9. Termination of Services', ['Either party may terminate services with 7 day notice.', 'Termination does not relieve the client of any outstanding payment obligations.']],
+        ['10. Governing Law', ['This agreement is governed by the laws of Florida.', 'Any disputes will be resolved through negotiation, and if not resolved, through legal action in Florida.']],
+        ['11. Changes to Terms and Conditions', ['WS Lawn Care Services, LLC reserves the right to modify these terms and conditions without prior notice to the client.']]
+    ];
     const SNIPPET_FIELD_TAGS = { snServices: '[ServicesInterestedIn]', snFrequency: '[ServiceFrequency]', snArea: '[ServiceArea]', snPerVisit: '[ServicePerVisitCost]' };
 
     function escHtml(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -1025,6 +1054,38 @@
                 `<div style="line-height: 1.6;">Because you only pay per visit, billing around weather and schedule changes is straightforward. If bad weather prevents us from mowing on your regular day, we will simply push your service to the next available dry day and resume your normal schedule the following cycle. If you ever need to skip a scheduled visit, just reach out at least <strong>${skipHours} hours</strong> in advance&mdash;you won&rsquo;t be billed for the skipped cut (note: if skipping causes heavy overgrowth before your next scheduled visit, an additional tall-grass charge may apply).</div>`)
             + `<div style="background: #fff9e6; border: 2px dashed #f9a825; padding: 12px; margin: 10px 0 0 0; border-radius: 5px; line-height: 1.6;"><strong>📅 Calendar Note:</strong> Because we bill per visit, some longer months may include an extra scheduled cut depending on how the dates fall. For example, on an every-2-weeks schedule, service on Monday the 1st, Monday the 15th, and Monday the 29th equals 3 visits for that month.</div>`
             + `</div></div>`;
+    }
+
+    // One tap-to-open section (plain HTML, no scripts). The shared name makes browsers keep only one open at a time.
+    function docBox(title, body) {
+        return `<details name="wsdocs" style="margin: 8px 0; border: 2px solid #2e7d32; border-radius: 8px; background: #ffffff; text-align: left;"><summary style="cursor: pointer; padding: 12px 16px; font-weight: bold; color: #2e7d32; font-size: 15px;">${title}</summary><div style="padding: 4px 14px 14px; font-size: 14px; line-height: 1.5;">${body}</div></details>`;
+    }
+    function docFallback(url, lead) {
+        return `<div style="font-size: 12px; text-align: center; margin-top: 8px;">${lead} <a href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" style="color: #2e7d32; font-weight: bold;">Open it in a new tab</a></div>`;
+    }
+    function docFrame(url, h) {
+        return `<iframe src="${escHtml(url)}" style="width: 100%; height: ${h}px; border: 1px solid #d9e4dd; border-radius: 6px; background: #fff;" loading="lazy"></iframe>` + docFallback(url, 'Not showing?');
+    }
+    function docImage(url, alt) {
+        return `<a href="${escHtml(url)}" target="_blank" rel="noopener noreferrer"><img src="${escHtml(url)}" alt="${escHtml(alt)}" style="width: 100%; max-width: 760px; display: block; margin: 0 auto; border: 1px solid #d9e4dd; border-radius: 6px;"></a><div style="font-size: 12px; text-align: center; margin-top: 8px;">Tap the image to open it full size.</div>`;
+    }
+    function termsHtml() {
+        return '<div style="font-weight: bold; margin-bottom: 6px;">WS Lawn Care Services, LLC \u2013 Terms and Conditions</div>' + TERMS.map(t =>
+            `<div style="margin-top: 10px;"><strong>${escHtml(t[0])}:</strong>${t[1].map(x => `<div style="margin-top: 3px;">${escHtml(x)}</div>`).join('')}</div>`).join('');
+    }
+    // A full-width button that opens its content in place (inline = true) or a plain link button (inline = false).
+    function linkButton(label, url, filled, inline, frameH) {
+        const base = `display: block; box-sizing: border-box; width: 300px; max-width: 100%; margin: 0 auto; padding: 10px 20px; border-radius: 5px; font-weight: bold; text-align: center; text-decoration: none; border: 2px solid #2e7d32; ${filled ? 'background: #2e7d32; color: white;' : 'background: #ffffff; color: #2e7d32;'}`;
+        if (!inline) return `<a href="${escHtml(url)}" rel="noopener noreferrer" style="${base}" target="_blank">${label}</a>`;
+        return `<details name="wsdocs" style="text-align: left;"><summary style="${base} cursor: pointer; list-style: none;">${label}</summary>${docFrame(url, frameH)}</details>`;
+    }
+    function docsBlockHtml() {
+        return `<div style="margin: 20px 0;"><div style="font-size: 16px; font-weight: bold; color: #2e7d32; margin-bottom: 6px; text-align: center;">\ud83d\udcce Terms &amp; Documents</div>`
+            + docBox('\ud83d\udcc4 Terms and Conditions', termsHtml())
+            + docBox('\ud83e\udeaa Applicator License', docImage(DOC_LINKS.cert, 'Applicator Certificate'))
+            + docBox('\ud83c\udf3f Best Management Practices', docImage(DOC_LINKS.bmp, 'Florida Department of Environmental Protection Best Management Practices'))
+            + docBox('\ud83d\udee1\ufe0f General Liability Insurance', docFrame(DOC_LINKS.gl, 620))
+            + `<div style="font-size: 12px; color: #555; text-align: center; margin-top: 6px;">Tap a title to open it. Tap it again to close.</div></div>`;
     }
 
     function buildEmailSnippet(v) {
@@ -1052,7 +1113,7 @@
         const perVisit = cleanMoney(v.perVisit);
         const perVisitHtml = (perVisit ? '$' + perVisit : tag('Service Per Visit Cost', '$[ServicePerVisitCost]')) + '&nbsp;';
 
-        return `<div style="background: linear-gradient(to right, #f0f7f0, #ffffff); padding: 15px; border-left: 4px solid #2e7d32; margin: 10px 0;"><span style="${G}">${servicesHtml}</span></div><div style="background: linear-gradient(to right, #f0f7f0, #ffffff); padding: 15px; border-left: 4px solid #2e7d32; margin: 10px 0;"><em style="color: #666;">*Prices are estimated based on aerial footage and may need adjustment for anything not captured on aerial footage.&nbsp;</em></div><br><div style="margin: 15px 0;"><table style="width: 100%; border-collapse: collapse;"><tbody><tr><td style="padding: 8px; background: #e8f5e9; width: 30%; font-weight: bold;">📅 Frequency:</td><td style="padding: 8px;">${freqHtml}</td></tr><tr><td style="padding: 8px; background: #e8f5e9; font-weight: bold;">📍 Service Area:</td><td style="padding: 8px;">${areaHtml}</td></tr></tbody></table></div><div style="text-align: center; margin: 15px 0 10px 0;"><a href="https://www.wslawncareservicesllc.com/lawnmowingservicepamplet" rel="noopener noreferrer" style="display: inline-block; box-sizing: border-box; width: 300px; max-width: 100%; background: #2e7d32; color: white; border: 2px solid #2e7d32; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">📖 Learn More About This Service</a></div><div style="text-align: center; margin: 0 0 15px 0;"><a href="${PET_POLICY_URL}" rel="noopener noreferrer" style="display: inline-block; box-sizing: border-box; width: 300px; max-width: 100%; background: #ffffff; color: #2e7d32; border: 2px solid #2e7d32; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🐾 View Our Pet Waste Policy</a></div><div style="background: #fff9e6; border: 2px dashed #f9a825; padding: 12px; margin: 15px 0; border-radius: 5px;"><strong>⚠️ Important Notes: ${notesHtml}</strong><br>${notesFooter}</div><br><div style="background: linear-gradient(135deg, #2e7d32, #43a047); color: white; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><div style="font-size: 16px; margin-bottom: 10px;">💰 <strong>Your Per Cut Cost:</strong></div><div style="font-size: 28px; font-weight: bold;">${perVisitHtml}</div></div>${pricingHtml}<div style="background: #f1f8f4; padding: 20px; border-radius: 0; margin: 20px 0;"><h3 style="color: #2e7d32; border-bottom: 3px solid #2e7d32; padding-bottom: 10px; margin: -20px -20px 15px -20px; padding: 10px 20px; background: linear-gradient(to right, #e8f5e9, #f1f8f4);">✓ What's Included - Our Scope of Work:</h3><div style="line-height: 1.8;"><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>1.</strong> ${mowDesc}</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>2.</strong> Line trimming areas around mail boxes, and tree rings</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>3.</strong> Edging the sidewalks, driveways, and curbs with a metal blade edger (if applicable)</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>4.</strong> Cleaning up includes blowing all grass clippings off sidewalks, walkways, and driveways</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>5.</strong> Convert to leaf clean up in the fall utilizing mulching blades and blowers</div></div></div>`;
+        return `<div style="background: linear-gradient(to right, #f0f7f0, #ffffff); padding: 15px; border-left: 4px solid #2e7d32; margin: 10px 0;"><span style="${G}">${servicesHtml}</span></div><div style="background: linear-gradient(to right, #f0f7f0, #ffffff); padding: 15px; border-left: 4px solid #2e7d32; margin: 10px 0;"><em style="color: #666;">*Prices are estimated based on aerial footage and may need adjustment for anything not captured on aerial footage.&nbsp;</em></div><br><div style="margin: 15px 0;"><table style="width: 100%; border-collapse: collapse;"><tbody><tr><td style="padding: 8px; background: #e8f5e9; width: 30%; font-weight: bold;">📅 Frequency:</td><td style="padding: 8px;">${freqHtml}</td></tr><tr><td style="padding: 8px; background: #e8f5e9; font-weight: bold;">📍 Service Area:</td><td style="padding: 8px;">${areaHtml}</td></tr></tbody></table></div><div style="margin: 15px 0;"><div style="margin: 0 0 10px 0;">${linkButton('📖 Learn More About This Service', LEARN_MORE_URL, true, v.inline, 700)}</div><div style="margin: 0;">${linkButton('🐾 View Our Pet Waste Policy', PET_POLICY_URL, false, v.inline, 620)}</div></div><div style="background: #fff9e6; border: 2px dashed #f9a825; padding: 12px; margin: 15px 0; border-radius: 5px;"><strong>⚠️ Important Notes: ${notesHtml}</strong><br>${notesFooter}</div><br><div style="background: linear-gradient(135deg, #2e7d32, #43a047); color: white; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><div style="font-size: 16px; margin-bottom: 10px;">💰 <strong>Your Per Cut Cost:</strong></div><div style="font-size: 28px; font-weight: bold;">${perVisitHtml}</div></div>${pricingHtml}<div style="background: #f1f8f4; padding: 20px; border-radius: 0; margin: 20px 0;"><h3 style="color: #2e7d32; border-bottom: 3px solid #2e7d32; padding-bottom: 10px; margin: -20px -20px 15px -20px; padding: 10px 20px; background: linear-gradient(to right, #e8f5e9, #f1f8f4);">✓ What's Included - Our Scope of Work:</h3><div style="line-height: 1.8;"><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>1.</strong> ${mowDesc}</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>2.</strong> Line trimming areas around mail boxes, and tree rings</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>3.</strong> Edging the sidewalks, driveways, and curbs with a metal blade edger (if applicable)</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>4.</strong> Cleaning up includes blowing all grass clippings off sidewalks, walkways, and driveways</div><div style="padding: 10px; margin: 8px -20px; background: white; border-left: 4px solid #2e7d32;"><strong>5.</strong> Convert to leaf clean up in the fall utilizing mulching blades and blowers</div></div></div>${v.docs ? docsBlockHtml() : ''}`;
     }
 
     function refreshSnippet() {
@@ -1060,7 +1121,8 @@
         const v = {
             services: snVal('snServices'), frequency: snVal('snFrequency'), area: snVal('snArea'),
             perVisit: snVal('snPerVisit'), notes: snVal('snNotes'),
-            mowType: snVal('snMowType'), skipHours: snVal('snSkipNotice'), pricingInfo: document.getElementById('snPricingInfo').checked
+            mowType: snVal('snMowType'), skipHours: snVal('snSkipNotice'), pricingInfo: document.getElementById('snPricingInfo').checked,
+            docs: document.getElementById('snDocs').checked, inline: document.getElementById('snInline').checked
         };
         const html = buildEmailSnippet(v);
         document.getElementById('snCode').value = html;
